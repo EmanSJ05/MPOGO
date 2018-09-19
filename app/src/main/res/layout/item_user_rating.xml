@@ -76,7 +76,7 @@
                         android:layout_height="wrap_content"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:text="People Name"
+                        android:text="People Name here"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/blue_grey_900"
                         android:textStyle="bold" />
