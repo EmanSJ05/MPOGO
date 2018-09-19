@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Dashboard Realisasi Keuangan Kegiatan Utama - SMART-->
+    <string-array name="kegut_smart_data">
+        <item>Jaringan Irigasi Tertier</item>
+        <item>Irigasi Air Permukaan</item>
+        <item>Bangunan Konservasi air dan Antisipasi Anomali Iklim</item>
+        <item>Irigasi Rawa</item>
+        <item>Perluasan Sawah</item>
+        <item>Prasetifikasi Lahan Pertanian</item>
+        <item>Optimasi Lahan</item>
+        <item>Alat dan Mesin Pertanian</item>
+        <item>Asuransi Tanaman Pangan</item>
+        <item>Asuransi Usaha Ternak</item>
+    </string-array>
+    <string-array name="kegut_smart_realisasi">
+        <item>99.95</item>
+        <item>99.25</item>
+        <item>97.96</item>
+        <item>99.56</item>
+        <item>85.84</item>
+        <item>73.08</item>
+        <item>82.98</item>
+        <item>97.50</item>
+        <item>99.55</item>
+        <item>74.26</item>
+    </string-array>
+
+    <!--Dashboard Realisasi Keuangan Kegiatan Utama - MPO-->
+    <string-array name="kegut_mpo_data">
+        <item>Jaringan Irigasi Tertier</item>
+        <item>Irigasi Air Permukaan</item>
+        <item>Bangunan Konservasi air dan Antisipasi Anomali Iklim</item>
+        <item>Irigasi Rawa</item>
+        <item>Perluasan Sawah</item>
+        <item>Prasetifikasi Lahan Pertanian</item>
+        <item>Optimasi Lahan</item>
+        <item>Alat dan Mesin Pertanian</item>
+        <item>Asuransi Tanaman Pangan</item>
+        <item>Asuransi Usaha Ternak</item>
+    </string-array>
+    <string-array name="kegut_mpo_realisasi">
+        <item>91.00</item>
+        <item>85.30</item>
+        <item>65.59</item>
+        <item>99.39</item>
+        <item>36.10</item>
+        <item>8.78</item>
+        <item>60.28</item>
+        <item>5.77</item>
+        <item>0.00</item>
+        <item>0.00</item>
+    </string-array>
+
+
+    <!--REALISASI KEUANGAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+    <!--Kewenangan-->
+    <string-array name="rk_kewenangan">
+        <item>Dekonsentrasi|410606239000|384781233201|93.71|364694450175|88.82</item>
+        <item>Kantor Pusat|3838796616000|3611845076953|94.09|3613885159334|94.14</item>
+        <item>Tugas Pembantuan|2673019267240|2366309915313|88.53|2295183408798|85.86</item>
+    </string-array>
+
+    <!--Kegiatan-->
+    <string-array name="rk_kegiatan">
+        <item>Pengelolaan Air Irigasi Untuk Pertanian|352076836000.00|349838580242.00|99.36|348297372578.00|98.93</item>
+        <item>Perluasan dan Perlindungan Lahan Pertanian|1787003940032.00|1508898940485.00|84.44|1452636878082.00|81.29</item>
+        <item>Pengelolaan Sistem Penyediaan dan Pengawasan Alat Mesin Pertanian|3716895869208.00|3623582763882.00|97.49|3612371061033.00|97.19</item>
+        <item>Dukungan Manajemen dan Dukungan Teknis Lainnya Ditjen Prasarana dan Sarana Pertanian|796463057000.00|623474115843.00|78.28|607255173598.00|76.24</item>
+        <item>Fasilitasi Pupuk dan Pestisida|82028460000.00|76151425874.00|92.84|72376999375.00|88.23</item>
+        <item>Fasilitasi Pembiayaan Pertanian|187953960000.00|180990399141.00|96.30|180825533641.00|96.21</item>
+    </string-array>
+
+    <!--Kegiatan & Provinsi-->
+    <string-array name="rk_kegiatan_n_provinsi">
+        <item>subtotal|1794 Pengelolaan Air Irigasi Untuk Pertanian|352076836000|349838580242|99.36|348297372578|98.93</item>
+        <item>detail|ACEH|17403720000|17403530000|100|17403530000|100</item>
+        <item>detail|BALI|6533080000|6526070200|99.89|6526070200|99.89</item>
+        <item>detail|BANTEN|2649800000|2649800000|100|2649800000|100</item>
+        <item>detail|BENGKULU|2966800000|2960355000|99.78|2960355000|99.78</item>
+        <item>detail|DI YOGYAKARTA|2565400000|2558393500|99.73|2558393500|99.73</item>
+        <item>detail|DKI JAKARTA|4440400000|4377473237|98.58|4383915352|98.73</item>
+        <item>detail|GORONTALO|4245800000|4245520000|99.99|4245520000|99.99</item>
+        <item>detail|JAMBI|18205280000|17534045000|96.31|17480045000|96.02</item>
+        <item>detail|JAWA BARAT|18115020000|18113170000|99.99|18113170000|99.99</item>
+        <item>detail|JAWA TENGAH|23826020000|23825167809|100|23825167809|100</item>
+        <item>detail|JAWA TIMUR|28536300000|28531835300|99.98|28530035300|99.98</item>
+        <item>detail|KALIMANTAN BARAT|5766800000|5762214000|99.92|5762214000|99.92</item>
+        <item>detail|KALIMANTAN SELATAN|5894860000|5610504500|95.18|5890506000|99.93</item>
+        <item>detail|KALIMANTAN TENGAH|2785730000|2785730000|100|2785730000|100</item>
+        <item>detail|KALIMANTAN TIMUR|2799600000|2793570800|99.78|2745880000|98.08</item>
+        <item>detail|KALIMANTAN UTARA|191200000|174780000|91.41|174780000|91.41</item>
+        <item>detail|KEPULAUAN BANGKA BELITUNG|8468380000|8283801000|97.82|8283801000|97.82</item>
+        <item>detail|KEPULAUAN RIAU|32720000|0|0|0|0</item>
+        <item>detail|LAMPUNG|10637080000|10636939400|100|10636939400|100</item>
+        <item>detail|MALUKU|1809840000|1806840000|99.83|1806840000|99.83</item>
+        <item>detail|MALUKU UTARA|923080000|923080000|100|923080000|100</item>
+        <item>detail|NUSA TENGGARA BARAT|6504380000|5843970000|89.85|5843970000|89.85</item>
+        <item>detail|NUSA TENGGARA TIMUR|9248500000|9088495000|98.27|7548495003|81.62</item>
+        <item>detail|PAPUA|1602180000|1602040000|99.99|1602040000|99.99</item>
+        <item>detail|PAPUA BARAT|2072600000|2072600000|100|2072600000|100</item>
+        <item>detail|RIAU|1769650000|1761442482|99.54|1646872000|93.06</item>
+        <item>detail|SULAWESI BARAT|6296800000|6296612200|100|6296612200|100</item>
+        <item>detail|SULAWESI SELATAN|38284520000|38283467000|100|38283467000|100</item>
+        <item>detail|SULAWESI TENGAH|5065690000|5065690000|100|5033140000|99.36</item>
+        <item>detail|SULAWESI TENGGARA|11952006000|11902806000|99.59|11902806000|99.59</item>
+        <item>detail|SULAWESI UTARA|4180880000|4126833600|98.71|4087543600|97.77</item>
+        <item>detail|SUMATERA BARAT|7745840000|7743619354|99.97|7743619354|99.97</item>
+        <item>detail|SUMATERA SELATAN|81235080000|81235026860|100|81235026860|100</item>
+        <item>detail|SUMATERA UTARA|7321800000|7313158000|99.88|7315408000|99.91</item>
+        <item>subtotal|1795 Perluasan dan Perlindungan Lahan Pertanian|1787003940032|1508898940485|84.44|1452636878082|81.29</item>
+        <item>detail|ACEH|85846383000|70474205432|82.09|70474205432|82.09</item>
+        <item>detail|BALI|251700000|98339442|39.07|98339442|39.07</item>
+        <item>detail|BANTEN|2873620000|2872259000|99.95|2684389000|93.41</item>
+        <item>detail|BENGKULU|24429920000|13350410216|54.65|13350410216|54.65</item>
+        <item>detail|DI YOGYAKARTA|284100000|264732600|93.18|264732600|93.18</item>
+        <item>detail|DKI JAKARTA|9409500000|1375628725|14.62|1377918725|14.64</item>
+        <item>detail|GORONTALO|953000000|945150000|99.18|945150000|99.18</item>
+        <item>detail|JAMBI|37426430000|34514193000|92.22|28442833001|76</item>
+        <item>detail|JAWA BARAT|10102920000|9603615962|95.06|9603615962|95.06</item>
+        <item>detail|JAWA TENGAH|986600000|916071618|92.85|895168618|90.73</item>
+        <item>detail|JAWA TIMUR|1104000000|618790900|56.05|580150900|52.55</item>
+        <item>detail|KALIMANTAN BARAT|167908461000|140008147100|83.38|140015347101|83.39</item>
+        <item>detail|KALIMANTAN SELATAN|39369580000|28790979793|73.13|30527177500|77.54</item>
+        <item>detail|KALIMANTAN TENGAH|116369800000|112599606025|96.76|112599606025|96.76</item>
+        <item>detail|KALIMANTAN TIMUR|40339518000|32077776550|79.52|30146733250|74.73</item>
+        <item>detail|KALIMANTAN UTARA|26506580000|19936968436|75.22|19810138836|74.74</item>
+        <item>detail|KEPULAUAN BANGKA BELITUNG|69995480000|51691398828|73.85|51559763828|73.66</item>
+        <item>detail|KEPULAUAN RIAU|36873139000|15065264388|40.86|15139043388|41.06</item>
+        <item>detail|LAMPUNG|158881080000|151903911000|95.61|151903911000|95.61</item>
+        <item>detail|MALUKU|46929700192|20603488250|43.9|20681388250|44.07</item>
+        <item>detail|MALUKU UTARA|32645279840|29388970000|90.03|29388970000|90.03</item>
+        <item>detail|NUSA TENGGARA BARAT|45707820000|41249901545|90.25|41262964045|90.28</item>
+        <item>detail|NUSA TENGGARA TIMUR|26295080000|13875174200|52.77|13803379200|52.49</item>
+        <item>detail|PAPUA|89683760000|89268511108|99.54|89389011108|99.67</item>
+        <item>detail|PAPUA BARAT|60816491000|56532390160|92.96|56052170160|92.17</item>
+        <item>detail|RIAU|15515250000|14378180500|92.67|7407803100|47.75</item>
+        <item>detail|SULAWESI BARAT|30167300000|20578219350|68.21|20575439350|68.2</item>
+        <item>detail|SULAWESI SELATAN|100883840000|101027639600|100.14|101055959600|100.17</item>
+        <item>detail|SULAWESI TENGAH|104574072000|89608544942|85.69|69801267449|66.75</item>
+        <item>detail|SULAWESI TENGGARA|77432406000|62855697600|81.17|62855697600|81.17</item>
+        <item>detail|SULAWESI UTARA|55577440000|52769161670|94.95|30244780850|54.42</item>
+        <item>detail|SUMATERA BARAT|11435620000|8156480550|71.33|8200280551|71.71</item>
+        <item>detail|SUMATERA SELATAN|257709850000|221301633995|85.87|221301633995|85.87</item>
+        <item>detail|SUMATERA UTARA|1718220000|197498000|11.49|197498000|11.49</item>
+    </string-array>
+
+    <!--Kegiatan Output-->
+    <string-array name="rk_kegiatan_output">
+        <item>1794.001 Jaringan Irigasi Tertier|147225380000|147145886000|99.95|145968980000|99.15</item>
+        <item>1794.002 Irigasi Air Permukaan|48264000000|47901695500|99.25|47752000000|98.94</item>
+        <item>1794.003 Bangunan Konservasi Air dan Antisipasi Anomali Iklim|62804400000|61521473237|97.96|61227915355|97.49</item>
+        <item>1794.004 Irigasi Rawa|90459600000|90057747000|99.56|90282600000|99.8</item>
+        <item>1795.001 Perluasan Sawah|1406831630064|1205238865393|85.67|1155545496502|82.14</item>
+        <item>1795.003 Prasertipikasi Lahan Pertanian|16088000000|11883654800|73.87|11468096800|71.28</item>
+        <item>1795.004 Optimasi Lahan|257423499968|213439407004|82.91|213675092291|83.01</item>
+        <item>1796.001 Alat dan Mesin Pertanian|3714981929208|3621874377548|97.49|3610766893699|97.19</item>
+        <item>3994.001 Asuransi Tanaman Pangan|160453510000|159726654445|99.55|159733138945|99.55</item>
+        <item>3994.002 Asuransi Usaha Ternak|21146500000|15702456150|74.26|15774111050|74.59</item>
+    </string-array>
+
+    <!--Satker-->
+    <string-array name="rk_satker">
+        <item>029029 DINAS TANAMAN PANGAN DAN HORTIKULTURA PROVINSI JAWA BARAT|32757600000|32603141941|99.53|32603141941|99.53</item>
+        <item>029168 DINAS TANAMAN PANGAN DAN HORTIKULTURA PROVINSI JAWA BARAT|77905387000|69546297745|89.27|69546297745|89.27</item>
+        <item>039014 DINAS PERTANIAN DAN PERKEBUNAN PROVINSI JAWA TENGAH|40691500000|40591091838|99.75|40591091838|99.75</item>
+        <item>039044 DINAS PERTANIAN, PERKEBUNAN DAN KEHUTANAN KABUPATEN SEMARANG|1246580000|1182647278|94.87|1182647278|94.87</item>
+        <item>039045 DINAS PERTANIAN DAN PANGAN KABUPATEN KENDAL|1958980000|1950038700|99.54|1951538700|99.62</item>
+        <item>039047 DINAS PERTANIAN, TANAMAN PANGAN DAN HORTIKULTURA KABUPATEN GROBOGAN|1011280000|1010765000|99.95|1010765000|99.95</item>
+        <item>039049 DINAS KETAHANAN PANGAN DAN PERTANIAN KABUPATEN PEKALONGAN|849280000|832160000|97.98|832160000|97.98</item>
+        <item>039050 DINAS PANGAN DAN PERTANIAN KABUPATEN BATANG|962780000|960210000|99.73|960210000|99.73</item>
+        <item>039055 DINAS PERTANIAN DAN KETAHANAN PANGAN KABUPATEN BREBES|1265380000|1099655400|86.9|1099655400|86.9</item>
+        <item>039056 DINAS PERTANIAN KABUPATEN PATI|1888700000|1879127000|99.49|1879127000|99.49</item>
+        <item>039059 DINAS PERTANIAN KABUPATEN PEMALANG|480560000|477206000|99.3|477206000|99.3</item>
+        <item>039060 DINAS PERTANIAN DAN PETERNAKAN KABUPATEN JEPARA|2378080000|2377630400|99.98|2377630400|99.98</item>
+        <item>039061 DINAS PERTANIAN DAN PANGAN KABUPATEN REMBANG|1303080000|1303008634|99.99|1303008634|99.99</item>
+        <item>039064 DINAS PERTANIAN DAN KETAHANAN PANGAN KABUPATEN BANYUMAS|1826280000|1825808856|99.97|1825808857|99.97</item>
+        <item>039067 DINAS PERTANIAN KABUPATEN PURBALINGGA|1366580000|1364872714|99.88|1174822715|85.97</item>
+        <item>039068 DINAS PERTANIAN, PERIKANAN DAN PETERNAKAN KABUPATEN BANJARNEGARA|1061280000|1060825500|99.96|1060825500|99.96</item>
+        <item>039070 DINAS PERTANIAN, TANAMAN PANGAN, PERKEBUNAN DAN KEHUTANAN KAB. MAGELANG|1001580000|950000000|94.85|950000000|94.85</item>
+        <item>039072 DINAS PERTANIAN, PERKEBUNAN DAN KEHUTANAN KABUPATEN TEMANGGUNG|1600980000|1599854800|99.93|1599854800|99.93</item>
+        <item>039073 DINAS PANGAN, PERTANIAN DAN PERIKANAN KABUPATEN WONOSOBO|962780000|962239000|99.94|962239000|99.94</item>
+        <item>039075 DINAS PERTANIAN DAN PANGAN KABUPATEN KEBUMEN|1739180000|1734617000|99.74|1734617000|99.74</item>
+        <item>039076 DINAS PERTANIAN DAN KETAHANAN PANGAN KAB. KLATEN|1639180000|1616616000|98.62|1616616000|98.62</item>
+        <item>039078 DINAS PERTANIAN KABUPATEN BOYOLALI|1556680000|1505740950|96.73|1507140950|96.82</item>
+        <item>039080 DINAS PERTANIAN KAB. SRAGEN|1866280000|1851160000|99.19|1851160000|99.19</item>
+        <item>039081 DINAS PERTANIAN KABUPATEN SUKOHARJO|1278980000|1276220000|99.78|1276220000|99.78</item>
+        <item>039083 DINAS PERTANIAN DAN PANGAN KABUPATEN KARANGANYAR|1691880000|1611526340|95.25|1388777342|82.08</item>
+        <item>039084 DINAS PERTANIAN TANAMAN PANGAN DAN HORTIKULTURA KABUPATEN WONOGIRI|1519480000|1469621000|96.72|1469621000|96.72</item>
+        <item>039158 DINAS PERTANIAN DAN PERKEBUNAN PROVINSI JAWA TENGAH|66171818000|54465428079|82.31|54465428079|82.31</item>
+        <item>039445 DINAS PERTANIAN KABUPATEN DEMAK|1233080000|1228779700|99.65|1228779700|99.65</item>
+        <item>039474 DINAS PERTANIAN DAN KETAHANAN PANGAN KABUPATEN TEGAL|1070580000|1055359000|98.58|1055359000|98.58</item>
+        <item>039516 DINAS PERTANIAN DAN KETAHANAN PANGAN KABUPATEN BLORA|419960000|419960000|100|419960000|100</item>
+        <item>039582 DINAS PERTANIAN PETERNAKAN KELAUTAN DAN PERIKANAN KABUPATEN PURWOREJO|1049960000|905466500|86.24|704390000|67.09</item>
+        <item>049028 DINAS PERTANIAN  PROVINSI D.I. YOGYAKARTA|4493890000|4377719260|97.41|4377719260|97.41</item>
+        <item>049094 DINAS PERTANIAN  PROVINSI D.I. YOGYAKARTA|4512460000|4407917100|97.68|4407917100|97.68</item>
+        <item>059004 DINAS PERTANIAN DAN KETAHANAN PANGAN PROVINSI JAWA TIMUR|45488130000|44768940867|98.42|44464340867|97.75</item>
+        <item>059185 DINAS PERTANIAN DAN KETAHANAN PANGAN PROVINSI JAWA TIMUR|99060410000|96337426640|97.25|95924793340|96.83</item>
+        <item>069016 DINAS PERTANIAN DAN PERKEBUNAN ACEH|19842950000|19241390935|96.97|19241390935|96.97</item>
+        <item>069140 DINAS PERTANIAN DAN PERKEBUNAN ACEH|136624164000|116499192731|85.27|116499192731|85.27</item>
+        <item>079027 DINAS TANAMAN PANGAN DAN HOLTIKULTURA|15289640000|13744721097|89.9|13744721097|89.9</item>
+    </string-array>
+
+    <!--Output (kegiatan utama)-->
+    <string-array name="rk_output">
+        <item>Alat dan Mesin Pertanian|3714981929208.00|3621874377548.00|97.49|3610766893699.00|97.19</item>
+        <item>Asuransi Tanaman Pangan|160453510000.00|159726654445.00|99.55|159733138945.00|99.55</item>
+        <item>Asuransi Usaha Ternak|21146500000.00|15702456150.00|74.26|15774111050.00|74.59</item>
+        <item>Bangunan Konservasi Air dan Antisipasi Anomali Iklim|62804400000.00|61521473237.00|97.96|61227915355.00|97.49</item>
+        <item>Irigasi Air Permukaan|48264000000.00|47901695500.00|99.25|47752000000.00|98.94</item>
+        <item>Irigasi Rawa|90459600000.00|90057747000.00|99.56|90282600000.00|99.80</item>
+        <item>Jaringan Irigasi Tertier|147225380000.00|147145886000.00|99.95|145968980000.00|99.15</item>
+        <item>Optimasi Lahan|257423499968.00|213439407004.00|82.91|213675092291.00|83.01</item>
+        <item>Perluasan Sawah|1406831630064.00|1205238865393.00|85.67|1155545496502.00|82.14</item>
+        <item>Prasertipikasi Lahan Pertanian|16088000000.00|11883654800.00|73.87|11468096800.00|71.28</item>
+    </string-array>
+
+
+    <!--REALISASI KEUANGAN FISIK >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+    <!--Kegiatan-->
+    <string-array name="rkf_kegiatan">
+        <item>1794 Pengelolaan Air Irigasi Untuk Pertanian|352077000000|349839000000|99.36|348297000000|98.93|81874.86|4164.18</item>
+        <item>1795 Perluasan dan Perlindungan Lahan Pertanian|1787000000000|1508900000000|84.44|1452640000000|81.29|165482.3|42718.8</item>
+        <item>1796 Pengelolaan Sistem Penyediaan dan Pengawasan Alat Mesin Pertanian|3716900000000|3623580000000|97.49|3612370000000|97.19|20127|10806.9</item>
+        <item>1797 Dukungan Manajemen dan Dukungan Teknis Lainnya Ditjen Prasarana dan Sarana Pertanian|796463000000|623474000000|78.28|607255000000|76.24||</item>
+        <item>3993 Fasilitasi Pupuk dan Pestisida|82028500000|76151400000|92.84|72377000000|88.23||</item>
+        <item>3994 Fasilitasi Pembiayaan Pertanian|187954000000|180990000000|96.3|180826000000|96.21||</item>
+    </string-array>
+
+    <!--Kegiatan Output-->
+    <string-array name="rkf_kegiatan_output">
+        <item>1794.001 Jaringan Irigasi Tertier|147225380000|147145886000|99.95|145968980000|99.15|100000|74186.86|74.19</item>
+        <item>1794.002 Irigasi Air Permukaan|48264000000|47901695500|99.25|47752000000|98.94|500|371|74.2</item>
+        <item>1794.003 Bangunan Konservasi Air dan Antisipasi Anomali Iklim|62804400000|61521473237|97.96|61227915355|97.49|500|376|75.2</item>
+        <item>1794.004 Irigasi Rawa|90459600000|90057747000|99.56|90282600000|99.8|10000|6941|69.41</item>
+        <item>1795.001 Perluasan Sawah|1406831630064|1205238865393|85.67|1155545496502|82.14|142110|79717.23|56.1</item>
+        <item>1795.003 Prasertipikasi Lahan Pertanian|16088000000|11883654800|73.87|11468096800|71.28|445|3647.46|819.65</item>
+        <item>1795.004 Optimasi Lahan|257423499968|213439407004|82.91|213675092291|83.01|148289|82117.61|55.38</item>
+        <item>1796.001 Alat dan Mesin Pertanian|3714981929208|3621874377548|97.49|3610766893699|97.19|88213|20127|22.82</item>
+        <item>3994.001 Asuransi Tanaman Pangan|160453510000|159726654445|99.55|159733138945|99.55|0|0|0</item>
+        <item>3994.002 Asuransi Usaha Ternak|21146500000|15702456150|74.26|15774111050|74.59|0|0|0</item>
+    </string-array>
+
+    <!--Output-->
+    <string-array name="rkf_output">
+        <item>Alat dan Mesin Pertanian|3714981929208|3621874377548|97.49|3610766893699|97.19|88213|20127|22.82</item>
+        <item>Asuransi Tanaman Pangan|160453510000|159726654445|99.55|159733138945|99.55|0|0|0</item>
+        <item>Asuransi Usaha Ternak|21146500000|15702456150|74.26|15774111050|74.59|0|0|0</item>
+        <item>Bangunan Konservasi Air dan Antisipasi Anomali Iklim|62804400000|61521473237|97.96|61227915355|97.49|500|376|75.2</item>
+        <item>Irigasi Air Permukaan|48264000000|47901695500|99.25|47752000000|98.94|500|371|74.2</item>
+        <item>Irigasi Rawa|90459600000|90057747000|99.56|90282600000|99.8|10000|6941|69.41</item>
+        <item>Jaringan Irigasi Tertier|147225380000|147145886000|99.95|145968980000|99.15|100000|74186.86|74.19</item>
+        <item>Optimasi Lahan|257423499968|213439407004|82.91|213675092291|83.01|148289|82117.61|55.38</item>
+        <item>Perluasan Sawah|1406831630064|1205238865393|85.67|1155545496502|82.14|142110|79717.23|56.1</item>
+        <item>Prasertipikasi Lahan Pertanian|16088000000|11883654800|73.87|11468096800|71.28|445|3647.46|819.65</item>
+    </string-array>
+
+    <!--Output Provinsi SMART | MPO-->
+    <string-array name="rkf_output_provinsi_SMART_MPO">
+        <item>subtotal|1794.001 Jaringan Irigasi Tertier|147225380000|147145886000|99.95|145968980000|99.15|100000|74186.86|74.19</item>
+        <item>detail|ACEH|11833920000|11833920000|100|11833920000|100|6900|6808.86|98.68</item>
+        <item>detail|BALI|4248320000|4248320000|100|4248320000|100|3400|3461|101.79</item>
+        <item>detail|BANTEN|1838000000|1838000000|100|1838000000|100|1500|1040|69.33</item>
+        <item>detail|BENGKULU|2490000000|2484000000|99.76|2484000000|99.76|2075|1820|87.71</item>
+        <item>detail|DI YOGYAKARTA|1595000000|1595000000|100|1595000000|100|1450|1425|98.28</item>
+        <item>detail|GORONTALO|1680000000|1680000000|100|1680000000|100|1400|1400|100</item>
+        <item>detail|JAMBI|4110000000|4110000000|100|4056000000|98.69|3425|0|0</item>
+        <item>detail|JAWA BARAT|11000000000|11000000000|100|11000000000|100|10000|9500|95</item>
+        <item>detail|JAWA TENGAH|15253720000|15253720000|100|15253720000|100|12050|5640|46.8</item>
+        <item>detail|JAWA TIMUR|19096500000|19096500000|100|19096500000|100|14150|13150|92.93</item>
+        <item>detail|KALIMANTAN BARAT|2700000000|2700000000|100|2700000000|100|2000|800|40</item>
+        <item>detail|KALIMANTAN SELATAN|2227500000|2182656000|97.99|2227500000|100|1650|1650|100</item>
+        <item>detail|KALIMANTAN TENGAH|1620000000|1620000000|100|1620000000|100|1200|1200|100</item>
+        <item>detail|KALIMANTAN TIMUR|1485000000|1485000000|100|1485000000|100|1100|0|0</item>
+        <item>detail|KEPULAUAN BANGKA BELITUNG|720000000|712800000|99|712800000|99|600|600|100</item>
+        <item>detail|LAMPUNG|6924000000|6924000000|100|6924000000|100|5650|0|0</item>
+        <item>detail|NUSA TENGGARA BARAT|3000000000|3000000000|100|3000000000|100|2500|2490|99.6</item>
+        <item>detail|NUSA TENGGARA TIMUR|3292700000|3292700000|100|2212700000|67.2|2250|650|28.89</item>
+        <item>detail|PAPUA|640000000|640000000|100|640000000|100|400|0|0</item>
+        <item>detail|PAPUA BARAT|392000000|392000000|100|392000000|100|200|200|100</item>
+        <item>detail|RIAU|1200000000|1200000000|100|1110000000|92.5|1000|1000|100</item>
+        <item>detail|SULAWESI BARAT|2880000000|2880000000|100|2880000000|100|2000|1800|90</item>
+        <item>detail|SULAWESI SELATAN|22570520000|22570520000|100|22570520000|100|8200|8200|100</item>
+        <item>detail|SULAWESI TENGAH|2828040000|2828040000|100|2828040000|100|2050|0|0</item>
+        <item>detail|SULAWESI TENGGARA|7226400000|7207200000|99.73|7207200000|99.73|4500|4500|100</item>
+        <item>detail|SULAWESI UTARA|1080000000|1080000000|100|1080000000|100|900|0|0</item>
+        <item>detail|SUMATERA BARAT|5433760000|5433760000|100|5433760000|100|900|902|100.22</item>
+        <item>detail|SUMATERA SELATAN|5520000000|5520000000|100|5520000000|100|4600|4600|100</item>
+        <item>detail|SUMATERA UTARA|2340000000|2337750000|99.9|2340000000|100|1950|1350|69.23</item>
+        <item>subtotal|1794.002 Irigasi Air Permukaan|48264000000|47901695500|99.25|47752000000|98.94|500|371|74.2</item>
+        <item>detail|ACEH|1680000000|1680000000|100|1680000000|100|21|21|100</item>
+        <item>detail|BALI|1120000000|1120000000|100|1120000000|100|14|14|100</item>
+        <item>detail|BANTEN|696000000|696000000|100|696000000|100|6|3|50</item>
+        <item>detail|BENGKULU|400000000|400000000|100|400000000|100|5|4|80</item>
+        <item>detail|DI YOGYAKARTA|480000000|480000000|100|480000000|100|6|6|100</item>
+        <item>detail|GORONTALO|800000000|800000000|100|800000000|100|10|10|100</item>
+        <item>detail|JAMBI|2640000000|2472000000|93.64|2472000000|93.64|29|0|0</item>
+        <item>detail|JAWA BARAT|2720000000|2720000000|100|2720000000|100|34|34|100</item>
+        <item>detail|JAWA TENGAH|3104000000|3104000000|100|3104000000|100|37|17|45.95</item>
+        <item>detail|JAWA TIMUR|2960000000|2960000000|100|2960000000|100|37|37|100</item>
+        <item>detail|KALIMANTAN BARAT|1440000000|1440000000|100|1440000000|100|18|13|72.22</item>
+        <item>detail|KALIMANTAN SELATAN|1760000000|1749695500|99.41|1760000000|100|22|22|100</item>
+        <item>detail|KALIMANTAN TENGAH|800000000|800000000|100|800000000|100|10|10|100</item>
+        <item>detail|KALIMANTAN TIMUR|1000000000|1000000000|100|1000000000|100|11|0|0</item>
+        <item>detail|KALIMANTAN UTARA|160000000|160000000|100|160000000|100|2|2|100</item>
+        <item>detail|KEPULAUAN BANGKA BELITUNG|160000000|160000000|100|160000000|100|2|2|100</item>
+        <item>detail|LAMPUNG|1624000000|1624000000|100|1624000000|100|20|0|0</item>
+        <item>detail|MALUKU|800000000|800000000|100|800000000|100|10|10|100</item>
+        <item>detail|MALUKU UTARA|800000000|800000000|100|800000000|100|10|11|110</item>
+        <item>detail|NUSA TENGGARA BARAT|1320000000|1160000000|87.88|1160000000|87.88|15|13|86.67</item>
+        <item>detail|NUSA TENGGARA TIMUR|1520000000|1520000000|100|1360000000|89.47|19|19|100</item>
+        <item>detail|PAPUA|880000000|880000000|100|880000000|100|11|0|0</item>
+        <item>detail|PAPUA BARAT|1216000000|1216000000|100|1216000000|100|11|7|63.64</item>
+        <item>detail|RIAU|480000000|480000000|100|480000000|100|6|6|100</item>
+        <item>detail|SULAWESI BARAT|1200000000|1200000000|100|1200000000|100|15|14|93.33</item>
+        <item>detail|SULAWESI SELATAN|8520000000|8520000000|100|8520000000|100|36|36|100</item>
+        <item>detail|SULAWESI TENGAH|1144000000|1144000000|100|1144000000|100|8|0|0</item>
+        <item>detail|SULAWESI TENGGARA|1720000000|1720000000|100|1720000000|100|20|20|100</item>
+        <item>detail|SULAWESI UTARA|1440000000|1416000000|98.33|1416000000|98.33|9|0|0</item>
+        <item>detail|SUMATERA BARAT|400000000|400000000|100|400000000|100|5|5|100</item>
+        <item>detail|SUMATERA SELATAN|1680000000|1680000000|100|1680000000|100|21|21|100</item>
+        <item>detail|SUMATERA UTARA|1600000000|1600000000|100|1600000000|100|20|14|70</item>
+    </string-array>
+
+
+    <!--USER RATING >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+    <!--Per-Provinsi-->
+    <string-array name="ur_per_provinsi">
+        <item>11|ACEH|26|26|6000</item>
+        <item>12|SUMATERA UTARA|31|31|2870</item>
+        <item>13|SUMATERA BARAT|19|19|2800</item>
+        <item>14|RIAU|13|13|900</item>
+        <item>15|JAMBI|30|30|3900</item>
+        <item>16|SUMATERA SELATAN|21|21|2970</item>
+        <item>17|BENGKULU|12|12|1030</item>
+        <item>18|LAMPUNG|18|18|2940</item>
+        <item>19|KEPULAUAN BANGKA BELITUNG|12|12|1200</item>
+        <item>21|KEPULAUAN RIAU|2|2|50</item>
+        <item>32|JAWA BARAT|10|10|1050</item>
+        <item>33|JAWA TENGAH|48|48|3100</item>
+        <item>34|DI YOGYAKARTA|3|3|280</item>
+        <item>35|JAWA TIMUR|3|3|180</item>
+        <item>36|BANTEN|8|8|380</item>
+        <item>51|BALI|12|12|860</item>
+        <item>52|NUSA TENGGARA BARAT|22|22|4380</item>
+        <item>53|NUSA TENGGARA TIMUR|19|19|1160</item>
+        <item>61|KALIMANTAN BARAT|17|17|5610</item>
+        <item>62|KALIMANTAN TENGAH|23|23|4180</item>
+        <item>63|KALIMANTAN SELATAN|10|10|410</item>
+        <item>64|KALIMANTAN TIMUR|4|4|920</item>
+        <item>65|KALIMANTAN UTARA|4|4|540</item>
+        <item>71|SULAWESI UTARA|2|2|50</item>
+        <item>72|SULAWESI TENGAH|16|16|3060</item>
+        <item>73|SULAWESI SELATAN|28|28|4960</item>
+        <item>74|SULAWESI TENGGARA|5|5|590</item>
+        <item>75|GORONTALO|3|3|90</item>
+        <item>76|SULAWESI BARAT|13|13|2610</item>
+        <item>81|MALUKU|6|6|1030</item>
+        <item>82|MALUKU UTARA|7|7|680</item>
+        <item>91|PAPUA BARAT|2|2|50</item>
+        <item>94|PAPUA|3|3|260</item>
+    </string-array>
+
+    <!--Per-Kabupaten-->
+    <string-array name="ur_per_kabupaten">
+        <item>11|ACEH|1101|KABUPATEN SIMEULUE|1|1|40</item>
+        <item>11|ACEH|1102|KABUPATEN ACEH SINGKIL|1|1|30</item>
+        <item>11|ACEH|1103|KABUPATEN ACEH SELATAN|1|1|340</item>
+        <item>11|ACEH|1105|KABUPATEN ACEH TIMUR|1|1|240</item>
+        <item>11|ACEH|1106|KABUPATEN ACEH TENGAH|1|1|390</item>
+        <item>11|ACEH|1107|KABUPATEN ACEH BARAT|1|1|360</item>
+        <item>11|ACEH|1108|KABUPATEN ACEH BESAR|1|1|820</item>
+        <item>11|ACEH|1109|KABUPATEN PIDIE|1|1|440</item>
+        <item>11|ACEH|1110|KABUPATEN BIREUEN|2|2|580</item>
+        <item>11|ACEH|1112|KABUPATEN ACEH BARAT DAYA|2|2|30</item>
+        <item>11|ACEH|1115|KABUPATEN NAGAN RAYA|1|1|770</item>
+        <item>11|ACEH|1116|KABUPATEN ACEH JAYA|1|1|580</item>
+        <item>11|ACEH|1117|KABUPATEN BENER MERIAH|2|2|340</item>
+        <item>11|ACEH|1118|KABUPATEN PIDIE JAYA|2|2|620</item>
+        <item>11|ACEH|1173|KOTA LANGSA|2|2|110</item>
+        <item>11|ACEH|1174|KOTA LHOKSEUMAWE|1|1|120</item>
+        <item>12|SUMATERA UTARA|1202|KABUPATEN MANDAILING NATAL|2|2|900</item>
+        <item>12|SUMATERA UTARA|1203|KABUPATEN TAPANULI SELATAN|2|2|360</item>
+        <item>12|SUMATERA UTARA|1207|KABUPATEN LABUHAN BATU|2|2|100</item>
+        <item>12|SUMATERA UTARA|1208|KABUPATEN ASAHAN|1|1|40</item>
+        <item>12|SUMATERA UTARA|1209|KABUPATEN SIMALUNGUN|1|1|10</item>
+        <item>12|SUMATERA UTARA|1211|KABUPATEN KARO|1|1|10</item>
+        <item>12|SUMATERA UTARA|1212|KABUPATEN DELI SERDANG|2|2|170</item>
+        <item>12|SUMATERA UTARA|1216|KABUPATEN PAKPAK BHARAT|1|1|10</item>
+        <item>12|SUMATERA UTARA|1217|KABUPATEN SAMOSIR|1|1|10</item>
+        <item>12|SUMATERA UTARA|1218|KABUPATEN SERDANG BEDAGAI|1|1|20</item>
+        <item>12|SUMATERA UTARA|1220|KABUPATEN PADANG LAWAS UTARA|2|2|220</item>
+        <item>12|SUMATERA UTARA|1223|KABUPATEN LABUHAN BATU UTARA|2|2|90</item>
+        <item>12|SUMATERA UTARA|1225|KABUPATEN NIAS BARAT|1|1|10</item>
+        <item>12|SUMATERA UTARA|1273|KOTA PEMATANG SIANTAR|1|1|110</item>
+        <item>12|SUMATERA UTARA|1274|KOTA TEBING TINGGI|1|1|60</item>
+        <item>12|SUMATERA UTARA|1275|KOTA MEDAN|2|2|20</item>
+        <item>12|SUMATERA UTARA|1276|KOTA BINJAI|2|2|290</item>
+        <item>13|SUMATERA BARAT|1304|KABUPATEN SIJUNJUNG|2|2|240</item>
+        <item>13|SUMATERA BARAT|1305|KABUPATEN TANAH DATAR|1|1|920</item>
+        <item>13|SUMATERA BARAT|1307|KABUPATEN AGAM|2|2|60</item>
+        <item>13|SUMATERA BARAT|1309|KABUPATEN PASAMAN|1|1|370</item>
+        <item>13|SUMATERA BARAT|1311|KABUPATEN DHARMASRAYA|2|2|110</item>
+        <item>13|SUMATERA BARAT|1312|KABUPATEN PASAMAN BARAT|1|1|220</item>
+        <item>13|SUMATERA BARAT|1371|KOTA PADANG|1|1|250</item>
+        <item>13|SUMATERA BARAT|1372|KOTA SOLOK|1|1|20</item>
+        <item>13|SUMATERA BARAT|1375|KOTA BUKITTINGGI|1|1|70</item>
+        <item>13|SUMATERA BARAT|1376|KOTA PAYAKUMBUH|1|1|20</item>
+        <item>13|SUMATERA BARAT|1377|KOTA PARIAMAN|2|2|110</item>
+        <item>14|RIAU|1401|KABUPATEN KUANTAN SINGINGI|1|1|30</item>
+        <item>14|RIAU|1402|KABUPATEN INDRAGIRI HULU|2|2|100</item>
+        <item>14|RIAU|1405|KABUPATEN S I A K|1|1|30</item>
+        <item>14|RIAU|1406|KABUPATEN KAMPAR|2|2|80</item>
+        <item>14|RIAU|1408|KABUPATEN BENGKALIS|1|1|30</item>
+        <item>14|RIAU|1409|KABUPATEN ROKAN HILIR|1|1|10</item>
+        <item>14|RIAU|1410|KABUPATEN KEPULAUAN MERANTI|1|1|50</item>
+        <item>15|JAMBI|1501|KABUPATEN KERINCI|2|2|280</item>
+        <item>15|JAMBI|1502|KABUPATEN MERANGIN|2|2|1490</item>
+        <item>15|JAMBI|1503|KABUPATEN SAROLANGUN|2|2|250</item>
+        <item>15|JAMBI|1504|KABUPATEN BATANG HARI|3|3|150</item>
+        <item>15|JAMBI|1505|KABUPATEN MUARO JAMBI|1|1|80</item>
+        <item>15|JAMBI|1506|KABUPATEN TANJUNG JABUNG TIMUR|2|2|40</item>
+        <item>15|JAMBI|1507|KABUPATEN TANJUNG JABUNG BARAT|2|2|410</item>
+        <item>15|JAMBI|1508|KABUPATEN TEBO|2|2|160</item>
+        <item>15|JAMBI|1509|KABUPATEN BUNGO|2|2|100</item>
+        <item>15|JAMBI|1571|KOTA JAMBI|2|2|80</item>
+        <item>15|JAMBI|1572|KOTA SUNGAI PENUH|2|2|270</item>
+    </string-array>
+
+    <!--All User-->
+    <string-array name="ur_all_user">
+        <item>11|ACEH|1545|Lyanda|Lyanda Fitriani|-|2|60|photo_female_5</item>
+        <item>11|ACEH|1538|Lyanda|Lyanda Fitriani Chaniarosi|-|3|130|photo_male_6</item>
+        <item>11|ACEH|1535|Titrie|Titrie Estriyarti, SP|KABUPATEN SIMEULUE|1|40|photo_female_6</item>
+        <item>11|ACEH|1534|Slamet|Slamet Riyadi, SP|KABUPATEN ACEH SINGKIL|1|30|photo_male_7</item>
+        <item>11|ACEH|1532|Deni|Deni Marwan, S.TP|KABUPATEN ACEH SELATAN|1|340|photo_female_7</item>
+        <item>11|ACEH|1521|Irmayanti,|Irmayanti, SP|KABUPATEN ACEH TIMUR|1|240|photo_male_1</item>
+        <item>11|ACEH|1915|Aulil|Aulil Amri, S.Inf|KABUPATEN ACEH TENGAH|1|390|photo_female_1</item>
+        <item>11|ACEH|1529|Sulistia,|Sulistia, A.Md|KABUPATEN ACEH BARAT|1|360|photo_male_2</item>
+        <item>11|ACEH|1515|Rizal|Yusrizal, S.TP|KABUPATEN ACEH BESAR|1|820|-</item>
+        <item>11|ACEH|1516|Nurul|Nurul Syuhada, SP|KABUPATEN PIDIE|1|440|photo_male_3</item>
+        <item>11|ACEH|1518|Muhammad|Muhammad|KABUPATEN BIREUEN|2|580|photo_female_3</item>
+        <item>11|ACEH|1531|Muhafaz|Muhafaz Zulus Fitri, SP|KABUPATEN ACEH BARAT DAYA|2|30|photo_male_4</item>
+        <item>11|ACEH|1530|Sulaiman,|Sulaiman, SE|KABUPATEN NAGAN RAYA|1|770|photo_female_4</item>
+        <item>11|ACEH|1528|T.|T. Mursalin|KABUPATEN ACEH JAYA|1|580|photo_male_5</item>
+        <item>11|ACEH|1525|Salmiati,|Salmiati, S.Sos|KABUPATEN BENER MERIAH|2|340|-</item>
+        <item>11|ACEH|1517|Suhaili,|Suhaili, S.Sos|KABUPATEN PIDIE JAYA|2|620|photo_male_6</item>
+        <item>11|ACEH|1522|Syaripuddin,|Syaripuddin, A.Md|KOTA LANGSA|2|110|photo_female_6</item>
+        <item>11|ACEH|1520|Enita|Enita Yusra, SE|KOTA LHOKSEUMAWE|1|120|photo_male_7</item>
+        <item>12|SUMATERA UTARA|1753|CARTER|CARTER DANIEL TARIGAN, SP|-|2|210|photo_female_7</item>
+        <item>12|SUMATERA UTARA|1752|RISMAMULIADI|RISMAMULIADI DAMANIK|-|4|230|photo_male_1</item>
+        <item>12|SUMATERA UTARA|1756|ROLAN|ROLAN AHMADI NASUTION|KABUPATEN MANDAILING NATAL|2|900|photo_female_1</item>
+        <item>12|SUMATERA UTARA|1953|Irfan|Irfan Afriza.S.Sos|KABUPATEN TAPANULI SELATAN|2|360|photo_male_2</item>
+        <item>12|SUMATERA UTARA|1604|Nasrum|Nasrum|KABUPATEN LABUHAN BATU|2|100|photo_female_2</item>
+        <item>12|SUMATERA UTARA|1781|MARIAWAN|MARIAWAN|KABUPATEN ASAHAN|1|40|photo_male_3</item>
+        <item>12|SUMATERA UTARA|1886|Zefri|Zefri Zein, SP|KABUPATEN SIMALUNGUN|1|10|photo_female_3</item>
+        <item>12|SUMATERA UTARA|1345|Risda|Risda Br Sembiring|KABUPATEN KARO|1|10|photo_male_4</item>
+        <item>12|SUMATERA UTARA|1344|Sri|Sri Indra Wahyuni|KABUPATEN DELI SERDANG|2|170|photo_female_4</item>
+        <item>12|SUMATERA UTARA|1990|Elia Oktavianus Simbolon, SST|Elia Oktavianus Simbolon, SST|KABUPATEN PAKPAK BHARAT|1|10|photo_male_5</item>
+        <item>12|SUMATERA UTARA|1994|Evironeci E aritonang|Evironeci E aritonang|KABUPATEN SAMOSIR|1|10|photo_female_5</item>
+        <item>12|SUMATERA UTARA|1995|Freddy  J Marpaung|Freddy  J Marpaung|KABUPATEN SERDANG BEDAGAI|1|20|photo_male_6</item>
+        <item>12|SUMATERA UTARA|1767|DWI|DWI HANDAYANI, SP|KABUPATEN PADANG LAWAS UTARA|2|220|photo_female_6</item>
+        <item>12|SUMATERA UTARA|1992|Arie|Arie Ramadhina|KABUPATEN LABUHAN BATU UTARA|2|90|-</item>
+        <item>12|SUMATERA UTARA|1991|Tiar|Ikhtiar Zendrato|KABUPATEN NIAS BARAT|1|10|photo_female_7</item>
+        <item>12|SUMATERA UTARA|1993|Josep Barus Panggabean|Josep Barus Panggabean|KOTA PEMATANG SIANTAR|1|110|photo_male_1</item>
+        <item>12|SUMATERA UTARA|1364|Rusydi|Rusydi|KOTA TEBING TINGGI|1|60|photo_female_1</item>
+        <item>12|SUMATERA UTARA|1981|Zannah|Suzannah Wardani Nasution|KOTA MEDAN|2|20|photo_male_2</item>
+        <item>12|SUMATERA UTARA|1989|Andry Toga Ambarita|Andry Toga Ambarita|KOTA BINJAI|2|290|photo_female_2</item>
+        <item>13|SUMATERA BARAT|1458|Edi|Ir.Suryadi|-|4|410|photo_male_3</item>
+        <item>13|SUMATERA BARAT|1558|Memed|Memed Ferdial, SP|KABUPATEN SIJUNJUNG|2|240|photo_female_3</item>
+        <item>13|SUMATERA BARAT|1557|Rianty|Rianty Ertada, SP|KABUPATEN TANAH DATAR|1|920|photo_male_4</item>
+        <item>13|SUMATERA BARAT|1555|Vita|Dewi Novita, STP|KABUPATEN AGAM|2|60|photo_female_4</item>
+        <item>13|SUMATERA BARAT|1553|Apri|Apri Yeni|KABUPATEN PASAMAN|1|370|photo_male_5</item>
+        <item>13|SUMATERA BARAT|1560|N.|N. Elidar, SP|KABUPATEN DHARMASRAYA|2|110|photo_female_5</item>
+        <item>13|SUMATERA BARAT|1554|Anton|Anton Suherman, SP|KABUPATEN PASAMAN BARAT|1|220|photo_male_6</item>
+        <item>13|SUMATERA BARAT|1599|asyrah|asyrah arsyad|KOTA PADANG|1|250|-</item>
+        <item>13|SUMATERA BARAT|1570|Iin|Iin Kurnia, SP|KOTA SOLOK|1|20|photo_male_7</item>
+        <item>13|SUMATERA BARAT|1568|Wisni|Wisni Yenti, SP|KOTA BUKITTINGGI|1|70|photo_female_7</item>
+        <item>13|SUMATERA BARAT|1569|Zulkafri.|Zulkafri. AMd|KOTA PAYAKUMBUH|1|20|photo_male_1</item>
+        <item>13|SUMATERA BARAT|1567|Awal|Awaluddin, A.Md|KOTA PARIAMAN|2|110|photo_female_1</item>
+        <item>14|RIAU|1200|FANDI|SYAHRIL AFFANDI|-|4|570|photo_male_2</item>
+        <item>14|RIAU|1910|Karnadi|Karnadi|KABUPATEN KUANTAN SINGINGI|1|30|photo_female_2</item>
+        <item>14|RIAU|1906|Abdul|Abdul Hayi|KABUPATEN INDRAGIRI HULU|2|100|photo_male_3</item>
+        <item>14|RIAU|1909|H.|H. Elfa S, SP|KABUPATEN S I A K|1|30|photo_female_3</item>
+        <item>14|RIAU|1207|Dewi|Dewi Hasanah|KABUPATEN KAMPAR|2|80|-</item>
+        <item>14|RIAU|1208|Iswadi|Iswadi|KABUPATEN BENGKALIS|1|30|photo_female_4</item>
+        <item>14|RIAU|1908|Zahrial|Zahrial|KABUPATEN ROKAN HILIR|1|10|photo_male_5</item>
+        <item>14|RIAU|1968|As|As Hari|KABUPATEN KEPULAUAN MERANTI|1|50|photo_female_5</item>
+        <item>15|JAMBI|1773|DENNY|DENNY INDRA MULYA|-|3|190|photo_male_6</item>
+        <item>15|JAMBI|1771|EBIT|EBIT MARDONA|-|4|390|photo_female_6</item>
+        <item>15|JAMBI|1646|Rahmadsyah|Rahmadsyah|-|1|10|photo_male_7</item>
+        <item>15|JAMBI|1468|agus|agus suprapto|KABUPATEN KERINCI|2|280|photo_female_7</item>
+        <item>15|JAMBI|1469|Budi|Budi Santoso|KABUPATEN MERANGIN|2|1490|photo_male_1</item>
+        <item>15|JAMBI|1847|Diy|Diyana, SE|KABUPATEN SAROLANGUN|2|250|-</item>
+        <item>15|JAMBI|1593|WAHYU|M WAHYU MAULANA|KABUPATEN BATANG HARI|2|50|photo_male_2</item>
+        <item>15|JAMBI|1476|M.|M.  Wahyu Maulana|KABUPATEN BATANG HARI|1|100|photo_female_2</item>
+        <item>15|JAMBI|1974|Muttaqin|Muttaqin|KABUPATEN MUARO JAMBI|1|80|photo_male_3</item>
+        <item>15|JAMBI|1850|Himawan|Himawan Syam Widakdo|KABUPATEN TANJUNG JABUNG TIMUR|2|40|photo_female_3</item>
+        <item>15|JAMBI|1473|Mardiansyah|Mardiansyah|KABUPATEN TANJUNG JABUNG BARAT|2|410|photo_male_4</item>
+        <item>15|JAMBI|1899|SANDRA|SANDRA NURHANANTO|KABUPATEN TEBO|2|160|photo_female_4</item>
+        <item>15|JAMBI|1845|SYAFITRI|SYAFITRI|KABUPATEN BUNGO|2|100|-</item>
+        <item>15|JAMBI|1902|Elizabeth|Elizabeth Flora P|KOTA JAMBI|2|80|photo_female_5</item>
+        <item>15|JAMBI|1980|Mici|Fritma Michi Hartianto|KOTA SUNGAI PENUH|2|270|photo_male_6</item>
+        <item>16|SUMATERA SELATAN|1759|FIRMANSYAH|FIRMANSYAH|-|3|480|photo_female_6</item>
+        <item>16|SUMATERA SELATAN|1120|Ricky|Ricky Rinaldo|-|3|170|photo_male_7</item>
+        <item>16|SUMATERA SELATAN|1126|Syahid|Syahid Alberto Darussalam|KABUPATEN OGAN KOMERING ILIR|2|360|photo_female_7</item>
+        <item>16|SUMATERA SELATAN|1895|Ainamiptahuljanah|Ainamiptahuljanah|KABUPATEN MUARA ENIM|1|20|photo_male_1</item>
+        <item>16|SUMATERA SELATAN|1073|Shindy|Shindy Ayuningtyas|KABUPATEN LAHAT|1|260|photo_female_1</item>
+        <item>16|SUMATERA SELATAN|1121|Dadang|Dadang Supriyanto|KABUPATEN MUSI BANYUASIN|2|40|-</item>
+        <item>16|SUMATERA SELATAN|1123|Sondri|Sondri Kurniawan, S.Hut|KABUPATEN OGAN KOMERING ULU SELATAN|1|60|photo_female_2</item>
+        <item>16|SUMATERA SELATAN|1124|Tommy|Tommy Sagita, SP|KABUPATEN OGAN KOMERING ULU TIMUR|2|1190|photo_male_3</item>
+        <item>16|SUMATERA SELATAN|1462|Defri|Defri Romansyah, SP|KABUPATEN PENUKAL ABAB LEMATANG ILIR|1|30|photo_female_3</item>
+        <item>16|SUMATERA SELATAN|1889|Aria|Aria Nugraha N|KOTA PALEMBANG|1|70|photo_male_4</item>
+        <item>16|SUMATERA SELATAN|1133|Novrianto|Novrianto|KOTA PALEMBANG|1|10|-</item>
+        <item>16|SUMATERA SELATAN|1131|Kholyanis|Kholyanis|KOTA PRABUMULIH|1|10|photo_male_5</item>
+        <item>16|SUMATERA SELATAN|1132|Andi|Andi Fadlullah|KOTA PAGAR ALAM|2|270|photo_female_5</item>
+    </string-array>
+
+
+</resources>

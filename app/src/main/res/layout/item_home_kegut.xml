@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="?android:attr/selectableItemBackground">
+
+    <LinearLayout
+        android:id="@+id/lyParent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:padding="@dimen/spacing_small"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <LinearLayout
+            android:id="@+id/lyTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="15"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:padding="@dimen/spacing_small"
+                android:text="Category Name"
+                android:textSize="14sp"
+                android:textColor="@color/blue_grey_400" />
+
+            <ProgressBar
+                android:id="@+id/pbProgress"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_below="@+id/tvRealisasi"
+                android:indeterminate="false"
+                android:progressDrawable="@drawable/progressbar_chart"
+                android:max="100"
+                android:progress="10" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvRealisasi"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="85"
+            android:padding="@dimen/spacing_small"
+            android:gravity="right|center"
+            android:fontFamily="@font/roboto_light"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
+            android:text="50.50%"/>
+
+    </LinearLayout>
+
+</LinearLayout>

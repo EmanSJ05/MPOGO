@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/overlay_dark_50">
+
+    <LinearLayout
+        android:id="@+id/lyFrame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/spacing_large">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="310dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/spacing_large"
+            android:layout_marginRight="@dimen/spacing_large"
+            android:layout_marginBottom="@dimen/spacing_small"
+            android:visibility="visible"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="6dp">
+
+            <LinearLayout
+                android:id="@+id/lyParent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:layout_marginBottom="@dimen/spacing_large"
+                android:paddingLeft="@dimen/spacing_large"
+                android:paddingRight="@dimen/spacing_large"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_middle"
+                    android:fontFamily="@font/roboto_condensed_regular"
+                    android:text="Category Name"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/blue_grey_800" />
+
+
+                //PAGU
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_condensed_light"
+                        android:textAlignment="textStart"
+                        android:textSize="10sp"
+                        android:textColor="@color/grey_60"
+                        android:text="PAGU"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/grey_10" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_xsmall"
+                    android:padding="@dimen/spacing_small"
+                    android:background="@color/grey_5"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvPaguLong"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_condensed_light"
+                        android:textAlignment="textEnd"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textColor="@color/grey_80"
+                        android:text="999,999,999,999,999" />
+
+                    <TextView
+                        android:id="@+id/tvPagu"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textAlignment="textEnd"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textColor="@color/blue_grey_800"
+                        android:text="999.9 M" />
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textAlignment="textEnd"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_small"/>
+
+
+                //SMART
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_condensed_light"
+                        android:textAlignment="textStart"
+                        android:textSize="10sp"
+                        android:textColor="@color/grey_60"
+                        android:text="SMART"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/grey_10" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_xsmall"
+                    android:padding="@dimen/spacing_small"
+                    android:background="@color/grey_5"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvSmartLong"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/roboto_condensed_light"
+                        android:textAlignment="textEnd"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textColor="@color/blue_grey_800"
+                        android:text="999,999,999,999,999" />
+
+                    <TextView
+                        android:id="@+id/tvSmartValue"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textAlignment="textEnd"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textColor="@color/blue_grey_800"
+                        android:text="123.5 M" />
+
+                    <TextView
+                        android:id="@+id/tvSmartPercent"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textAlignment="textEnd"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:text="93.71%" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_small"/>
+
+
+                //MPO
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_condensed_light"
+                        android:textAlignment="textStart"
+                        android:textSize="10sp"
+                        android:textColor="@color/grey_60"
+                        android:text="MPO"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/grey_10" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_xsmall"
+                    android:padding="@dimen/spacing_small"
+                    android:background="@color/grey_5"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvMpoLong"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/roboto_condensed_light"
+                        android:textAlignment="textEnd"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textColor="@color/blue_grey_800"
+                        android:text="999,999,999,999,999" />
+
+                    <TextView
+                        android:id="@+id/tvMpoValue"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textAlignment="textEnd"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textColor="@color/blue_grey_800"
+                        android:text="999.9 M" />
+
+                    <TextView
+                        android:id="@+id/tvMpoPercent"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textAlignment="textEnd"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:text="88.82%" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_middle"/>
+
+
+                //FISIK TARGET
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_condensed_light"
+                        android:textAlignment="textStart"
+                        android:textSize="10sp"
+                        android:textColor="@color/grey_60"
+                        android:text="TARGET FISIK"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/grey_10" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_xsmall"
+                    android:padding="@dimen/spacing_small"
+                    android:background="@color/grey_5"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvFisikTargetLong"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_condensed_light"
+                        android:textAlignment="textEnd"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textColor="@color/grey_80"
+                        android:text="999,999,999,999,999" />
+
+                    <TextView
+                        android:id="@+id/tvFisikTarget"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textAlignment="textEnd"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textColor="@color/blue_grey_800"
+                        android:text="999.9 M" />
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textAlignment="textEnd"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_small"/>
+
+
+                //FISIK REALISASI
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_condensed_light"
+                        android:textAlignment="textStart"
+                        android:textSize="10sp"
+                        android:textColor="@color/grey_60"
+                        android:text="REALISASI FISIK"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/grey_10" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_xsmall"
+                    android:padding="@dimen/spacing_small"
+                    android:background="@color/grey_5"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvFisikValueLong"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/roboto_condensed_light"
+                        android:textAlignment="textEnd"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textColor="@color/blue_grey_800"
+                        android:text="999,999,999,999,999" />
+
+                    <TextView
+                        android:id="@+id/tvFisikValue"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textAlignment="textEnd"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textColor="@color/blue_grey_800"
+                        android:text="123.5 M" />
+
+                    <TextView
+                        android:id="@+id/tvFisikValuePercent"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textAlignment="textEnd"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:text="93.71%" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_large"
+            app:backgroundTint="@color/overlay_light_30"
+            app:elevation="0dp"
+            app:fabSize="mini"
+            app:srcCompat="@drawable/ic_close">
+
+        </android.support.design.widget.FloatingActionButton>
+
+    </LinearLayout>
+
+</RelativeLayout>

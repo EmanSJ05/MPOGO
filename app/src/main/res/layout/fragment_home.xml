@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_5"
+    tools:context=".activity.DashboardFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <!--Contents-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-0dp"
+                android:descendantFocusability="blocksDescendants"
+                android:orientation="vertical"
+                android:padding="4dp">
+
+                <!--Group 1-->
+                <TextView
+                    android:id="@+id/Group1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:padding="@dimen/spacing_medium"
+                    android:text="Realisasi Kegiatan Ditjen PSP"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textColor="@color/blue_grey_400" />
+
+                <!--Content 1-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/spacing_small"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="2dp"
+                        app:cardElevation="1dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/spacing_medium"
+                            android:orientation="vertical">
+
+                            <!--Header-->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/spacing_small"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:padding="@dimen/spacing_small"
+                                    android:text="SMART"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                    android:textColor="@color/grey_800"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:padding="@dimen/spacing_medium"
+                                    android:layout_gravity="right"
+                                    android:text="19 Jan 2018"
+                                    android:textSize="10sp"
+                                    android:textColor="@color/blue_grey_200" />
+
+                            </LinearLayout>
+
+                            <!--Line-->
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_margin="@dimen/spacing_small"
+                                android:background="@color/grey_10" />
+
+                            <!--Graph-->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:padding="@dimen/spacing_middle">
+
+                                <com.github.lzyzsd.circleprogress.DonutProgress
+                                    android:id="@+id/dopSMART"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    app:donut_finished_color="@color/colorPrimaryDark"
+                                    app:donut_text_color="@color/colorPrimaryDark"
+                                    app:donut_progress="92.0"
+                                    android:theme="@style/TextAppearance.AppCompat.Headline" />
+
+                            </LinearLayout>
+
+                            <!--Line-->
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_margin="@dimen/spacing_small"
+                                android:background="@color/grey_10" />
+
+                            <!--Footer-->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:padding="@dimen/spacing_small">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:padding="@dimen/spacing_small"
+                                        android:fontFamily="@font/roboto_condensed_light"
+                                        android:text="Total Pagu"
+                                        android:textSize="10sp"
+                                        android:textColor="@color/grey_40" />
+
+                                    <TextView
+                                        android:id="@+id/txtTotalPaguSMART"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:padding="@dimen/spacing_small"
+                                        android:text="6,919,644,912,240"
+                                        android:textSize="10sp"
+                                        android:textColor="@color/blue_grey_800"
+                                        android:textStyle="bold"/>
+
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:padding="@dimen/spacing_small">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:padding="@dimen/spacing_small"
+                                        android:fontFamily="@font/roboto_condensed_light"
+                                        android:text="Realisasi"
+                                        android:textSize="10sp"
+                                        android:textColor="@color/grey_40" />
+
+                                    <TextView
+                                        android:id="@+id/txtRealisasiSMART"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:padding="@dimen/spacing_small"
+                                        android:text="6,362,936,225,467"
+                                        android:textSize="10sp"
+                                        android:textColor="@color/blue_grey_800"
+                                        android:textStyle="bold"/>
+
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:padding="@dimen/spacing_small">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:padding="@dimen/spacing_small"
+                                        android:fontFamily="@font/roboto_condensed_light"
+                                        android:text="Sisa"
+                                        android:textSize="10sp"
+                                        android:textColor="@color/grey_40" />
+
+                                    <TextView
+                                        android:id="@+id/txtSisaSMART"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:padding="@dimen/spacing_small"
+                                        android:text="556,708,686,773"
+                                        android:textSize="10sp"
+                                        android:textColor="@color/blue_grey_800"
+                                        android:textStyle="bold"/>
+
+                                </RelativeLayout>
+
+                            </LinearLayout>
+
+                            <!--Margin Bottom-->
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/spacing_small" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/spacing_small"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="2dp"
+                        app:cardElevation="1dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/spacing_medium"
+                            android:orientation="vertical">
+
+                            <!--Header-->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/spacing_small"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:padding="@dimen/spacing_small"
+                                    android:text="MPO"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                    android:textColor="@color/grey_800"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:padding="@dimen/spacing_medium"
+                                    android:layout_gravity="right"
+                                    android:text="28 Mar 2018"
+                                    android:textSize="10sp"
+                                    android:textColor="@color/blue_grey_200" />
+
+                            </LinearLayout>
+
+                            <!--Line-->
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_margin="@dimen/spacing_small"
+                                android:background="@color/grey_10" />
+
+                            <!--Graph-->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:padding="@dimen/spacing_middle">
+
+                                <com.github.lzyzsd.circleprogress.DonutProgress
+                                    android:id="@+id/dopMPO"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    app:donut_finished_color="@color/colorPrimaryDark"
+                                    app:donut_text_color="@color/colorPrimaryDark"
+                                    app:donut_progress="90.7"
+                                    android:theme="@style/TextAppearance.AppCompat.Headline" />
+
+                            </LinearLayout>
+
+                            <!--Line-->
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_margin="@dimen/spacing_small"
+                                android:background="@color/grey_10" />
+
+                            <!--Footer-->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:padding="@dimen/spacing_small">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:padding="@dimen/spacing_small"
+                                        android:fontFamily="@font/roboto_condensed_light"
+                                        android:text="Total Pagu"
+                                        android:textSize="10sp"
+                                        android:textColor="@color/grey_40" />
+
+                                    <TextView
+                                        android:id="@+id/txtTotalPaguMPO"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:padding="@dimen/spacing_small"
+                                        android:text="6,919,644,912,240"
+                                        android:textSize="10sp"
+                                        android:textColor="@color/blue_grey_800"
+                                        android:textStyle="bold"/>
+
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:padding="@dimen/spacing_small">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:padding="@dimen/spacing_small"
+                                        android:fontFamily="@font/roboto_condensed_light"
+                                        android:text="Realisasi"
+                                        android:textSize="10sp"
+                                        android:textColor="@color/grey_40" />
+
+                                    <TextView
+                                        android:id="@+id/txtRealisasiMPO"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:padding="@dimen/spacing_small"
+                                        android:text="6,273,763,018,307"
+                                        android:textSize="10sp"
+                                        android:textColor="@color/blue_grey_800"
+                                        android:textStyle="bold"/>
+
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:padding="@dimen/spacing_small">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:padding="@dimen/spacing_small"
+                                        android:fontFamily="@font/roboto_condensed_light"
+                                        android:text="Sisa"
+                                        android:textSize="10sp"
+                                        android:textColor="@color/grey_40" />
+
+                                    <TextView
+                                        android:id="@+id/txtSisaMPO"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:padding="@dimen/spacing_small"
+                                        android:text="645,881,893,933"
+                                        android:textSize="10sp"
+                                        android:textColor="@color/blue_grey_800"
+                                        android:textStyle="bold"/>
+
+                                </RelativeLayout>
+
+                            </LinearLayout>
+
+                            <!--Margin Bottom-->
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/spacing_small" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+
+
+                <!--Group 2-->
+                <TextView
+                    android:id="@+id/Group2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:padding="@dimen/spacing_medium"
+                    android:text="Realisasi Keuangan Per Kegiatan Utama"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textColor="@color/blue_grey_400" />
+
+                <!--Content 2-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/spacing_small"
+                        app:cardCornerRadius="2dp"
+                        app:cardElevation="1dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="@dimen/spacing_middle">
+
+                            <!--Header-->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/spacing_small"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:padding="@dimen/spacing_small"
+                                    android:text="SMART"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                    android:textColor="@color/grey_800"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:padding="@dimen/spacing_medium"
+                                    android:layout_gravity="right"
+                                    android:text="19 Jan 2018"
+                                    android:textSize="10sp"
+                                    android:textColor="@color/blue_grey_200" />
+
+                            </LinearLayout>
+
+                            <!--Line-->
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_margin="@dimen/spacing_small"
+                                android:background="@color/grey_10" />
+
+                            <!--Graph-->
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/rvKegutSMART"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:scrollbars="none" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+
+
+                <!--Group 3-->
+                <TextView
+                    android:id="@+id/Group3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:padding="@dimen/spacing_medium"
+                    android:text="Realisasi Keuangan Per Kegiatan Utama"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textColor="@color/blue_grey_400" />
+
+                <!--Content 3-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/spacing_small"
+                        app:cardCornerRadius="2dp"
+                        app:cardElevation="1dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="@dimen/spacing_middle">
+
+                            <!--Header-->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/spacing_small"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:padding="@dimen/spacing_small"
+                                    android:text="MPO"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                    android:textColor="@color/grey_800"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:padding="@dimen/spacing_medium"
+                                    android:layout_gravity="right"
+                                    android:text="14 Aug 2018"
+                                    android:textSize="10sp"
+                                    android:textColor="@color/blue_grey_200" />
+
+                            </LinearLayout>
+
+                            <!--Line-->
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_margin="@dimen/spacing_small"
+                                android:background="@color/grey_10" />
+
+                            <!--Graph-->
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/rvKegutMPO"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:scrollbars="none" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout> <!--Contents-->
+
+    </ScrollView>
+
+</FrameLayout>

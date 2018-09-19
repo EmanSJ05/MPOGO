@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:ellipsize="marquee"
+    android:gravity="center_vertical"
+    android:paddingLeft="@dimen/spacing_large"
+    android:paddingRight="32dp"
+    android:singleLine="true"
+    android:text="asdasdasd"
+    android:textColorHint="#fff"
+    android:textColor="#fff"
+     />
+
+    <!--android:textColor="@color/blue_grey_300"-->
+    <!--android:theme="@style/EditText.Grey"-->
+    <!--android:background="@color/colorBG"-->
+    <!--android:textAppearance="@style/EditText.White"-->

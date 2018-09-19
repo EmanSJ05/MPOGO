@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_5"
+    tools:context=".activity.RekeFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <!--Contents-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <!--Headline-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:background="@color/white"
+                    android:scaleType="centerCrop"
+                    app:layout_collapseMode="parallax"
+                    android:src="@drawable/img_back_right" />
+
+                <TextView
+                    android:id="@+id/txtTitle"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:padding="@dimen/appbar_padding_top"
+                    android:gravity="left"
+                    android:layout_alignParentLeft="true"
+                    android:text="Realisasi Keuangan"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textColor="@color/grey_1000"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txtTitle"
+                    android:paddingLeft="@dimen/appbar_padding_top"
+                    android:paddingRight="@dimen/appbar_padding_top"
+                    android:gravity="left"
+                    android:fontFamily="@font/lato_regular"
+                    android:layout_alignParentLeft="true"
+                    android:text="Laporan-laporan realisasi keuangan yang bersumber dari data keuangan SMART dan MPO "
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textColor="@color/grey_1000" />
+
+            </RelativeLayout>
+
+            <!--Menu-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-0dp"
+                android:descendantFocusability="blocksDescendants"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_middle">
+
+                <!--Row 1-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cvKewenangan"
+                        android:tag="Kewenangan"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/spacing_xmedium"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        app:cardCornerRadius="3dp"
+                        app:cardElevation="2dp" >
+
+                        <com.balysv.materialripple.MaterialRippleLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:mrl_rippleColor="@color/colorPrimary" >
+
+                            <LinearLayout
+                                android:id="@+id/lyKewenangan"
+                                android:tag="Kewenangan"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:clickable="true"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:padding="@dimen/spacing_middle">
+
+                                <ImageView
+                                    android:id="@+id/imvKewenangan"
+                                    android:tag="Kewenangan"
+                                    android:layout_width="64dp"
+                                    android:layout_height="64dp"
+                                    android:layout_marginBottom="@dimen/spacing_medium"
+                                    android:tint="@color/colorPrimaryDark"
+                                    app:srcCompat="@drawable/ic_mod_kewenangan" />
+
+                                <TextView
+                                    android:id="@+id/tvKewenangan"
+                                    android:tag="Kewenangan"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Kewenangan"
+                                    android:textAlignment="center"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                    android:textColor="@color/black" />
+
+                            </LinearLayout>
+
+                        </com.balysv.materialripple.MaterialRippleLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cvKegiatan"
+                        android:tag="Kegiatan"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/spacing_xmedium"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="3dp"
+                        app:cardElevation="2dp">
+
+                        <com.balysv.materialripple.MaterialRippleLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:mrl_rippleColor="@color/colorPrimary" >
+
+                            <LinearLayout
+                                android:id="@+id/lyKegiatan"
+                                android:tag="Kegiatan"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:clickable="true"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:padding="@dimen/spacing_middle">
+
+                                <ImageView
+                                    android:id="@+id/imvKegiatan"
+                                    android:tag="Kegiatan"
+                                    android:layout_width="64dp"
+                                    android:layout_height="64dp"
+                                    android:layout_marginBottom="@dimen/spacing_medium"
+                                    android:tint="@color/colorPrimaryDark"
+                                    app:srcCompat="@drawable/ic_mod_kegiatan" />
+
+                                <TextView
+                                    android:id="@+id/tvKegiatan"
+                                    android:tag="Kegiatan"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Kegiatan"
+                                    android:textAlignment="center"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                    android:textColor="@color/black" />
+
+                            </LinearLayout>
+
+                        </com.balysv.materialripple.MaterialRippleLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+
+                <!--Row 2-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cvKegiatanOutput"
+                        android:tag="KegiatanOutput"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/spacing_xmedium"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="3dp"
+                        app:cardElevation="2dp">
+
+                        <com.balysv.materialripple.MaterialRippleLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:mrl_rippleColor="@color/colorPrimary" >
+
+                            <LinearLayout
+                                android:id="@+id/lyKegiatanOutput"
+                                android:tag="KegiatanOutput"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:clickable="true"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:padding="@dimen/spacing_middle">
+
+                                <ImageView
+                                    android:id="@+id/imvKegiatanOutput"
+                                    android:tag="KegiatanOutput"
+                                    android:layout_width="64dp"
+                                    android:layout_height="64dp"
+                                    android:layout_marginBottom="@dimen/spacing_medium"
+                                    android:tint="@color/colorPrimaryDark"
+                                    app:srcCompat="@drawable/ic_mod_kegiatan_output" />
+
+                                <TextView
+                                    android:id="@+id/tvKegiatanOutput"
+                                    android:tag="KegiatanOutput"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Kegiatan Output"
+                                    android:textAlignment="center"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                    android:textColor="@color/black" />
+
+                            </LinearLayout>
+
+                        </com.balysv.materialripple.MaterialRippleLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cvKegiatanNProvinsi"
+                        android:tag="KegiatanNProvinsi"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/spacing_xmedium"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="3dp"
+                        app:cardElevation="2dp">
+
+                        <com.balysv.materialripple.MaterialRippleLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:mrl_rippleColor="@color/colorPrimary" >
+
+                            <LinearLayout
+                                android:id="@+id/lyKegiatanNProvinsi"
+                                android:tag="KegiatanNProvinsi"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:clickable="true"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:padding="@dimen/spacing_middle">
+
+                                <ImageView
+                                    android:id="@+id/imvKegiatanNProvinsi"
+                                    android:tag="KegiatanNProvinsi"
+                                    android:layout_width="64dp"
+                                    android:layout_height="64dp"
+                                    android:layout_marginBottom="@dimen/spacing_medium"
+                                    android:tint="@color/colorPrimaryDark"
+                                    app:srcCompat="@drawable/ic_mod_kegiatan_provinsi" />
+
+                                <TextView
+                                    android:id="@+id/tvKegiatanNProvinsi"
+                                    android:tag="KegiatanNProvinsi"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Kegiatan &amp; Provinsi"
+                                    android:textAlignment="center"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                    android:textColor="@color/black" />
+
+                            </LinearLayout>
+
+                        </com.balysv.materialripple.MaterialRippleLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+
+                <!--Row 3-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cvSatker"
+                        android:tag="Satker"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/spacing_xmedium"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="3dp"
+                        app:cardElevation="2dp">
+
+                        <com.balysv.materialripple.MaterialRippleLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:mrl_rippleColor="@color/colorPrimary" >
+
+                            <LinearLayout
+                                android:id="@+id/lySatker"
+                                android:tag="Satker"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:clickable="true"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:padding="@dimen/spacing_middle">
+
+                                <ImageView
+                                    android:id="@+id/imvSatker"
+                                    android:tag="Satker"
+                                    android:layout_width="64dp"
+                                    android:layout_height="64dp"
+                                    android:layout_marginBottom="@dimen/spacing_medium"
+                                    android:layout_marginTop="@dimen/spacing_medium"
+                                    android:tint="@color/colorPrimaryDark"
+                                    app:srcCompat="@drawable/ic_fill_satker" />
+
+                                <TextView
+                                    android:id="@+id/tvSatker"
+                                    android:tag="Satker"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Satker"
+                                    android:textAlignment="center"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                    android:textColor="@color/black" />
+
+                            </LinearLayout>
+
+                        </com.balysv.materialripple.MaterialRippleLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cvOutput"
+                        android:tag="Output"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/spacing_xmedium"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="3dp"
+                        app:cardElevation="2dp">
+
+                        <com.balysv.materialripple.MaterialRippleLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:mrl_rippleColor="@color/colorPrimary" >
+
+                            <LinearLayout
+                                android:id="@+id/lyOutput"
+                                android:tag="Output"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:clickable="true"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:padding="@dimen/spacing_middle">
+
+                            <ImageView
+                                android:id="@+id/imvOutput"
+                                android:tag="Output"
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"
+                                android:layout_marginBottom="@dimen/spacing_medium"
+                                android:layout_marginTop="@dimen/spacing_medium"
+                                android:tint="@color/colorPrimaryDark"
+                                app:srcCompat="@drawable/ic_mod_output" />
+
+                            <TextView
+                                android:id="@+id/tvOutput"
+                                android:tag="Output"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Output"
+                                android:textAlignment="center"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                android:textColor="@color/black" />
+
+                        </LinearLayout>
+
+                        </com.balysv.materialripple.MaterialRippleLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout> <!--Contents-->
+
+    </ScrollView>
+
+</FrameLayout>

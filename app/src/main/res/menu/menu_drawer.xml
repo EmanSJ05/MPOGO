@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group
+        android:id="@+id/grp_1"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_notifications"
+            android:checkable="false"
+            android:icon="@drawable/ic_outline_notifications"
+            android:iconTint="@color/colorPrimary"
+            android:title="Notifications"
+            app:actionLayout="@layout/badge_navigation_plain" />
+        <item
+            android:id="@+id/nav_home"
+            android:checkable="true"
+            android:checked="true"
+            android:icon="@drawable/ic_outline_home"
+            android:iconTint="@color/colorPrimary"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_dashboard"
+            android:checkable="true"
+            android:icon="@drawable/ic_outline_dashboard"
+            android:iconTint="@color/colorPrimary"
+            android:title="Dashboard" />
+    </group>
+
+    <group
+        android:id="@+id/grp_2"
+        android:checkableBehavior="single">
+        <item android:title="Laporan">
+            <menu>
+                <item
+                    android:id="@+id/nav_rk"
+                    android:checkable="true"
+                    android:icon="@drawable/ic_outline_rk"
+                    android:iconTint="@color/colorPrimary"
+                    android:title="Realisasi Keuangan" />
+                <item
+                    android:id="@+id/nav_rkf"
+                    android:checkable="true"
+                    android:icon="@drawable/ic_outline_rkf"
+                    android:iconTint="@color/colorPrimary"
+                    android:title="Realisasi Keuangan dan Fisik" />
+                <item
+                    android:id="@+id/nav_user_rating"
+                    android:checkable="true"
+                    android:icon="@drawable/ic_outline_people"
+                    android:iconTint="@color/colorPrimary"
+                    android:title="User Rating" />
+            </menu>
+        </item>
+    </group>
+
+    <group
+        android:id="@+id/grp_3"
+        android:checkableBehavior="single">
+        <item android:title="Entri">
+            <menu>
+                <item
+                    android:id="@+id/nav_fisik"
+                    android:icon="@drawable/ic_outline_fisik"
+                    android:iconTint="@color/colorPrimary"
+                    android:title="Fisik" />
+            </menu>
+        </item>
+    </group>
+
+    <group
+        android:id="@+id/grp_4">
+        <item android:title="Pengaturan">
+            <menu>
+                <item
+                    android:id="@+id/nav_user_profile"
+                    android:icon="@drawable/ic_outline_username"
+                    android:iconTint="@color/colorPrimary"
+                    android:title="Profile" />
+                <item
+                    android:id="@+id/nav_settings"
+                    android:icon="@drawable/ic_outline_settings"
+                    android:iconTint="@color/colorPrimary"
+                    android:title="Settings" />
+            </menu>
+        </item>
+    </group>
+
+</menu>
