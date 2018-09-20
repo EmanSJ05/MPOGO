@@ -35,6 +35,7 @@ public class FisikActivity extends Activity {
         m_WebView.getSettings().setSupportZoom(true);
         m_WebView.getSettings().setBuiltInZoomControls(true);
         m_WebView.getSettings().setDisplayZoomControls(false);
+
         // Baris di bawah untuk menambahkan scrollbar di dalam WebView-nya
         m_WebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         m_WebView.setWebViewClient(new WebViewClient());

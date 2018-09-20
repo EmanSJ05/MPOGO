@@ -37,6 +37,7 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.google.android.gms.maps.GoogleMap;
 import com.emansj.mpogo.R;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -332,5 +333,36 @@ public class Tools {
             stb.append(cap + " ");
         }
         return stb.toString();
+    }
+
+    public static String convertDateDTS(Date date, String dateFormatPattern){
+        //"yyyy-MM-dd'T'HH:mm:ss'Z'"
+        String dateTime = null;
+
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat(dateFormatPattern);
+            dateTime = dateFormat.format(date);
+
+        } catch (Exception e) {
+            dateTime = null;
+            e.printStackTrace();
+        }
+
+        return dateTime;
+    }
+
+    public static Date convertDateSTD(String date, String dateFormatPattern){
+        Date dateTime = null;
+
+        try {
+            SimpleDateFormat format = new SimpleDateFormat(dateFormatPattern);
+            dateTime = format.parse(date);
+
+        } catch (ParseException e) {
+            dateTime = null;
+            e.printStackTrace();
+        }
+
+        return dateTime;
     }
 }

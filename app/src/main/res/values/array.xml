@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--Dashboard PIE - SMART-->
+    <string-array name="dash_pie_smart">
+        <!--pagu, smt_lastupdate, smt_real, smt_real_persen, smt_sisa, sas_lastupdate, sas_real, sas_real_persen, sas_sisa -->
+        <item>6922422122240.00|2018-01-19|6362936225467.00|91.92|559485896773.00|2018-03-28|6273763018307.00|90.63|648659103933.00</item>
+    </string-array>
+
     <!--Dashboard Realisasi Keuangan Kegiatan Utama - SMART-->
     <string-array name="kegut_smart_data">
         <item>Jaringan Irigasi Tertier</item>
