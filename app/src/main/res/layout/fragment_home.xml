@@ -72,19 +72,21 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:padding="@dimen/spacing_small"
-                                    android:text="SMART"
                                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                                    android:textColor="@color/grey_800"
-                                    android:textStyle="bold" />
+                                    android:textColor="@color/black"
+                                    android:textStyle="bold"
+                                    android:text="SMART"/>
 
                                 <TextView
+                                    android:id="@+id/tvPieSmartUpdate"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:padding="@dimen/spacing_medium"
                                     android:layout_gravity="right"
-                                    android:text="19 Jan 2018"
+                                    android:padding="@dimen/spacing_medium"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                                     android:textSize="10sp"
-                                    android:textColor="@color/blue_grey_200" />
+                                    android:textColor="@color/blue_grey_400"
+                                    android:text="19 Jan 2018"/>
 
                             </LinearLayout>
 
@@ -104,7 +106,7 @@
                                 android:padding="@dimen/spacing_middle">
 
                                 <com.github.lzyzsd.circleprogress.DonutProgress
-                                    android:id="@+id/dopSMART"
+                                    android:id="@+id/dopSmartPercent"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     app:donut_finished_color="@color/colorPrimaryDark"
@@ -137,21 +139,20 @@
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentLeft="true"
                                         android:padding="@dimen/spacing_small"
-                                        android:fontFamily="@font/roboto_condensed_light"
-                                        android:text="Total Pagu"
-                                        android:textSize="10sp"
-                                        android:textColor="@color/grey_40" />
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                        android:textColor="@color/grey_80"
+                                        android:text="Total Pagu"/>
 
                                     <TextView
-                                        android:id="@+id/txtTotalPaguSMART"
+                                        android:id="@+id/tvSmartPagu"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentRight="true"
                                         android:padding="@dimen/spacing_small"
-                                        android:text="6,919,644,912,240"
-                                        android:textSize="10sp"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                                         android:textColor="@color/blue_grey_800"
-                                        android:textStyle="bold"/>
+                                        android:textStyle="bold"
+                                        android:text="6,9 T "/>
 
                                 </RelativeLayout>
 
@@ -165,21 +166,20 @@
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentLeft="true"
                                         android:padding="@dimen/spacing_small"
-                                        android:fontFamily="@font/roboto_condensed_light"
-                                        android:text="Realisasi"
-                                        android:textSize="10sp"
-                                        android:textColor="@color/grey_40" />
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                        android:textColor="@color/grey_80"
+                                        android:text="Realisasi"/>
 
                                     <TextView
-                                        android:id="@+id/txtRealisasiSMART"
+                                        android:id="@+id/tvSmartRealisasi"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentRight="true"
                                         android:padding="@dimen/spacing_small"
-                                        android:text="6,362,936,225,467"
-                                        android:textSize="10sp"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                                         android:textColor="@color/blue_grey_800"
-                                        android:textStyle="bold"/>
+                                        android:textStyle="bold"
+                                        android:text="6,3 T "/>
 
                                 </RelativeLayout>
 
@@ -193,21 +193,20 @@
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentLeft="true"
                                         android:padding="@dimen/spacing_small"
-                                        android:fontFamily="@font/roboto_condensed_light"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                                         android:text="Sisa"
-                                        android:textSize="10sp"
-                                        android:textColor="@color/grey_40" />
+                                        android:textColor="@color/grey_80" />
 
                                     <TextView
-                                        android:id="@+id/txtSisaSMART"
+                                        android:id="@+id/tvSmartSisa"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentRight="true"
                                         android:padding="@dimen/spacing_small"
-                                        android:text="556,708,686,773"
-                                        android:textSize="10sp"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                                         android:textColor="@color/blue_grey_800"
-                                        android:textStyle="bold"/>
+                                        android:textStyle="bold"
+                                        android:text="556,7 M "/>
 
                                 </RelativeLayout>
 
@@ -249,19 +248,21 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:padding="@dimen/spacing_small"
-                                    android:text="MPO"
                                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                                    android:textColor="@color/grey_800"
-                                    android:textStyle="bold" />
+                                    android:textColor="@color/black"
+                                    android:textStyle="bold"
+                                    android:text="MPO"/>
 
                                 <TextView
+                                    android:id="@+id/tvPieMpoUpdate"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:padding="@dimen/spacing_medium"
                                     android:layout_gravity="right"
-                                    android:text="28 Mar 2018"
+                                    android:padding="@dimen/spacing_medium"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                                     android:textSize="10sp"
-                                    android:textColor="@color/blue_grey_200" />
+                                    android:textColor="@color/blue_grey_400"
+                                    android:text="28 Mar 2018"/>
 
                             </LinearLayout>
 
@@ -281,7 +282,7 @@
                                 android:padding="@dimen/spacing_middle">
 
                                 <com.github.lzyzsd.circleprogress.DonutProgress
-                                    android:id="@+id/dopMPO"
+                                    android:id="@+id/dopMpoPercent"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     app:donut_finished_color="@color/colorPrimaryDark"
@@ -314,21 +315,20 @@
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentLeft="true"
                                         android:padding="@dimen/spacing_small"
-                                        android:fontFamily="@font/roboto_condensed_light"
-                                        android:text="Total Pagu"
-                                        android:textSize="10sp"
-                                        android:textColor="@color/grey_40" />
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                        android:textColor="@color/grey_80"
+                                        android:text="Total Pagu"/>
 
                                     <TextView
-                                        android:id="@+id/txtTotalPaguMPO"
+                                        android:id="@+id/tvMpoPagu"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentRight="true"
                                         android:padding="@dimen/spacing_small"
-                                        android:text="6,919,644,912,240"
-                                        android:textSize="10sp"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                                         android:textColor="@color/blue_grey_800"
-                                        android:textStyle="bold"/>
+                                        android:textStyle="bold"
+                                        android:text="6,9 T "/>
 
                                 </RelativeLayout>
 
@@ -342,21 +342,20 @@
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentLeft="true"
                                         android:padding="@dimen/spacing_small"
-                                        android:fontFamily="@font/roboto_condensed_light"
-                                        android:text="Realisasi"
-                                        android:textSize="10sp"
-                                        android:textColor="@color/grey_40" />
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                        android:textColor="@color/grey_80"
+                                        android:text="Realisasi"/>
 
                                     <TextView
-                                        android:id="@+id/txtRealisasiMPO"
+                                        android:id="@+id/tvMpoRealisasi"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentRight="true"
                                         android:padding="@dimen/spacing_small"
-                                        android:text="6,273,763,018,307"
-                                        android:textSize="10sp"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                                         android:textColor="@color/blue_grey_800"
-                                        android:textStyle="bold"/>
+                                        android:textStyle="bold"
+                                        android:text="6,2 T "/>
 
                                 </RelativeLayout>
 
@@ -370,21 +369,20 @@
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentLeft="true"
                                         android:padding="@dimen/spacing_small"
-                                        android:fontFamily="@font/roboto_condensed_light"
-                                        android:text="Sisa"
-                                        android:textSize="10sp"
-                                        android:textColor="@color/grey_40" />
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                        android:textColor="@color/grey_80"
+                                        android:text="Sisa"/>
 
                                     <TextView
-                                        android:id="@+id/txtSisaMPO"
+                                        android:id="@+id/tvMpoSisa"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentRight="true"
                                         android:padding="@dimen/spacing_small"
-                                        android:text="645,881,893,933"
-                                        android:textSize="10sp"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                                         android:textColor="@color/blue_grey_800"
-                                        android:textStyle="bold"/>
+                                        android:textStyle="bold"
+                                        android:text="645,8 M "/>
 
                                 </RelativeLayout>
 
@@ -449,17 +447,19 @@
                                     android:padding="@dimen/spacing_small"
                                     android:text="SMART"
                                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                                    android:textColor="@color/grey_800"
+                                    android:textColor="@color/black"
                                     android:textStyle="bold" />
 
                                 <TextView
+                                    android:id="@+id/tvSmartUpdate"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:padding="@dimen/spacing_medium"
                                     android:layout_gravity="right"
-                                    android:text="19 Jan 2018"
+                                    android:padding="@dimen/spacing_medium"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                                     android:textSize="10sp"
-                                    android:textColor="@color/blue_grey_200" />
+                                    android:textColor="@color/blue_grey_400"
+                                    android:text="19 Jan 2018" />
 
                             </LinearLayout>
 
@@ -531,17 +531,19 @@
                                     android:padding="@dimen/spacing_small"
                                     android:text="MPO"
                                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                                    android:textColor="@color/grey_800"
+                                    android:textColor="@color/black"
                                     android:textStyle="bold" />
 
                                 <TextView
+                                    android:id="@+id/tvMpoUpdate"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:padding="@dimen/spacing_medium"
                                     android:layout_gravity="right"
-                                    android:text="14 Aug 2018"
+                                    android:padding="@dimen/spacing_medium"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                                     android:textSize="10sp"
-                                    android:textColor="@color/blue_grey_200" />
+                                    android:textColor="@color/blue_grey_400"
+                                    android:text="14 Aug 2018" />
 
                             </LinearLayout>
 

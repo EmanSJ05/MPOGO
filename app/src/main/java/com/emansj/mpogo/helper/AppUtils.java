@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 
 import com.emansj.mpogo.R;
 
@@ -85,8 +87,14 @@ public class AppUtils {
 
         }
 
+//        final StyleSpan ssNormal = new StyleSpan(Typeface.NORMAL);
+//        final StyleSpan ssBold = new StyleSpan(Typeface.BOLD);
+
         SpannableString ss = new SpannableString(tmp);
+//        ss.setSpan(ssNormal, 0, tmp.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//        ss.setSpan(ssBold, 0, tmp.length()-2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         ss.setSpan(fcsColor, tmp.length()-2, tmp.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
 
         return ss;
     }

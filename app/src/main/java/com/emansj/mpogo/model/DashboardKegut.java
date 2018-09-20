@@ -21,8 +21,6 @@ public class DashboardKegut {
     public static List<DashboardKegut> getDashboardKegutSmart(Context ctx) {
         List<DashboardKegut> items = new ArrayList<>();
 
-        //Map<String, Double> dataSet = new HashMap<>();
-        //dataSet.put("Jaringan Irigasi Tertier", 99.95);
         String categoryName_arr[] = ctx.getResources().getStringArray(R.array.kegut_smart_data);
         String realPercent_arr[] = ctx.getResources().getStringArray(R.array.kegut_smart_realisasi);
 

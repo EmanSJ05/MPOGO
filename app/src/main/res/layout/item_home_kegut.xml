@@ -4,6 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/spacing_medium"
     android:clickable="true"
     android:focusable="true"
     android:background="?android:attr/selectableItemBackground">
@@ -23,7 +24,7 @@
             android:id="@+id/lyTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="15"
+            android:layout_weight="20"
             android:orientation="vertical">
 
             <TextView
@@ -32,9 +33,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:padding="@dimen/spacing_small"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:text="Category Name"
-                android:textSize="14sp"
-                android:textColor="@color/blue_grey_400" />
+                android:textColor="@color/blue_grey_800" />
 
             <ProgressBar
                 android:id="@+id/pbProgress"
@@ -53,11 +54,10 @@
             android:id="@+id/tvRealisasi"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="85"
+            android:layout_weight="80"
             android:padding="@dimen/spacing_small"
-            android:gravity="right|center"
-            android:fontFamily="@font/roboto_light"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:gravity="right|center_vertical"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold"
             android:text="50.50%"/>

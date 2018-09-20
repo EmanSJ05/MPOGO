@@ -11,8 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_middle"
-        android:layout_marginBottom="@dimen/spacing_middle"
+        android:layout_marginBottom="@dimen/spacing_large"
         android:layout_marginLeft="@dimen/spacing_small"
         android:layout_marginRight="@dimen/spacing_small"
         android:orientation="vertical"
@@ -35,9 +34,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/spacing_middle"
                 android:fontFamily="@font/roboto_condensed_regular"
-                android:text="Category Name"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@color/blue_grey_800" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/blue_grey_900"
+                android:text="Category Name"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -51,11 +50,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_condensed_light"
-                    android:text="PAGU"
                     android:textAlignment="textEnd"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                     android:textColor="@color/grey_80"
-                     />
+                    android:text="PAGU"/>
 
                 <TextView
                     android:id="@+id/tvPagu"
@@ -63,10 +61,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_bold"
                     android:textAlignment="textEnd"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                     android:textColor="@color/blue_grey_800"
-
                     android:text="99.9 M" />
 
                 <TextView
@@ -91,8 +87,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_condensed_light"
                     android:textAlignment="textEnd"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                     android:textColor="@color/grey_80"
                     android:text="SMART" />
 
@@ -102,8 +97,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_bold"
                     android:textAlignment="textEnd"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                     android:textColor="@color/blue_grey_800"
                     android:text="123.5 M" />
 
@@ -113,8 +107,7 @@
                     android:layout_height="match_parent"
                     android:fontFamily="@font/roboto_bold"
                     android:textAlignment="textEnd"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                     android:textColor="@color/colorPrimaryDark"
                     android:text="93.71%" />
 
@@ -134,8 +127,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_condensed_light"
                     android:textAlignment="textEnd"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                     android:textColor="@color/grey_80"
                     android:text="MPO" />
 
@@ -145,10 +137,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_bold"
                     android:textAlignment="textEnd"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                     android:textColor="@color/blue_grey_800"
-
                     android:text="999.9 M" />
 
                 <TextView
@@ -157,8 +147,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_bold"
                     android:textAlignment="textEnd"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                     android:textColor="@color/colorPrimaryDark"
                     android:text="88.82%" />
 
