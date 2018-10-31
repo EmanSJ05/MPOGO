@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
@@ -22,6 +24,7 @@ import com.android.volley.toolbox.Volley;
 import com.emansj.mpogo.helper.AppGlobal;
 import com.emansj.mpogo.helper.VolleyErrorHelper;
 import com.emansj.mpogo.R;
+import com.emansj.mpogo.helper.VolleySingleton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,86 +38,89 @@ public class LoginActivity extends Activity {
 
     //Standard vars
     private static final String TAG = LoginActivity.class.getSimpleName();
-    private Context m_Context;
+    private Context m_Ctx;
+    private AppGlobal m_Global;
+    private AppGlobal.Data m_GlobalData;
     private ProgressDialog m_PDialog;
-    private SharedPreferences m_SharedPref;
-    private AppGlobal m_Global = AppGlobal.getInstance();
-
-    //Custom vars
-    int m_UserId;
-    String m_UserName;
-    String m_UserFullName;
-    boolean m_Remember_Me;
-    int m_TahunRKA;
 
     //Define views
+    private View parent_view;
     private EditText editUsername, editPassword;
-    private CheckBox chkRememberMe;
+    private AppCompatCheckBox chkRememberMe;
     private Button btnLogin;
-    private Button btnTahunRKA;
+
+    //Custom vars
+    //....
 
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
         //Activity settings
-        m_Context = LoginActivity.this;
-        m_SharedPref = getSharedPreferences("mpo_settings", MODE_PRIVATE);
-        m_PDialog = new ProgressDialog(m_Context);
+        parent_view = findViewById(android.R.id.content);
+        m_Ctx = LoginActivity.this;
+        m_Global = AppGlobal.getInstance(m_Ctx);
+        m_GlobalData = m_Global.new Data();
+        m_PDialog = new ProgressDialog(m_Ctx);
         m_PDialog.setCancelable(false);
 
-        //Initial views
+        initComponent();
+        initData();
+    }
+
+    private void initComponent(){
         editUsername = findViewById(R.id.editUsername);
         editPassword = findViewById(R.id.editPassword);
         chkRememberMe = findViewById(R.id.chkRememberMe);
         btnLogin = findViewById(R.id.btnLogin);
-//        btnTahunRKA = findViewById(R.id.btnTahunRKA);
 
-        //Start process
-        //load tahun rka
-//        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, m_Global.TahunRKAs());
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        btnTahunRKA.setAdapter(adapter);
-
-        //load last settings
-        final boolean is_remember_me = m_SharedPref.getBoolean("remember_me", false);
-        if (is_remember_me){
-            m_UserId = m_SharedPref.getInt("user_id",0);
-            m_UserName = m_SharedPref.getString("user_name",null);
-            m_UserFullName = m_SharedPref.getString("user_full_name", null);
-
-            chkRememberMe.setChecked(is_remember_me);
-            editUsername.setText(m_UserName);
-            //chkRememberMe.requestFocus();
-        }
-
-        //Listener btnLogin
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        chkRememberMe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = editUsername.getText().toString().trim();
-                String password = editPassword.getText().toString().trim();
-
-                if(!username.isEmpty() && !password.isEmpty()){
-                    //logIn(username, password);
-                    gotoActivityHome();
-                }else {
-                    Toast.makeText(getApplicationContext(),"Harap masukkan Username dan Password!", Toast.LENGTH_LONG).show();
+                CheckBox c = (CheckBox) v;
+                if (c.isChecked()){
+                    editUsername.setText("coder");
+                    editPassword.setText("kosong");
                 }
             }
         });
 
+        //LOGIN
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logIn();
+            }
+        });
     }
 
-    private void logIn(final String userName, final String userPass){
-        String tag_string_req = "req_login";
+    private void initData(){
+        m_GlobalData.loadLastLogin();
+
+        boolean is_remember_me = m_Global.getIsRememberMe();
+        if (is_remember_me)
+        {
+            editUsername.setText(m_Global.getUserName());
+            editPassword.setText("");
+            chkRememberMe.setChecked(true);
+            //btnLogin.requestFocus();
+        }
+    }
+
+    private void logIn(){
+        final String userName = editUsername.getText().toString().trim();
+        final String userPass = editPassword.getText().toString().trim();
+
+        if(userName.isEmpty() && userPass.isEmpty()){
+            Toast.makeText(getApplicationContext(),"Harap masukkan Username dan Password!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         m_PDialog.setMessage("Authenticating...");
         showDialog();
 
-        //Create s string request
         StringRequest strReq = new StringRequest(Method.POST, AppGlobal.URL_LOGIN,
                 new Response.Listener<String>() {
                     @Override
@@ -128,36 +134,31 @@ public class LoginActivity extends Activity {
 
                             if (status == 200) { //login succeed
                                 //get value & response
-                                m_UserId = jsonObj.getInt("userid");
-                                m_UserName = jsonObj.getString("username");
-                                m_UserFullName = jsonObj.getString("fullname");
-                                m_Remember_Me = chkRememberMe.isChecked();
-                                m_TahunRKA  = 2018; //Integer.parseInt(btnTahunRKA.getSelectedItem().toString());
-
-                                //save to pref
-                                SharedPreferences.Editor editor = m_SharedPref.edit();
-                                editor.putInt("user_id", m_UserId);
-                                editor.putString("user_name", m_UserName);
-                                editor.putString("user_full_name", m_UserFullName);
-                                editor.putBoolean("remember_me", m_Remember_Me);
-                                editor.commit();
+                                int user_id = jsonObj.getInt("userid");
+                                String user_name = jsonObj.getString("username");
 
                                 //set to AppGlobal
-                                AppGlobal g = AppGlobal.getInstance();
-                                g.UserId(m_UserId);
-                                g.UserName(m_UserName);
-                                g.UserFullName(m_UserFullName);
-                                g.TahunRKA(m_TahunRKA);
+                                m_Global.setIsRememberMe(chkRememberMe.isChecked());
+                                m_Global.setUserId(user_id);
+                                m_Global.setUserName(user_name);
 
-                                gotoActivityHome();
+                                //load user profile
+                                Runnable r = new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        gotoActivityHome();
+                                    }
+                                };
+                                m_GlobalData.loadUserProfile(r);
 
-                            } else { //login failed
+                                //gotoActivityHome();
+
+                            }else{
                                 String errorMsg = jsonObj.getString("message");
                                 Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
                             }
 
                         } catch (JSONException e) {
-                            // JSON error
                             e.printStackTrace();
                             Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
@@ -166,14 +167,11 @@ public class LoginActivity extends Activity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e(TAG, "Login Error: " + error.getMessage());
-                        String msg = VolleyErrorHelper.getMessage(error, m_Context);
-                        Toast.makeText(m_Context, msg, Toast.LENGTH_LONG).show();
+                        VolleyErrorHelper.showError(error, m_Ctx);
                         hideDialog();
                     }
                 }
         )
-
         {
             // kirim parameter ke server
             @Override
@@ -185,19 +183,17 @@ public class LoginActivity extends Activity {
                 return params;
             }
         };
-        //Adding the string request to the queue
-        Volley.newRequestQueue(this).add(strReq);
-        //AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+        VolleySingleton.getInstance(m_Ctx).addToRequestQueue(strReq, TAG);
     }
 
     private void gotoActivityMain() {
-        Intent intent = new Intent(m_Context, MainActivity.class);
+        Intent intent = new Intent(m_Ctx, MainActivity.class);
         startActivity(intent);
         finish();
     }
 
     private void gotoActivityHome() {
-        Intent intent = new Intent(m_Context, DrawerActivity.class);
+        Intent intent = new Intent(m_Ctx, DrawerActivity.class);
         startActivity(intent);
         finish();
     }
@@ -212,4 +208,17 @@ public class LoginActivity extends Activity {
             m_PDialog.dismiss();
     }
 
+    @Override
+    protected void onStop () {
+        super.onStop();
+        VolleySingleton.getInstance(m_Ctx).cancelPendingRequests(TAG);
+        m_GlobalData.cancelAllRequest();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        VolleySingleton.getInstance(m_Ctx).cancelPendingRequests(TAG);
+        m_GlobalData.cancelAllRequest();
+    }
 }

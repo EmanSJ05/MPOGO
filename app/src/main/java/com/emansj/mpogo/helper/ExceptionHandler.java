@@ -57,9 +57,9 @@ public class ExceptionHandler implements
         Intent intent = new Intent(myContext, ErrorRecoveryActivity.class);
         intent.putExtra("error", errorReport.toString());
         myContext.startActivity(intent);
-
+        myContext.finish();
 
         android.os.Process.killProcess(android.os.Process.myPid());
-        System.exit(10);
+        //System.exit(10);
     }
 }

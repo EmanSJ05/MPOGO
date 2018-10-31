@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:clickable="true">
+
+    <!--Appbar-->
+    <RelativeLayout
+        android:id="@+id/lyAppbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/spacing_middle"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imgClose"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            app:srcCompat="@drawable/ic_close_grey"
+            android:tint="@color/grey_60" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center_vertical"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textColor="@color/grey_60"
+            android:textStyle="bold"
+            android:text="Filter"/>
+
+    </RelativeLayout>
+
+
+    <!--Content-->
+    <LinearLayout
+        android:id="@+id/lyContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:layout_weight="1"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+        //TAHUN RKA
+        <LinearLayout
+            android:id="@+id/lyTahunRKA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:paddingLeft="@dimen/spacing_middle"
+            android:paddingRight="@dimen/spacing_middle"
+            android:orientation="vertical">
+
+            //title
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:text="TAHUN RKA"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+            //line
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary"/>
+
+            //spinner - tahun rka
+            <!--<android.support.v7.widget.AppCompatSpinner-->
+                <!--android:id="@+id/spnTahunRKA"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="?attr/actionBarSize"-->
+                <!--android:paddingLeft="@dimen/spacing_middle"-->
+                <!--android:paddingRight="@dimen/spacing_middle"-->
+                <!--android:spinnerMode="dialog"-->
+                <!--style="@style/Base.Widget.AppCompat.Spinner"/>-->
+
+            <TextView
+                android:id="@+id/tvTahunRKA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacing_medium"
+                android:drawableRight="@drawable/ic_arrow_downward"
+                android:drawableTint="@color/grey_90"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/grey_90"
+                android:text="2018"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/spacing_medium" />
+
+        //SATKER
+        <LinearLayout
+            android:id="@+id/lySatker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:paddingLeft="@dimen/spacing_middle"
+            android:paddingRight="@dimen/spacing_middle"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            //title and semua satker
+            <LinearLayout
+                android:id="@+id/lySatkerTop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                //title
+                <TextView
+                    android:id="@+id/tvSatkerTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_medium"
+                    android:text="SATKER"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"/>
+
+                /line
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorPrimary"/>
+
+                //semua satker
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="Semua Satker"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="@color/grey_90" />
+
+                    <android.support.v7.widget.AppCompatCheckBox
+                        android:id="@+id/chkSemuaSatker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textColorHighlight="@color/colorPrimary"
+                        android:textColorHint="@color/grey_900"
+                        android:theme="@style/Checkbox.Grey" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            //filter text and clear
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/etFilterText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="@dimen/spacing_middle"
+                    android:background="@color/grey_5"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:inputType="number"
+                    android:hint="Ketikan kode satker">
+                </EditText>
+
+                <ImageButton
+                    android:id="@+id/imbFilterClear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/spacing_middle"
+                    android:background="@color/grey_5"
+                    app:srcCompat="@drawable/ic_close"
+                    android:tint="@color/grey_40"
+                    android:visibility="visible" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/spacing_medium" />
+
+            //List satker
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="vertical"
+                    android:scrollingCache="true"
+                    android:layout_marginBottom="@dimen/spacing_medium"/>
+
+                <View
+                    android:id="@+id/lyListLock"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#0D000000"
+                    android:visibility="gone"
+                    android:clickable="true"/>
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        //CARI
+        <!--<LinearLayout-->
+            <!--android:id="@+id/lyBottom"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@color/white"-->
+            <!---->
+            <!--android:orientation="horizontal">-->
+
+            <!--<Button-->
+                <!--android:id="@+id/btnSearch"-->
+                <!--style="@style/Button.Primary.Borderless"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/btn_rect_primary"-->
+                <!--android:textAppearance="@style/TextAppearance.AppCompat.Subhead"-->
+                <!--android:textAllCaps="true"-->
+                <!--android:textColor="#ffffff"-->
+                <!--android:textStyle="bold"-->
+                <!--android:text="Cari"/>-->
+
+        <!--</LinearLayout>-->
+
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:id="@+id/lyCari"
+            style="@style/RippleStyleWhite"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spacing_xxlarge"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:background="@color/colorPrimary">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:text="Cari"/>
+
+            </LinearLayout>
+
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+    </LinearLayout>
+
+
+
+
+</android.support.design.widget.CoordinatorLayout>

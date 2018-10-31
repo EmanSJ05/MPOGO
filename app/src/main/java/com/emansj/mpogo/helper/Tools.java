@@ -1,18 +1,26 @@
 package com.emansj.mpogo.helper;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
@@ -21,6 +29,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,15 +41,34 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
+import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
+import com.bumptech.glide.load.resource.bitmap.FitCenter;
+import com.bumptech.glide.request.Request;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.bumptech.glide.request.target.DrawableImageViewTarget;
+import com.bumptech.glide.request.target.SizeReadyCallback;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.android.gms.maps.GoogleMap;
 import com.emansj.mpogo.R;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.security.MessageDigest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class Tools {
 
@@ -89,19 +117,9 @@ public class Tools {
         }
     }
 
-    public static void displayImageOriginal(Context ctx, ImageView img, @DrawableRes int drawable) {
-        try {
-            Glide.with(ctx).load(drawable)
-                    .crossFade()
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .into(img);
-        } catch (Exception e) {
-        }
-    }
-
     public static void displayImageRound(final Context ctx, final ImageView img, @DrawableRes int drawable) {
         try {
-            Glide.with(ctx).load(drawable).asBitmap().centerCrop().into(new BitmapImageViewTarget(img) {
+            Glide.with(ctx).asBitmap().load(drawable).into(new BitmapImageViewTarget(img) {
                 @Override
                 protected void setResource(Bitmap resource) {
                     RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(ctx.getResources(), resource);
@@ -113,12 +131,62 @@ public class Tools {
         }
     }
 
+    public static void displayImageOriginal(Context ctx, ImageView img, @DrawableRes int drawable) {
+        try {
+            Glide.with(ctx).load(drawable)
+                    .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+                    .into(img);
+        } catch (Exception e) {
+        }
+    }
+
     public static void displayImageOriginal(Context ctx, ImageView img, String url) {
         try {
-            Glide.with(ctx).load(url)
-                    .crossFade()
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+            Glide.with(ctx)
+                    .load(url)
+                    .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
                     .into(img);
+        } catch (Exception e) {
+        }
+    }
+
+    public static void displayImage(Context ctx, ImageView img, String url, int width, int height, @DrawableRes int no_img_drawable) {
+        try {
+            RequestOptions options = new RequestOptions()
+                    .centerCrop()
+                    .placeholder(no_img_drawable)
+                    .error(no_img_drawable)
+                    .override(width, height).centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE);
+
+            Glide.with(ctx).load(url).apply(options).into(img);
+        } catch (Exception e) {
+        }
+    }
+
+    public static void displayImage(Context ctx, ImageView img, String url, @DrawableRes int no_img_drawable) {
+        try {
+            RequestOptions options = new RequestOptions()
+                    .centerCrop()
+                    .placeholder(no_img_drawable)
+                    .error(no_img_drawable)
+                    .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE);
+
+            Glide.with(ctx).load(url).apply(options).into(img);
+        } catch (Exception e) {
+        }
+    }
+
+    public static void displayImage(Context ctx, ImageView img, String url) {
+        try {
+            RequestOptions options = new RequestOptions()
+                    .centerCrop()
+                    .placeholder(R.mipmap.ic_launcher)
+                    .error(R.mipmap.ic_launcher)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE);
+
+            Glide.with(ctx).load(url).apply(options).into(img);
         } catch (Exception e) {
         }
     }
@@ -365,4 +433,69 @@ public class Tools {
 
         return dateTime;
     }
+
+    // Custom method to save a bitmap into internal storage
+    public static Uri saveImageToInternalStorage(Bitmap bitmap, Context ctx){
+        // Initialize ContextWrapper
+        ContextWrapper wrapper = new ContextWrapper(ctx);
+
+        // Initializing a new file
+        // The bellow line return a directory in internal storage
+        File file = wrapper.getDir("Images",MODE_PRIVATE);
+
+        // Create a file to save the image
+        file = new File(file, "UniqueFileName"+".jpg");
+
+        try{
+            // Initialize a new OutputStream
+            OutputStream stream = null;
+
+            // If the output file exists, it can be replaced or appended to it
+            stream = new FileOutputStream(file);
+
+            // Compress the bitmap
+            bitmap.compress(Bitmap.CompressFormat.JPEG,100,stream);
+
+            // Flushes the stream
+            stream.flush();
+
+            // Closes the stream
+            stream.close();
+
+        }catch (IOException e) // Catch the exception
+        {
+            e.printStackTrace();
+        }
+
+        // Parse the gallery image url to uri
+        Uri savedImageURI = Uri.parse(file.getAbsolutePath());
+
+        // Return the saved image Uri
+        return savedImageURI;
+    }
+
+    public static class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
+    }
+
 }

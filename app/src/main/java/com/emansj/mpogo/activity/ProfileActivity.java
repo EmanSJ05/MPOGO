@@ -9,10 +9,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.emansj.mpogo.R;
+import com.mikhaellopez.circularimageview.CircularImageView;
+import com.squareup.picasso.Picasso;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -43,6 +46,12 @@ public class ProfileActivity extends AppCompatActivity {
         //Init view
         fabChangePhoto = findViewById(R.id.fabChangePhoto);
         initToolbar();
+
+        ImageView imgPhoto = findViewById(R.id.imgPhoto);
+        Picasso.with(m_Ctx)
+                .load("http://localhost:8080/newmpo/mpo_upload/6f7bd5622148ce0404ff009afba3bd69.jpg")
+                .resize(150, 150)
+                .into(imgPhoto);
     }
 
     private void initToolbar(){

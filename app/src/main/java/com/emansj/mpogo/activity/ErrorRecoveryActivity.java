@@ -53,7 +53,7 @@ public class ErrorRecoveryActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Kesalahan terjadi");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Tools.setSystemBarColor(this, R.color.grey_5);
+        Tools.setSystemBarColor(this, R.color.colorPrimary);
         Tools.setSystemBarLight(this);
     }
 
@@ -64,4 +64,8 @@ public class ErrorRecoveryActivity extends AppCompatActivity {
         bg_image.setLayoutParams(params);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

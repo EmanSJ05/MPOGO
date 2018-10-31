@@ -22,11 +22,9 @@ public class RealisasiKeuangan {
     public Double mpoValue;
     public Double mpoPercent;
 
-
     public RealisasiKeuangan() {
 
     }
-
 
     //kewenangan
     public static List<RealisasiKeuangan> getKewenangan(Context ctx) {

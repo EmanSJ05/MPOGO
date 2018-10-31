@@ -17,9 +17,9 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
             app:contentInsetStartWithNavigation="0dp"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:theme="@style/Toolbar.Light" />
+            app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -53,10 +53,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <TextView
+                    <EditText
                         android:id="@+id/tvError"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:padding="@dimen/spacing_middle"
                         android:lineSpacingExtra="@dimen/spacing_middle"
                         android:text="There is no account available \nTap button below to add new account"
@@ -75,7 +75,7 @@
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
                 android:textColor="@color/red_A700"
                 android:gravity="center"
-                android:text="Segera screenshoot layarnya dan hubungi administrator" />
+                android:text="Segera screenshoot layarnya atau copy teksnya dan hubungi administrator" />
 
         </RelativeLayout>
 

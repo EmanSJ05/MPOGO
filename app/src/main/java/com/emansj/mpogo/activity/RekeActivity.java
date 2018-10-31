@@ -1,9 +1,10 @@
 package com.emansj.mpogo.activity;
 
-import android.app.Dialog;
+import android.app.Activity;
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.NestedScrollView;
@@ -14,16 +15,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.widget.Button;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.emansj.mpogo.R;
 import com.emansj.mpogo.adapter.AdapterReke;
-import com.emansj.mpogo.adapter.AdapterRekesik;
 import com.emansj.mpogo.fragment.DialogRekeDetail;
+import com.emansj.mpogo.fragment.DialogReportFilter;
 import com.emansj.mpogo.helper.AppUtils;
 import com.emansj.mpogo.helper.ExceptionHandler;
 import com.emansj.mpogo.model.RealisasiKeuangan;
@@ -41,22 +44,25 @@ public class RekeActivity extends AppCompatActivity {
     private View parent_view;
     private Toolbar toolbar;
     private RecyclerView rvList;
-    private View lyTotal;
-    private TextView tvTotalPagu;
-    private TextView tvTotalPaguLong;
-    private TextView tvTotalSmartValue;
-    private TextView tvTotalSmartPercent;
-    private TextView tvTotalSmartLong;
-    private TextView tvTotalMpoValue;
-    private TextView tvTotalMpoPercent;
-    private TextView tvTotalMpoLong;
+    private View lyBottom, lyBottomTotal;
+    private TextView    tvTotalPagu, tvTotalPaguLong,
+                        tvTotalSmartValue, tvTotalSmartPercent, tvTotalSmartLong,
+                        tvTotalMpoValue, tvTotalMpoPercent, tvTotalMpoLong;
+    private LinearLayout lyProgress;
+    private ProgressBar pbProgress;
 
     //Custom vars
     private List<RealisasiKeuangan> m_ListItem;
     private AdapterReke m_Adapter;
     private String m_Title;
     private String m_ReportName;
+    private int m_FilterTahunRKA = 0;
+    private List<Integer> m_FilterListIdSatker;
     private boolean m_IsBottomHide = false;
+    private  myTask m_Task = new myTask();
+    public static final int DIALOG_QUEST_CODE = 300;
+    private FragmentManager m_fragmentManager;
+    private DialogReportFilter m_dialogReportFilter;
 
 
     @Override
@@ -82,8 +88,35 @@ public class RekeActivity extends AppCompatActivity {
 
         initToolbar();
         initComponent();
-        showList();
-        showTotal();
+    }
+
+    //Override
+    @Override
+    protected void onStart() {
+        super.onStart();
+        m_Task = new myTask();
+        m_Task.execute();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        if (m_Task != null && m_Task.getStatus() != myTask.Status.FINISHED) {
+            m_Task.cancel(true);
+            m_Task = null;
+        }
+        finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (m_Task != null && m_Task.getStatus() != myTask.Status.FINISHED) {
+            m_Task.cancel(true);
+            m_Task = null;
+        }
     }
 
     @Override
@@ -94,10 +127,17 @@ public class RekeActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
+        if (item.getItemId() == R.id.home) {
             finish();
-        } else {
-            Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
+        }
+        else if(item.getItemId() == R.id.action_search) {
+            showFilter();
+        }
+        else if(item.getItemId() == R.id.action_filter) {
+            showFilter();
+        }
+        else {
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -111,6 +151,13 @@ public class RekeActivity extends AppCompatActivity {
     }
 
     private void initComponent(){
+        rvList = findViewById(R.id.rvData);
+        lyBottom = findViewById(R.id.lyBottom);
+        lyBottomTotal = findViewById(R.id.lyBottomTotal);
+        lyProgress = findViewById(R.id.lyProgress);
+        pbProgress = findViewById(R.id.pbProgress);
+
+        //listener
         NestedScrollView nested_content = findViewById(R.id.nsvScroll);
         nested_content.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
@@ -126,16 +173,13 @@ public class RekeActivity extends AppCompatActivity {
     }
 
     private void animateBottom(final boolean hide) {
-        lyTotal = findViewById(R.id.lyTotal);
-
         if (m_IsBottomHide && hide || !m_IsBottomHide && !hide) return;
         m_IsBottomHide = hide;
-        int moveY = hide ? (2 * lyTotal.getHeight()) : 0;
-        lyTotal.animate().translationY(moveY).setStartDelay(100).setDuration(300).start();
+        int moveY = hide ? (lyBottomTotal.getHeight()) : 0;
+        lyBottom.animate().translationY(moveY).setStartDelay(100).setDuration(300).start();
     }
 
     private void showList() {
-        rvList = parent_view.findViewById(R.id.rvData);
         rvList.setLayoutManager(new LinearLayoutManager(m_Ctx));
         rvList.setHasFixedSize(true);
         rvList.setNestedScrollingEnabled(false);
@@ -210,17 +254,97 @@ public class RekeActivity extends AppCompatActivity {
             tvTotalMpoValue.setText(AppUtils.shortCurrency(m_Ctx, String.format("%.0f", totalMpoValue)));
             tvTotalMpoPercent.setText(String.format("%,.2f", totalMpoPercent) + "%");
             tvTotalMpoLong.setText(String.format("%,.0f", totalMpoValue));
-
         }
     }
 
     private void showDialogDetail(RealisasiKeuangan obj) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentManager fm = getSupportFragmentManager();
         DialogRekeDetail newFragment = new DialogRekeDetail();
         newFragment.setData(obj);
-        FragmentTransaction ft = fragmentManager.beginTransaction();
+
+        FragmentTransaction ft = fm.beginTransaction();
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         ft.add(android.R.id.content, newFragment).addToBackStack(null).commit();
     }
 
+    private class myTask extends AsyncTask<Void, Void, Void>{
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            lyProgress.setVisibility(View.VISIBLE);
+            rvList.setVisibility(View.GONE);
+            lyBottom.setVisibility(View.GONE);
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            showList();
+            showTotal();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            lyProgress.setVisibility(View.GONE);
+            rvList.setVisibility(View.VISIBLE);
+            lyBottom.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void showFilter() {
+        FragmentManager fm = getSupportFragmentManager();
+        DialogReportFilter newFragment = new DialogReportFilter();
+        newFragment.setRequestCode(DIALOG_QUEST_CODE);
+
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.add(android.R.id.content, newFragment, "DialogReportFilter").addToBackStack(null).commit();
+
+        newFragment.setOnCallbackResult(new DialogReportFilter.CallbackResult() {
+            @Override
+            public void sendResult(int requestCode, int tahunRKA, boolean semuaSatker, List<Integer> idSatkers) {
+                if (requestCode == DIALOG_QUEST_CODE) {
+                    displayDataResult((int) tahunRKA, (boolean) semuaSatker, (List<Integer>) idSatkers);
+                }
+            }
+        });
+    }
+
+    private void displayDataResult(int tahunRKA, boolean semuaSatker, List<Integer> idSatkers) {
+        Toast.makeText(m_Ctx,   "tahun rka : " + tahunRKA + "\n semua satker : " + semuaSatker + "\n idsatkers : " + idSatkers.toArray().toString(), Toast.LENGTH_SHORT).show();
+
+        m_Adapter.notifyDataSetChanged();
+        showList();
+        showTotal();
+    }
+
+    public void hideKeyboard(View view) {
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+
+        if (view != null) {
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag("DialogReportFilter");
+        if (fragment != null) {
+            if (fragment.isVisible()) {
+                if (fragment instanceof DialogReportFilter) {
+                    if (fragment.getView().findViewById(R.id.lyTahunRKA).getVisibility() == View.GONE) {
+                        fragment.getView().findViewById(R.id.lyTahunRKA).setVisibility(View.VISIBLE);
+                        fragment.getView().findViewById(R.id.lySatkerTop).setVisibility(View.VISIBLE);
+                    } else {
+                        super.onBackPressed();
+                    }
+                }
+            }
+        }else{
+            super.onBackPressed();
+        }
+    }
 }

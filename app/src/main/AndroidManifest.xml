@@ -26,8 +26,22 @@
         </activity>
 
         <activity android:name=".activity.ErrorRecoveryActivity" />
-        <activity android:name=".activity.DrawerActivity" />
-        <activity android:name=".activity.RekeActivity" />
+        <activity android:name=".activity.DrawerActivity" >
+        <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
+
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+        <!--</intent-filter>-->
+        </activity>
+        <activity android:name=".activity.NotificationActivity" />
+        <activity android:name=".activity.RekeActivity"
+                    android:windowSoftInputMode="adjustPan">
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
+
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
         <activity android:name=".activity.RekesikActivity" />
         <activity android:name=".activity.RatingActivity" />
         <activity android:name=".activity.FisikActivity" />

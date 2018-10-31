@@ -13,20 +13,30 @@
         android:background="@drawable/background_drawer" />
 
     <com.mikhaellopez.circularimageview.CircularImageView
-        android:id="@+id/avatar"
+        android:id="@+id/civAvatar"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginTop="@dimen/spacing_large"
         android:layout_marginLeft="@dimen/spacing_large"
         android:layout_marginRight="@dimen/spacing_large"
-        android:src="@drawable/photo_profile_default"
+        app:srcCompat="@drawable/ic_fill_account_circle"
+        android:tint="@color/colorPrimaryLight"
         app:civ_border_width="2dp" />
+
+    <!--<ImageView-->
+        <!--android:id="@+id/civAvatar"-->
+        <!--android:layout_width="80dp"-->
+        <!--android:layout_height="80dp"-->
+        <!--android:layout_marginTop="@dimen/spacing_large"-->
+        <!--android:layout_marginLeft="@dimen/spacing_large"-->
+        <!--android:layout_marginRight="@dimen/spacing_large"-->
+        <!--app:srcCompat="@drawable/ic_fill_account_circle"/>-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/spacing_xlarge"
+        android:layout_marginBottom="@dimen/spacing_mxlarge"
         android:layout_marginLeft="@dimen/spacing_large"
         android:layout_marginRight="@dimen/spacing_large"
         android:gravity="center_vertical"
@@ -39,20 +49,20 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/name"
+                android:id="@+id/tvFullName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/spacing_small"
-                android:text="Santosa Raharjo"
+                android:text="Full Name"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:textColor="#000000"
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/email"
+                android:id="@+id/tvEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="santosa.raharjo@gmail.com"
+                android:text="email@domain.com"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="#000000" />
 
