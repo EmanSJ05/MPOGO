@@ -9,7 +9,17 @@
     app:contentInsetStartWithNavigation="0dp" >
 
     <TextView
-        android:id="@+id/txtTahunRKA"
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/spacing_medium"
+        android:layout_gravity="left"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textColor="@color/white"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/tvTahunRKA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/spacing_medium"
@@ -19,7 +29,7 @@
         android:drawablePadding="5dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textColor="@color/white"
-        android:text="2018" />
+        android:text="9999" />
 
 </android.support.v7.widget.Toolbar>
 

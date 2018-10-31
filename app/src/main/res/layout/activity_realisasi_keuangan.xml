@@ -72,72 +72,91 @@
         android:scrollingCache="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvData"
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="vertical"
-            android:scrollingCache="true"
-            android:layout_weight="1"/>
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvData"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"
+                android:scrollingCache="true"/>
+
+        </RelativeLayout>
+
 
     </android.support.v4.widget.NestedScrollView>
 
     <!--Bottom-->
     <LinearLayout
-        android:id="@+id/lyTotal"
+        android:id="@+id/lyBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
         android:orientation="vertical">
 
-        //Overlay
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:background="@drawable/bg_gradient_soft" />
-
-        //Caption
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/lyBottomCaption"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
             android:orientation="horizontal">
 
-            <View
-                android:layout_width="20dp"
-                android:layout_height="1dp"
-                android:layout_gravity="center_vertical"
-                android:background="@color/grey_10"/>
-
-            <TextView
+            <android.support.v7.widget.CardView
+                android:id="@+id/cv_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_condensed_bold"
-                android:layout_marginLeft="@dimen/spacing_medium"
-                android:layout_marginRight="@dimen/spacing_medium"
-                android:textAlignment="textStart"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                android:textColor="@color/grey_3"
-                android:textSize="10sp"
-                android:text="T O T A L" />
+                app:cardElevation="4dp"
+                app:cardCornerRadius="4dp">
+
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="4dp"
+                    android:layout_gravity="top"
+                    android:background="@drawable/bg_gradient_soft"/>
+
+                <TextView
+                    android:id="@+id/total"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:paddingTop="@dimen/spacing_small"
+                    android:paddingBottom="@dimen/spacing_small"
+                    android:paddingLeft="@dimen/spacing_large"
+                    android:paddingRight="@dimen/spacing_large"
+                    android:background="@color/colorPrimary"
+                    android:fontFamily="@font/roboto_condensed_bold"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textColor="@color/white"
+                    android:text="T O T A L" />
+
+            </android.support.v7.widget.CardView>
 
             <View
+                android:id="@+id/overlay"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_gravity="center_vertical"
-                android:background="@color/grey_10"/>
+                android:layout_height="4dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/bg_gradient_soft" />
 
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimary"/>
+
         //Content
         <LinearLayout
+            android:id="@+id/lyBottomTotal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/spacing_middle"
-            android:paddingLeft="@dimen/spacing_medium"
-            android:paddingRight="@dimen/spacing_medium"
-            android:background="@color/colorPrimary"
+            android:paddingTop="@dimen/spacing_medium"
+            android:paddingBottom="@dimen/spacing_medium"
+            android:paddingLeft="@dimen/spacing_small"
+            android:paddingRight="@dimen/spacing_small"
+            android:background="@color/white"
             android:orientation="horizontal"
             android:weightSum="2">
 
@@ -146,7 +165,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.4"
-                android:layout_marginBottom="@dimen/spacing_medium"
+                android:paddingLeft="@dimen/spacing_middle"
+                android:paddingRight="@dimen/spacing_middle"
                 android:orientation="vertical">
 
                 //keuangan
@@ -166,9 +186,9 @@
 
                         <ImageView
                             android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_gravity="center"
-                            android:tint="@color/grey_3"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical|right"
+                            android:tint="@color/colorPrimary"
                             app:srcCompat="@drawable/ic_outline_realisasi_keuangan"/>
 
                     </LinearLayout>
@@ -193,9 +213,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:paddingRight="@dimen/spacing_medium"
-                                android:background="@color/white"
-                                android:fontFamily="@font/roboto_condensed_regular"
                                 android:textAlignment="textEnd"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                                 android:textColor="@color/blue_grey_800"
@@ -205,8 +222,6 @@
                                 android:id="@+id/tvTotalPagu"
                                 android:layout_width="70dp"
                                 android:layout_height="wrap_content"
-                                android:paddingRight="@dimen/spacing_medium"
-                                android:background="@color/white"
                                 android:fontFamily="@font/roboto_bold"
                                 android:textAlignment="textEnd"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
@@ -234,9 +249,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:paddingRight="@dimen/spacing_medium"
-                                android:background="@color/white"
-                                android:fontFamily="@font/roboto_condensed_regular"
                                 android:textAlignment="textEnd"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                                 android:textColor="@color/blue_grey_800"
@@ -246,8 +258,6 @@
                                 android:id="@+id/tvTotalSmartValue"
                                 android:layout_width="70dp"
                                 android:layout_height="wrap_content"
-                                android:paddingRight="@dimen/spacing_medium"
-                                android:background="@color/white"
                                 android:fontFamily="@font/roboto_bold"
                                 android:textAlignment="textEnd"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
@@ -258,8 +268,6 @@
                                 android:id="@+id/tvTotalSmartPercent"
                                 android:layout_width="70dp"
                                 android:layout_height="match_parent"
-                                android:paddingRight="@dimen/spacing_medium"
-                                android:background="@color/white"
                                 android:fontFamily="@font/roboto_bold"
                                 android:textAlignment="textEnd"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
@@ -281,9 +289,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:paddingRight="@dimen/spacing_medium"
-                                android:background="@color/white"
-                                android:fontFamily="@font/roboto_condensed_regular"
                                 android:textAlignment="textEnd"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                                 android:textColor="@color/blue_grey_800"
@@ -293,8 +298,6 @@
                                 android:id="@+id/tvTotalMpoValue"
                                 android:layout_width="70dp"
                                 android:layout_height="wrap_content"
-                                android:paddingRight="@dimen/spacing_medium"
-                                android:background="@color/white"
                                 android:fontFamily="@font/roboto_bold"
                                 android:textAlignment="textEnd"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
@@ -305,8 +308,6 @@
                                 android:id="@+id/tvTotalMpoPercent"
                                 android:layout_width="70dp"
                                 android:layout_height="wrap_content"
-                                android:paddingRight="@dimen/spacing_medium"
-                                android:background="@color/white"
                                 android:fontFamily="@font/roboto_bold"
                                 android:textAlignment="textEnd"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
@@ -322,6 +323,34 @@
             </LinearLayout>
 
         </LinearLayout>
+
+    </LinearLayout>
+
+
+    <!--Progress-->
+    <LinearLayout
+        android:id="@+id/lyProgress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_medium"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ProgressBar
+            android:id="@+id/pbProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="false"
+            android:progress="0"
+            android:max="100"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:text="Loading..."
+            android:textColor="@color/colorPrimary"/>
 
     </LinearLayout>
 

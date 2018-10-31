@@ -13,7 +13,8 @@ public class FisikActivity extends Activity {
 
     //Standard vars
     private static final String TAG = FisikActivity.class.getSimpleName();
-    private AppGlobal m_Global = AppGlobal.getInstance();
+    private AppGlobal m_Global;
+    private AppGlobal.Data m_GlobalData;
 
     //Custom vars
     //write here ...

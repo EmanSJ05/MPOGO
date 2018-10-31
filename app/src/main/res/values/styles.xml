@@ -1,7 +1,9 @@
 <resources>
 
+    <style name="AppTheme" parent="BaseTheme" />
+
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -11,7 +13,7 @@
         <item name="android:windowBackground">@color/white</item>
 
 
-        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:fontFamily">@font/roboto</item>EditText.Flat.Grey
 
         <!-- menu item-->
         <item name="android:itemBackground">@color/white</item>
@@ -193,6 +195,18 @@
         <item name="colorAccent">@color/grey_60</item>
     </style>
 
+    <style name="EditText.Flat.Grey" parent="@style/AppTheme">
+        <item name="android:textColorHint">@color/grey_40</item>
+        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Subhead</item>
+        <item name="android:textColor">@color/grey_90</item>
+    </style>
+
+    <style name="EditText.Flat.Grey.Small" parent="@style/AppTheme">
+        <item name="android:textColorHint">@color/grey_40</item>
+        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Body1</item>
+        <item name="android:textColor">@color/grey_90</item>
+    </style>
+
     <style name="EditText.Green" parent="@style/AppTheme">
         <item name="colorControlActivated">@color/green_500</item>
         <item name="colorControlHighlight">@color/green_500</item>
@@ -218,6 +232,14 @@
         <item name="colorAccent">@color/blue_600</item>
         <item name="colorControlActivated">@color/blue_600</item>
         <item name="colorControlHighlight">@color/blue_600</item>
+        <item name="colorControlNormal">@color/grey_40</item>
+    </style>
+
+    <style name="Checkbox.Grey" parent="@style/AppTheme">
+        <item name="colorPrimary">@color/grey_90</item>
+        <item name="colorAccent">@color/grey_90</item>
+        <item name="colorControlActivated">@color/grey_90</item>
+        <item name="colorControlHighlight">@color/grey_90</item>
         <item name="colorControlNormal">@color/grey_40</item>
     </style>
 

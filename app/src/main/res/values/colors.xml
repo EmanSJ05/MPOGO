@@ -3,9 +3,9 @@
     <color name="colorPrimary">#82C96B</color>
     <color name="colorPrimaryDark">#58A740</color>
     <color name="colorPrimaryLight">#ABE19A</color>
-    <color name="colorAccent">#82c96b</color>
-    <color name="colorAccentDark">#5dc248</color>
-    <color name="colorAccentLight">#C8E6C9</color>
+    <color name="colorAccent">#82C96B</color>
+    <color name="colorAccentDark">#58A740</color>
+    <color name="colorAccentLight">#ABE19A</color>
     <color name="color_blue_1">#f2fafc</color>
     <color name="color_blue_2">#e4f4fd</color>
     <color name="color_blue_3">#d1ecf9</color>
