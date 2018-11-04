@@ -6,16 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.emansj.mpogo.R;
-import com.emansj.mpogo.helper.Tools;
 import com.emansj.mpogo.model.Satker;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,12 +19,19 @@ public class AdapterSatkerFilter extends RecyclerView.Adapter<AdapterSatkerFilte
     public List<Satker> m_Items = new ArrayList<>();
     public List<Satker> m_ItemsChecked = new ArrayList<>();
     public List<Satker> m_FilterList = new ArrayList<>();
-    public CustomFilter filter;
-
     private Context m_Ctx;
-    //private AdapterSatkerFilter.OnItemClickListener m_OnItemClickListener = null;
+    private OnItemClickListener m_OnItemClickListener;
+    public CustomFilter filter;
     private boolean m_IsNotified = true;
 
+
+    public interface OnItemClickListener{
+        void onItemClick(View view);
+    }
+
+    public void setOnItemClickListener(final OnItemClickListener mItemClickListener){
+        this.m_OnItemClickListener = mItemClickListener;
+    }
 
     public AdapterSatkerFilter(Context ctx, List<Satker> items) {
         this.m_Ctx = ctx;
@@ -65,7 +67,7 @@ public class AdapterSatkerFilter extends RecyclerView.Adapter<AdapterSatkerFilte
     public void onBindViewHolder(final MyHolder holder, final int position) {
         Satker i = m_Items.get(position);
         holder.tvKdSatker.setText(i.kdSatker);
-        holder.tvNmSatker.setText(Tools.initCaps(i.nmSatker));
+        holder.tvNmSatker.setText(i.nmSatker);
         holder.chkSelected.setChecked(i.isSelected);
 
         //row clicked
@@ -78,13 +80,21 @@ public class AdapterSatkerFilter extends RecyclerView.Adapter<AdapterSatkerFilte
                     holder.chkSelected.setChecked(false);
                 }
                 selectItem(holder, position);
+
+                if (m_OnItemClickListener != null) {
+                    m_OnItemClickListener.onItemClick(view);
+                }
             }
         });
 
         holder.chkSelected.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 selectItem(holder, position);
+
+                if (m_OnItemClickListener != null) {
+                    m_OnItemClickListener.onItemClick(view);
+                }
             }
         });
     }
@@ -117,6 +127,15 @@ public class AdapterSatkerFilter extends RecyclerView.Adapter<AdapterSatkerFilte
     }
 
     public long getSelectedItemCount(){
+
+        if (m_ItemsChecked.size() <= 0){
+            for (Satker i : m_Items) {
+                if (i.isSelected){
+                    m_ItemsChecked.add(i);
+                }
+            }
+        }
+
         return m_ItemsChecked.size();
     }
 
@@ -130,14 +149,6 @@ public class AdapterSatkerFilter extends RecyclerView.Adapter<AdapterSatkerFilte
         }
         return items;
     }
-
-//    public interface OnItemClickListener{
-//        void onItemClick(View view, Satker obj, int position);
-//    }
-
-//    public void setOnItemClickListener(final AdapterSatkerFilter.OnItemClickListener mItemClickListener){
-//        this.m_OnItemClickListener = mItemClickListener;
-//    }
 
     //RETURN FILTER OBJ
     @Override

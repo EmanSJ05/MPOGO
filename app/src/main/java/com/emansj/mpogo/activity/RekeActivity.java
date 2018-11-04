@@ -1,8 +1,8 @@
 package com.emansj.mpogo.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,30 +17,38 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.android.volley.RequestQueue;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.emansj.mpogo.R;
 import com.emansj.mpogo.adapter.AdapterReke;
 import com.emansj.mpogo.fragment.DialogRekeDetail;
 import com.emansj.mpogo.fragment.DialogReportFilter;
+import com.emansj.mpogo.helper.AppGlobal;
 import com.emansj.mpogo.helper.AppUtils;
 import com.emansj.mpogo.helper.ExceptionHandler;
+import com.emansj.mpogo.helper.VolleyErrorHelper;
+import com.emansj.mpogo.helper.VolleySingleton;
 import com.emansj.mpogo.model.RealisasiKeuangan;
-
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.util.ArrayList;
 import java.util.List;
+
 
 public class RekeActivity extends AppCompatActivity {
 
     //Standard vars
     private static final String TAG = RekeActivity.class.getSimpleName();
     private Context m_Ctx;
-    private RequestQueue m_Queue;
+    private AppGlobal m_Global;
+    private AppGlobal.Data m_GlobalData;
 
-    //Define views
+    //View vars
     private View parent_view;
     private Toolbar toolbar;
     private RecyclerView rvList;
@@ -48,23 +56,17 @@ public class RekeActivity extends AppCompatActivity {
     private TextView    tvTotalPagu, tvTotalPaguLong,
                         tvTotalSmartValue, tvTotalSmartPercent, tvTotalSmartLong,
                         tvTotalMpoValue, tvTotalMpoPercent, tvTotalMpoLong;
-    private LinearLayout lyProgress;
-    private ProgressBar pbProgress;
 
     //Custom vars
     private List<RealisasiKeuangan> m_ListItem;
     private AdapterReke m_Adapter;
     private String m_Title;
     private String m_ReportName;
-    private int m_FilterTahunRKA = 0;
-    private List<Integer> m_FilterListIdSatker;
     private boolean m_IsBottomHide = false;
-    private  myTask m_Task = new myTask();
     public static final int DIALOG_QUEST_CODE = 300;
-    private FragmentManager m_fragmentManager;
-    private DialogReportFilter m_dialogReportFilter;
 
 
+    //---------------------------------------OVERRIDE
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,37 +87,43 @@ public class RekeActivity extends AppCompatActivity {
         //Activity settings
         parent_view = findViewById(android.R.id.content);
         m_Ctx = RekeActivity.this;
+        m_Global = AppGlobal.getInstance(m_Ctx);
+        m_GlobalData = m_Global.new Data();
 
         initToolbar();
         initComponent();
-    }
-
-    //Override
-    @Override
-    protected void onStart() {
-        super.onStart();
-        m_Task = new myTask();
-        m_Task.execute();
+        initData();
     }
 
     @Override
-    protected void onStop() {
+    protected void onStop () {
         super.onStop();
-
-        if (m_Task != null && m_Task.getStatus() != myTask.Status.FINISHED) {
-            m_Task.cancel(true);
-            m_Task = null;
-        }
-        finish();
+        VolleySingleton.getInstance(m_Ctx).cancelPendingRequests(TAG);
+        m_GlobalData.cancelRequest(TAG);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        VolleySingleton.getInstance(m_Ctx).cancelPendingRequests(TAG);
+        m_GlobalData.cancelRequest(TAG);
+    }
 
-        if (m_Task != null && m_Task.getStatus() != myTask.Status.FINISHED) {
-            m_Task.cancel(true);
-            m_Task = null;
+    @Override
+    public void onBackPressed() {
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag("DialogReportFilter");
+        if (fragment != null) {
+            if (fragment.isVisible()) {
+                if (fragment instanceof DialogReportFilter) {
+                    if (fragment.getView().findViewById(R.id.lyTahunRKA).getVisibility() == View.GONE) {
+                        fragment.getView().findViewById(R.id.lyTahunRKA).setVisibility(View.VISIBLE);
+                    } else {
+                        super.onBackPressed();
+                    }
+                }
+            }
+        }else{
+            super.onBackPressed();
         }
     }
 
@@ -142,6 +150,8 @@ public class RekeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    //---------------------------------------INIT COMPONENTS & DATA
     private void initToolbar(){
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
@@ -151,11 +161,26 @@ public class RekeActivity extends AppCompatActivity {
     }
 
     private void initComponent(){
-        rvList = findViewById(R.id.rvData);
         lyBottom = findViewById(R.id.lyBottom);
         lyBottomTotal = findViewById(R.id.lyBottomTotal);
-        lyProgress = findViewById(R.id.lyProgress);
-        pbProgress = findViewById(R.id.pbProgress);
+
+        //LIST
+        rvList = findViewById(R.id.rvData);
+        rvList.setLayoutManager(new LinearLayoutManager(m_Ctx));
+        rvList.setHasFixedSize(true);
+        rvList.setNestedScrollingEnabled(false);
+
+        //LIST - ADAPTER - LISTENER
+        m_ListItem = new ArrayList<>();
+        m_Adapter = new AdapterReke(m_Ctx, m_ListItem);
+        m_Adapter.setOnItemClickListener(new AdapterReke.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, RealisasiKeuangan obj, int position) {
+                final RealisasiKeuangan rk = m_ListItem.get(position);
+                showDialogDetail(rk);
+            }
+        });
+        rvList.setAdapter(m_Adapter);
 
         //listener
         NestedScrollView nested_content = findViewById(R.id.nsvScroll);
@@ -172,21 +197,12 @@ public class RekeActivity extends AppCompatActivity {
         });
     }
 
-    private void animateBottom(final boolean hide) {
-        if (m_IsBottomHide && hide || !m_IsBottomHide && !hide) return;
-        m_IsBottomHide = hide;
-        int moveY = hide ? (lyBottomTotal.getHeight()) : 0;
-        lyBottom.animate().translationY(moveY).setStartDelay(100).setDuration(300).start();
-    }
-
-    private void showList() {
-        rvList.setLayoutManager(new LinearLayoutManager(m_Ctx));
-        rvList.setHasFixedSize(true);
-        rvList.setNestedScrollingEnabled(false);
+    private void initData() {
+        if (m_ListItem != null) m_ListItem.clear();
 
         switch(m_ReportName) {
             case "Kewenangan":
-                m_ListItem = RealisasiKeuangan.getKewenangan(m_Ctx);
+                getDataKewenangan();
                 break;
             case "Kegiatan":
                 m_ListItem = RealisasiKeuangan.getKegiatan(m_Ctx);
@@ -204,17 +220,6 @@ public class RekeActivity extends AppCompatActivity {
                 m_ListItem = RealisasiKeuangan.getOutput(m_Ctx);
                 break;
         }
-
-        m_Adapter = new AdapterReke(m_Ctx, m_ListItem);
-        m_Adapter.setOnItemClickListener(new AdapterReke.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, RealisasiKeuangan obj, int position) {
-                final RealisasiKeuangan rk = m_ListItem.get(position);
-                showDialogDetail(rk);
-            }
-        });
-        rvList.setAdapter(m_Adapter);
-
     }
 
     private void showTotal() {
@@ -224,7 +229,7 @@ public class RekeActivity extends AppCompatActivity {
         double totalMpoValue = 0;
         double totalMpoPercent = 0;
 
-        if (m_ListItem.isEmpty() == false) {
+        if (m_ListItem != null) {
 
             for (int row = 0; row < m_ListItem.size(); row++) {
                 totalPagu += m_ListItem.get(row).pagu;
@@ -257,6 +262,15 @@ public class RekeActivity extends AppCompatActivity {
         }
     }
 
+
+    //---------------------------------------ACTIONS
+    private void animateBottom(final boolean hide) {
+        if (m_IsBottomHide && hide || !m_IsBottomHide && !hide) return;
+        m_IsBottomHide = hide;
+        int moveY = hide ? (lyBottomTotal.getHeight()) : 0;
+        lyBottom.animate().translationY(moveY).setStartDelay(100).setDuration(300).start();
+    }
+
     private void showDialogDetail(RealisasiKeuangan obj) {
         FragmentManager fm = getSupportFragmentManager();
         DialogRekeDetail newFragment = new DialogRekeDetail();
@@ -265,32 +279,6 @@ public class RekeActivity extends AppCompatActivity {
         FragmentTransaction ft = fm.beginTransaction();
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         ft.add(android.R.id.content, newFragment).addToBackStack(null).commit();
-    }
-
-    private class myTask extends AsyncTask<Void, Void, Void>{
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            lyProgress.setVisibility(View.VISIBLE);
-            rvList.setVisibility(View.GONE);
-            lyBottom.setVisibility(View.GONE);
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            showList();
-            showTotal();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            lyProgress.setVisibility(View.GONE);
-            rvList.setVisibility(View.VISIBLE);
-            lyBottom.setVisibility(View.VISIBLE);
-        }
     }
 
     private void showFilter() {
@@ -304,20 +292,19 @@ public class RekeActivity extends AppCompatActivity {
 
         newFragment.setOnCallbackResult(new DialogReportFilter.CallbackResult() {
             @Override
-            public void sendResult(int requestCode, int tahunRKA, boolean semuaSatker, List<Integer> idSatkers) {
+            public void sendResult(int requestCode, int tahunRKA, boolean semuaSatker, String idSatkers) {
                 if (requestCode == DIALOG_QUEST_CODE) {
-                    displayDataResult((int) tahunRKA, (boolean) semuaSatker, (List<Integer>) idSatkers);
+                    displayBackResult((int) tahunRKA, (boolean) semuaSatker, (String) idSatkers);
                 }
             }
         });
     }
 
-    private void displayDataResult(int tahunRKA, boolean semuaSatker, List<Integer> idSatkers) {
-        Toast.makeText(m_Ctx,   "tahun rka : " + tahunRKA + "\n semua satker : " + semuaSatker + "\n idsatkers : " + idSatkers.toArray().toString(), Toast.LENGTH_SHORT).show();
+    private void displayBackResult(int tahunRKA, boolean semuaSatker, String idSatkers) {
+        Toast.makeText(m_Ctx,   "tahun rka : " + tahunRKA + "\n semua satker : " + semuaSatker + "\n idsatkers : " + idSatkers, Toast.LENGTH_SHORT).show();
 
+        initData();
         m_Adapter.notifyDataSetChanged();
-        showList();
-        showTotal();
     }
 
     public void hideKeyboard(View view) {
@@ -329,22 +316,61 @@ public class RekeActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        Fragment fragment = getSupportFragmentManager().findFragmentByTag("DialogReportFilter");
-        if (fragment != null) {
-            if (fragment.isVisible()) {
-                if (fragment instanceof DialogReportFilter) {
-                    if (fragment.getView().findViewById(R.id.lyTahunRKA).getVisibility() == View.GONE) {
-                        fragment.getView().findViewById(R.id.lyTahunRKA).setVisibility(View.VISIBLE);
-                        fragment.getView().findViewById(R.id.lySatkerTop).setVisibility(View.VISIBLE);
-                    } else {
-                        super.onBackPressed();
+
+    //---------------------------------------GET DATA LAPORAN
+    private void getDataKewenangan() {
+        final ProgressDialog progressDialog = new ProgressDialog(m_Ctx);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+
+        String api = "/Laporan/getRKPerJenisKewenangan";
+        String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserId());
+        String url = AppGlobal.URL_ROOT + api + params;
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>(){
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try{
+                            int status = response.getInt("status");
+                            if (status == 200 )
+                            {
+                                JSONArray data = response.getJSONArray("data");
+                                if (data.length() > 0)
+                                {
+                                    for (int i = 0; i < data.length(); i++)
+                                    {
+                                        JSONObject row = data.getJSONObject(i);
+
+                                        RealisasiKeuangan obj = new RealisasiKeuangan();
+                                        obj.title = row.getString("title");
+                                        obj.pagu = Double.parseDouble(row.getString("pagu"));
+                                        obj.smartValue = Double.parseDouble(row.getString("smartValue"));
+                                        obj.smartPercent = Double.parseDouble(row.getString("smartPercent"));
+                                        obj.mpoValue = Double.parseDouble(row.getString("mpoValue"));
+                                        obj.mpoPercent = Double.parseDouble(row.getString("mpoPercent"));
+                                        m_ListItem.add(obj);
+                                    }
+                                    progressDialog.dismiss();
+                                    m_Adapter.notifyDataSetChanged();
+                                    showTotal();
+                                }
+                            }
+
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        progressDialog.dismiss();
+                        VolleyErrorHelper.showError(error, m_Ctx);
                     }
                 }
-            }
-        }else{
-            super.onBackPressed();
-        }
+        );
+        VolleySingleton.getInstance(m_Ctx).addToRequestQueue(request, TAG);
     }
 }

@@ -56,48 +56,33 @@
             android:paddingRight="@dimen/spacing_middle"
             android:orientation="vertical">
 
-            //title
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/spacing_medium"
-                android:text="TAHUN RKA"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="@color/black"
-                android:textStyle="bold"/>
-
-            //line
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorPrimary"/>
-
-            //spinner - tahun rka
-            <!--<android.support.v7.widget.AppCompatSpinner-->
-                <!--android:id="@+id/spnTahunRKA"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="?attr/actionBarSize"-->
-                <!--android:paddingLeft="@dimen/spacing_middle"-->
-                <!--android:paddingRight="@dimen/spacing_middle"-->
-                <!--android:spinnerMode="dialog"-->
-                <!--style="@style/Base.Widget.AppCompat.Spinner"/>-->
+                android:textColor="@color/grey_90"
+                android:text="Tahun RKA"/>
 
             <TextView
                 android:id="@+id/tvTahunRKA"
+                style="@style/EditText.Flat.Grey"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/spacing_medium"
-                android:drawableRight="@drawable/ic_arrow_downward"
-                android:drawableTint="@color/grey_90"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="@color/grey_90"
-                android:text="2018"/>
+                android:layout_height="@dimen/spacing_xmlarge"
+                android:background="@drawable/edit_text_round_bg_outline"
+                android:drawableEnd="@drawable/ic_expand_arrow"
+                android:drawableRight="@drawable/ic_expand_arrow"
+                android:minHeight="@dimen/spacing_xmlarge"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/spacing_large"
+                android:paddingRight="@dimen/spacing_large"
+                android:text="2018" />
 
         </LinearLayout>
 
         <View
             android:layout_width="0dp"
-            android:layout_height="@dimen/spacing_medium" />
+            android:layout_height="@dimen/spacing_mxlarge" />
 
         //SATKER
         <LinearLayout
@@ -110,56 +95,59 @@
             android:orientation="vertical"
             android:layout_weight="1">
 
-            //title and semua satker
-            <LinearLayout
-                android:id="@+id/lySatkerTop"
+            //title
+            <TextView
+                android:id="@+id/tvSatkerTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:text="SATKER"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
 
-                //title
+            /line
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/spacing_medium" />
+
+            //semua satker
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
                 <TextView
-                    android:id="@+id/tvSatkerTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/spacing_medium"
-                    android:text="SATKER"
+                    android:id="@+id/tvSemuaSatker"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/spacing_xmlarge"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"/>
+                    android:textColor="@color/grey_90"
+                    android:text="Semua Satker"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground"/>
 
-                /line
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorPrimary"/>
-
-                //semua satker
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:text="Semua Satker"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:textColor="@color/grey_90" />
-
-                    <android.support.v7.widget.AppCompatCheckBox
-                        android:id="@+id/chkSemuaSatker"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:textColorHighlight="@color/colorPrimary"
-                        android:textColorHint="@color/grey_900"
-                        android:theme="@style/Checkbox.Grey" />
-
-                </LinearLayout>
+                <android.support.v7.widget.AppCompatCheckBox
+                    android:id="@+id/chkSemuaSatker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColorHighlight="@color/colorPrimary"
+                    android:textColorHint="@color/grey_900"
+                    android:theme="@style/Checkbox.Grey" />
 
             </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/spacing_medium" />
 
             //filter text and clear
             <LinearLayout
@@ -170,7 +158,7 @@
                 <EditText
                     android:id="@+id/etFilterText"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/spacing_xmlarge"
                     android:layout_weight="1"
                     android:padding="@dimen/spacing_middle"
                     android:background="@color/grey_5"
@@ -182,7 +170,7 @@
                 <ImageButton
                     android:id="@+id/imbFilterClear"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/spacing_xmlarge"
                     android:padding="@dimen/spacing_middle"
                     android:background="@color/grey_5"
                     app:srcCompat="@drawable/ic_close"

@@ -215,8 +215,7 @@
                                 android:layout_weight="1"
                                 android:textAlignment="textEnd"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                                android:textColor="@color/blue_grey_800"
-                                android:text="" />
+                                android:textColor="@color/blue_grey_800"/>
 
                             <TextView
                                 android:id="@+id/tvTotalPagu"
@@ -225,8 +224,7 @@
                                 android:fontFamily="@font/roboto_bold"
                                 android:textAlignment="textEnd"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                                android:textColor="@color/blue_grey_800"
-                                android:text="99.9 M" />
+                                android:textColor="@color/blue_grey_800"/>
 
                             <TextView
                                 android:layout_width="70dp"
@@ -251,8 +249,7 @@
                                 android:layout_weight="1"
                                 android:textAlignment="textEnd"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                                android:textColor="@color/blue_grey_800"
-                                android:text="" />
+                                android:textColor="@color/blue_grey_800"/>
 
                             <TextView
                                 android:id="@+id/tvTotalSmartValue"
@@ -261,8 +258,7 @@
                                 android:fontFamily="@font/roboto_bold"
                                 android:textAlignment="textEnd"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                                android:textColor="@color/blue_grey_800"
-                                android:text="123.5 M" />
+                                android:textColor="@color/blue_grey_800"/>
 
                             <TextView
                                 android:id="@+id/tvTotalSmartPercent"
@@ -271,8 +267,7 @@
                                 android:fontFamily="@font/roboto_bold"
                                 android:textAlignment="textEnd"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                                android:textColor="@color/colorPrimaryDark"
-                                android:text="93.71%" />
+                                android:textColor="@color/colorPrimaryDark"/>
 
                         </LinearLayout>
 
@@ -291,8 +286,7 @@
                                 android:layout_weight="1"
                                 android:textAlignment="textEnd"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                                android:textColor="@color/blue_grey_800"
-                                android:text="" />
+                                android:textColor="@color/blue_grey_800"/>
 
                             <TextView
                                 android:id="@+id/tvTotalMpoValue"
@@ -301,8 +295,7 @@
                                 android:fontFamily="@font/roboto_bold"
                                 android:textAlignment="textEnd"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                                android:textColor="@color/blue_grey_800"
-                                android:text="999.9 M" />
+                                android:textColor="@color/blue_grey_800"/>
 
                             <TextView
                                 android:id="@+id/tvTotalMpoPercent"
@@ -311,8 +304,7 @@
                                 android:fontFamily="@font/roboto_bold"
                                 android:textAlignment="textEnd"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                                android:textColor="@color/colorPrimaryDark"
-                                android:text="88.82%" />
+                                android:textColor="@color/colorPrimaryDark"/>
 
                         </LinearLayout>
 
@@ -323,34 +315,6 @@
             </LinearLayout>
 
         </LinearLayout>
-
-    </LinearLayout>
-
-
-    <!--Progress-->
-    <LinearLayout
-        android:id="@+id/lyProgress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/spacing_medium"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <ProgressBar
-            android:id="@+id/pbProgress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminate="false"
-            android:progress="0"
-            android:max="100"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:text="Loading..."
-            android:textColor="@color/colorPrimary"/>
 
     </LinearLayout>
 
