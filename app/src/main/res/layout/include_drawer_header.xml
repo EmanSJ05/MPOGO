@@ -19,18 +19,9 @@
         android:layout_marginTop="@dimen/spacing_large"
         android:layout_marginLeft="@dimen/spacing_large"
         android:layout_marginRight="@dimen/spacing_large"
-        app:srcCompat="@drawable/ic_fill_account_circle"
+        android:src="@drawable/img_no_available_user_photo"
         android:tint="@color/colorPrimaryLight"
         app:civ_border_width="2dp" />
-
-    <!--<ImageView-->
-        <!--android:id="@+id/civAvatar"-->
-        <!--android:layout_width="80dp"-->
-        <!--android:layout_height="80dp"-->
-        <!--android:layout_marginTop="@dimen/spacing_large"-->
-        <!--android:layout_marginLeft="@dimen/spacing_large"-->
-        <!--android:layout_marginRight="@dimen/spacing_large"-->
-        <!--app:srcCompat="@drawable/ic_fill_account_circle"/>-->
 
     <LinearLayout
         android:layout_width="match_parent"

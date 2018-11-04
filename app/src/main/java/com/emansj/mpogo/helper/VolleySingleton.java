@@ -8,6 +8,7 @@ import android.util.Base64;
 import android.util.LruCache;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -89,6 +90,13 @@ public class VolleySingleton {
     }
 
     public <T> void addToRequestQueue(Request<T> req,String tag) {
+        final int MY_SOCKET_TIMEOUT_MS = 10000;
+
+        req.setRetryPolicy(new DefaultRetryPolicy(
+                MY_SOCKET_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         // set the default tag if tag is empty
         req.setTag(TextUtils.isEmpty(tag) ? TAG : tag);
         VolleyLog.d("Adding request to queue: %s", req.getUrl());

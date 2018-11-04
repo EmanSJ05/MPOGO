@@ -24,6 +24,7 @@ import com.emansj.mpogo.R;
 import com.emansj.mpogo.helper.AppGlobal;
 import com.emansj.mpogo.helper.ExceptionHandler;
 import com.emansj.mpogo.helper.Tools;
+import com.emansj.mpogo.helper.VolleySingleton;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,7 @@ public class DrawerActivity extends AppCompatActivity {
     private AppGlobal m_Global;
     private AppGlobal.Data m_GlobalData;
 
-    //Define views
+    //View vars
     private View parent_view;
     private Toolbar toolbar;
     private DrawerLayout drwLayout;
@@ -51,6 +52,7 @@ public class DrawerActivity extends AppCompatActivity {
     private String m_SelectedTahunRKA;
 
 
+    //---------------------------------------OVERRIDE
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +71,37 @@ public class DrawerActivity extends AppCompatActivity {
         initData();
     }
 
+    @Override
+    protected void onStop () {
+        super.onStop();
+        VolleySingleton.getInstance(m_Ctx).cancelPendingRequests(TAG);
+        m_GlobalData.cancelAllRequest();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        VolleySingleton.getInstance(m_Ctx).cancelPendingRequests(TAG);
+        m_GlobalData.cancelAllRequest();
+    }
+
+    private long exitTime = 0;
+    @Override
+    public void onBackPressed() {
+        if (drwLayout.isDrawerOpen(GravityCompat.START)) {
+            drwLayout.closeDrawer(GravityCompat.START);
+        } else {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                Toast.makeText(this, "Tekan lagi untuk keluar aplikasi", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+            }
+        }
+    }
+
+
+    //---------------------------------------INIT COMPONENTS & DATA
     private void initToolbar(){
         toolbar = findViewById(R.id.toolbar);
         //toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
@@ -127,7 +160,7 @@ public class DrawerActivity extends AppCompatActivity {
         tvFullName.setText(m_Global.getUserFullName());
         tvEmail.setText(m_Global.getUserEmail());
         //civAvatar.setImageDrawable(m_Global.getUserImageDrawable());
-        Tools.displayImage(m_Ctx, civAvatar, m_Global.getUserImageUrl());
+        Tools.displayImage(m_Ctx, civAvatar, m_Global.getUserImageUrl(), R.drawable.img_no_available_user_photo);
     }
 
     private void loadNotifications() {
@@ -140,6 +173,8 @@ public class DrawerActivity extends AppCompatActivity {
         //badgePrioNotif.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
     }
 
+
+    //---------------------------------------ACTIONS
     private void showNavigation(@NonNull MenuItem item, int itemId) {
 
         if (itemId == R.id.nav_notifications){
@@ -188,8 +223,8 @@ public class DrawerActivity extends AppCompatActivity {
         drwLayout.closeDrawer(GravityCompat.START);
     }
 
-    private void showDialogTahunRKA()
-    {
+    private void showDialogTahunRKA() {
+
         if (m_Global.getTahunRKA_List().isEmpty() == false)
         {
             String[] tahun = new String[m_ListTahunRKA.size()];
@@ -221,19 +256,5 @@ public class DrawerActivity extends AppCompatActivity {
         }
     }
 
-    private long exitTime = 0;
-    @Override
-    public void onBackPressed() {
-        if (drwLayout.isDrawerOpen(GravityCompat.START)) {
-            drwLayout.closeDrawer(GravityCompat.START);
-        } else {
-            if ((System.currentTimeMillis() - exitTime) > 2000) {
-                Toast.makeText(this, "Tekan lagi untuk keluar aplikasi", Toast.LENGTH_SHORT).show();
-                exitTime = System.currentTimeMillis();
-            } else {
-                finish();
-            }
-        }
-    }
 }
 

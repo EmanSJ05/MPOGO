@@ -43,7 +43,7 @@ public class LoginActivity extends Activity {
     private AppGlobal.Data m_GlobalData;
     private ProgressDialog m_PDialog;
 
-    //Define views
+    //View vars
     private View parent_view;
     private EditText editUsername, editPassword;
     private AppCompatCheckBox chkRememberMe;
@@ -53,6 +53,7 @@ public class LoginActivity extends Activity {
     //....
 
 
+    //---------------------------------------OVERRIDE
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -70,6 +71,22 @@ public class LoginActivity extends Activity {
         initData();
     }
 
+    @Override
+    protected void onStop () {
+        super.onStop();
+        VolleySingleton.getInstance(m_Ctx).cancelPendingRequests(TAG);
+        m_GlobalData.cancelRequest(TAG);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        VolleySingleton.getInstance(m_Ctx).cancelPendingRequests(TAG);
+        m_GlobalData.cancelRequest(TAG);
+    }
+
+
+    //---------------------------------------INIT COMPONENTS & DATA
     private void initComponent(){
         editUsername = findViewById(R.id.editUsername);
         editPassword = findViewById(R.id.editPassword);
@@ -82,7 +99,7 @@ public class LoginActivity extends Activity {
                 CheckBox c = (CheckBox) v;
                 if (c.isChecked()){
                     editUsername.setText("coder");
-                    editPassword.setText("kosong");
+                    editPassword.setText("Admin123");
                 }
             }
         });
@@ -109,6 +126,8 @@ public class LoginActivity extends Activity {
         }
     }
 
+
+    //---------------------------------------ACTIONS
     private void logIn(){
         final String userName = editUsername.getText().toString().trim();
         final String userPass = editPassword.getText().toString().trim();
@@ -151,8 +170,6 @@ public class LoginActivity extends Activity {
                                 };
                                 m_GlobalData.loadUserProfile(r);
 
-                                //gotoActivityHome();
-
                             }else{
                                 String errorMsg = jsonObj.getString("message");
                                 Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
@@ -186,12 +203,6 @@ public class LoginActivity extends Activity {
         VolleySingleton.getInstance(m_Ctx).addToRequestQueue(strReq, TAG);
     }
 
-    private void gotoActivityMain() {
-        Intent intent = new Intent(m_Ctx, MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
     private void gotoActivityHome() {
         Intent intent = new Intent(m_Ctx, DrawerActivity.class);
         startActivity(intent);
@@ -206,19 +217,5 @@ public class LoginActivity extends Activity {
     private void hideDialog() {
         if (m_PDialog.isShowing())
             m_PDialog.dismiss();
-    }
-
-    @Override
-    protected void onStop () {
-        super.onStop();
-        VolleySingleton.getInstance(m_Ctx).cancelPendingRequests(TAG);
-        m_GlobalData.cancelAllRequest();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        VolleySingleton.getInstance(m_Ctx).cancelPendingRequests(TAG);
-        m_GlobalData.cancelAllRequest();
     }
 }

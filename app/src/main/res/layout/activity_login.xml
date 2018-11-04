@@ -77,10 +77,14 @@
             android:textColor="@color/colorPrimary"
             android:text="Remember me" />
 
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/spacing_middle" />
+
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="50dp"
             android:layout_marginStart="80dp"
             android:layout_marginEnd="80dp"
             android:layout_marginBottom="10dp"
