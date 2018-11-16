@@ -29,26 +29,24 @@ public class RekesikFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         m_Ctx = this.getContext();
         parent_view = inflater.inflate(R.layout.fragment_rkf, container, false);
+
         initComponent();
 
-        //init menu listener
+        return parent_view;
+    }
+
+    private void initComponent() {
+        //set one action for all
         m_OnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 gotoActivity(v);
             }
         };
-        initListener();
 
-        return parent_view;
-    }
-
-    private void initListener() {
         //kegiatan
         CardView cvKegiatan = parent_view.findViewById(R.id.cvKegiatan);
         cvKegiatan.setOnClickListener(m_OnClickListener);
@@ -98,10 +96,6 @@ public class RekesikFragment extends Fragment {
         tvOutputNProvinsiMpo.setOnClickListener(m_OnClickListener);
         ImageView imvOutputNProvinsiMpo = parent_view.findViewById(R.id.imvOutputNProvinsiMpo);
         imvOutputNProvinsiMpo.setOnClickListener(m_OnClickListener);
-    }
-
-    private void initComponent() {
-
     }
 
     public void gotoActivity(View v)

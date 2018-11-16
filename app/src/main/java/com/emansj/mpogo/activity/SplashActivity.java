@@ -40,13 +40,15 @@ public class SplashActivity extends Activity {
     private AppGlobal m_Global;
     private AppGlobal.Data m_GlobalData;
 
+    //View vars
+    private LinearLayout ly1, ly2;
+    private Animation aniUptodown, aniDowntoup;
+
     //Custom vars
     private int SLEEP_TIMER = 4;
 
-    //Define views
-    private LinearLayout m_Layout1, m_Layout2;
-    private Animation m_Uptodown, m_Downtoup;
 
+    //---------------------------------------OVERRIDE
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,36 +81,44 @@ public class SplashActivity extends Activity {
         thread.start();
     }
 
+    @Override
+    protected void onStop () {
+        super.onStop();
+        m_GlobalData.cancelAllRequest();
+    }
+
+
+    //---------------------------------------INIT COMPONENTS & DATA
     private void initComponent(){
-        m_Layout1 = findViewById(R.id.lay1);
-        m_Layout2 = findViewById(R.id.lay2);
-        m_Uptodown = AnimationUtils.loadAnimation(this,R.anim.uptodown);
-        m_Downtoup = AnimationUtils.loadAnimation(this,R.anim.downtoup);
-        m_Layout1.setAnimation(m_Uptodown);
-        m_Layout2.setAnimation(m_Downtoup);
+        ly1 = findViewById(R.id.lay1);
+        ly2 = findViewById(R.id.lay2);
+        aniUptodown = AnimationUtils.loadAnimation(this,R.anim.uptodown);
+        aniDowntoup = AnimationUtils.loadAnimation(this,R.anim.downtoup);
+        ly1.setAnimation(aniUptodown);
+        ly2.setAnimation(aniDowntoup);
     }
 
     private void initData(){
-        m_GlobalData.loadTahunRKA_List();
+        //LOAD INIT DATA
+        m_Global.loadInitData();
+
+        //LOAD ALL TAHUN RKA
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                gotoActivityLogin();
+            }
+        };
+        m_Global.loadTahunRKAList(r);
     }
 
+
+    //---------------------------------------ACTIONS
     private void gotoActivityLogin() {
         Intent intent = new Intent(m_Ctx, LoginActivity.class);
         startActivity(intent);
         finish();
     }
 
-//    private void loadTahunRka() {
-////        AppGlobal g = AppGlobal.getInstance();
-////        AppGlobal.Data data = g.new AppGlobal.Data(m_Ctx);
-////        data.loadTahunRKA_List();
-//
-//        m_GlobalData.loadTahunRKA_List();
-//    }
 
-    @Override
-    protected void onStop () {
-        super.onStop();
-        m_GlobalData.cancelAllRequest();
-    }
 }

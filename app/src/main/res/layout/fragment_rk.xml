@@ -186,56 +186,6 @@
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.CardView
-                        android:id="@+id/cvKegiatanOutput"
-                        android:tag="KegiatanOutput"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/spacing_xmedium"
-                        android:layout_weight="1"
-                        app:cardCornerRadius="3dp"
-                        app:cardElevation="2dp">
-
-                        <com.balysv.materialripple.MaterialRippleLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:mrl_rippleColor="@color/colorPrimary" >
-
-                            <LinearLayout
-                                android:id="@+id/lyKegiatanOutput"
-                                android:tag="KegiatanOutput"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:clickable="true"
-                                android:gravity="center"
-                                android:orientation="vertical"
-                                android:padding="@dimen/spacing_middle">
-
-                                <ImageView
-                                    android:id="@+id/imvKegiatanOutput"
-                                    android:tag="KegiatanOutput"
-                                    android:layout_width="64dp"
-                                    android:layout_height="64dp"
-                                    android:layout_marginBottom="@dimen/spacing_medium"
-                                    android:tint="@color/colorPrimaryDark"
-                                    app:srcCompat="@drawable/ic_mod_kegiatan_output" />
-
-                                <TextView
-                                    android:id="@+id/tvKegiatanOutput"
-                                    android:tag="KegiatanOutput"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Kegiatan Output"
-                                    android:textAlignment="center"
-                                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                                    android:textColor="@color/black" />
-
-                            </LinearLayout>
-
-                        </com.balysv.materialripple.MaterialRippleLayout>
-
-                    </android.support.v7.widget.CardView>
-
-                    <android.support.v7.widget.CardView
                         android:id="@+id/cvKegiatanNProvinsi"
                         android:tag="KegiatanNProvinsi"
                         android:layout_width="0dp"
@@ -275,6 +225,56 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Kegiatan &amp; Provinsi"
+                                    android:textAlignment="center"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                    android:textColor="@color/black" />
+
+                            </LinearLayout>
+
+                        </com.balysv.materialripple.MaterialRippleLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cvKegiatanOutput"
+                        android:tag="KegiatanOutput"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/spacing_xmedium"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="3dp"
+                        app:cardElevation="2dp">
+
+                        <com.balysv.materialripple.MaterialRippleLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:mrl_rippleColor="@color/colorPrimary" >
+
+                            <LinearLayout
+                                android:id="@+id/lyKegiatanOutput"
+                                android:tag="KegiatanOutput"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:clickable="true"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:padding="@dimen/spacing_middle">
+
+                                <ImageView
+                                    android:id="@+id/imvKegiatanOutput"
+                                    android:tag="KegiatanOutput"
+                                    android:layout_width="64dp"
+                                    android:layout_height="64dp"
+                                    android:layout_marginBottom="@dimen/spacing_medium"
+                                    android:tint="@color/colorPrimaryDark"
+                                    app:srcCompat="@drawable/ic_mod_kegiatan_output" />
+
+                                <TextView
+                                    android:id="@+id/tvKegiatanOutput"
+                                    android:tag="KegiatanOutput"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Kegiatan Output"
                                     android:textAlignment="center"
                                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                                     android:textColor="@color/black" />

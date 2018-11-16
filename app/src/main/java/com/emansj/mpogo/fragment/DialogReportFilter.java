@@ -36,9 +36,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.emansj.mpogo.R;
 import com.emansj.mpogo.activity.RekeActivity;
+import com.emansj.mpogo.activity.RekesikActivity;
 import com.emansj.mpogo.adapter.AdapterSatkerFilter;
 import com.emansj.mpogo.helper.AppGlobal;
 import com.emansj.mpogo.helper.ExceptionHandler;
+import com.emansj.mpogo.helper.Tools;
 import com.emansj.mpogo.helper.VolleyErrorHelper;
 import com.emansj.mpogo.helper.VolleySingleton;
 import com.emansj.mpogo.model.RealisasiKeuangan;
@@ -78,9 +80,7 @@ public class DialogReportFilter extends DialogFragment {
 
     //Custom vars
     private List<String> m_ListTahunRKA = new ArrayList<>();
-    private String m_SelectedTahunRKA;
     private List<Satker> m_ListSatker;
-    private List<Satker> m_ListSatkerSelected;
     private AdapterSatkerFilter m_Adapter;
     private int m_Filter_TahunRKA;
     private boolean m_Filter_SemuaSatker;
@@ -196,7 +196,11 @@ public class DialogReportFilter extends DialogFragment {
                     etFilterText.setText("");
                 }else {
                     etFilterText.clearFocus();
-                    ((RekeActivity)getActivity()).hideKeyboard(view);
+                    if (m_Ctx instanceof RekeActivity){
+                        ((RekeActivity)getActivity()).hideKeyboard(view);
+                    }else if (m_Ctx instanceof RekesikActivity){
+                        ((RekesikActivity)getActivity()).hideKeyboard(view);
+                    }
                 }
             }
         });
@@ -254,24 +258,25 @@ public class DialogReportFilter extends DialogFragment {
         }
     }
 
+    private String selectedTahun;
     private void showDialogTahunRKA() {
-        if (m_Global.getTahunRKA_List().isEmpty() == false)
+        if (m_Global.getTahunRKAList().isEmpty() == false)
         {
-            m_ListTahunRKA = m_Global.getTahunRKA_List();
+            //get choice list
+            m_ListTahunRKA = m_Global.getTahunRKAList();
             String[] tahun = new String[m_ListTahunRKA.size()];
             tahun = m_ListTahunRKA.toArray(tahun);
 
-            String selectedTahunRKA = String.valueOf(m_Global.getTahunRKA());
-
-            int selectedTahunRKAIndex = Arrays.binarySearch(m_ListTahunRKA.toArray(), selectedTahunRKA);
+            //get default choice
+            int defaultChoice = m_ListTahunRKA.indexOf(tvTahunRKA.getText());
 
             //init alert dialog
             AlertDialog.Builder builder = new AlertDialog.Builder(m_Ctx);
             builder.setTitle("Pilih Tahun RKA");
-            builder.setSingleChoiceItems(tahun, selectedTahunRKAIndex, new DialogInterface.OnClickListener() {
+            builder.setSingleChoiceItems(tahun, defaultChoice, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    m_SelectedTahunRKA = m_ListTahunRKA.get(i);
+                    selectedTahun = m_ListTahunRKA.get(i);
                 }
             });
 
@@ -281,9 +286,11 @@ public class DialogReportFilter extends DialogFragment {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i)
                 {
-                    tvTahunRKA.setText(m_SelectedTahunRKA);
-                    m_Global.setTahunRKA(Integer.parseInt(m_SelectedTahunRKA));
-                    Snackbar.make(parent_view, "selected : " + m_Global.getTahunRKA(), Snackbar.LENGTH_SHORT).show();
+                    tvTahunRKA.setText(selectedTahun);
+                    m_Global.setTahunRKA(Integer.parseInt(selectedTahun));
+
+                    getSatker();
+                    m_Adapter.notifyDataSetChanged();
                 }
             });
 
@@ -353,11 +360,12 @@ public class DialogReportFilter extends DialogFragment {
     //---------------------------------------GET DATA
     private void getSatker() {
         final ProgressDialog progressDialog = new ProgressDialog(m_Ctx);
+        progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
         String api = "/AppGlobal/satkerfilter";
-        String params = String.format("?tahun=%1$d&userid=%2$d", m_Global.getTahunRKA(), m_Global.getUserId());
+        String params = String.format("?tahun=%1$d&userid=%2$d", m_Global.getTahunRKA(), m_Global.getUserLoginId());
         String url = AppGlobal.URL_ROOT + api + params;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -380,17 +388,17 @@ public class DialogReportFilter extends DialogFragment {
                                         JSONObject row = data.getJSONObject(i);
 
                                         Satker obj = new Satker();
-                                        obj.idSatker = row.getInt("idsatker");
-                                        obj.kdSatker = row.getString("kdsatker");
-                                        obj.nmSatker = row.getString("nmsatker");
+                                        obj.SatkerId = row.getInt("idsatker");
+                                        obj.KodeSatker = Tools.parseString(row.getString("kdsatker"));
+                                        obj.NamaSatker = Tools.parseString(row.getString("nmsatker"));
 
                                         //auto check
                                         if (m_Global.getFilterRunFirst() == false) {
 //                                            if (String.valueOf(obj.idSatker) == "986" || String.valueOf(obj.idSatker) == "987"){
 //                                                Toast.makeText(m_Ctx,   "found", Toast.LENGTH_SHORT).show();
 //                                            }
-                                            if(selectedSatker.indexOf(String.valueOf(obj.idSatker)) != -1) {
-                                                obj.isSelected = true;
+                                            if(selectedSatker.indexOf(String.valueOf(obj.SatkerId)) != -1) {
+                                                obj.IsSelected = true;
                                                 totalSelected += 1;
                                                 tvSatkerTitle.setText("SATKER (" + totalSelected + ")");
                                             }

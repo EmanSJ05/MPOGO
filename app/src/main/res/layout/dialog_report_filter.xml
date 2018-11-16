@@ -201,7 +201,7 @@
                     android:id="@+id/lyListLock"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#0D000000"
+                    android:background="#30000000"
                     android:visibility="gone"
                     android:clickable="true"/>
 
@@ -209,30 +209,6 @@
             </RelativeLayout>
 
         </LinearLayout>
-
-        //CARI
-        <!--<LinearLayout-->
-            <!--android:id="@+id/lyBottom"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:background="@color/white"-->
-            <!---->
-            <!--android:orientation="horizontal">-->
-
-            <!--<Button-->
-                <!--android:id="@+id/btnSearch"-->
-                <!--style="@style/Button.Primary.Borderless"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:background="@drawable/btn_rect_primary"-->
-                <!--android:textAppearance="@style/TextAppearance.AppCompat.Subhead"-->
-                <!--android:textAllCaps="true"-->
-                <!--android:textColor="#ffffff"-->
-                <!--android:textStyle="bold"-->
-                <!--android:text="Cari"/>-->
-
-        <!--</LinearLayout>-->
 
         <com.balysv.materialripple.MaterialRippleLayout
             android:id="@+id/lyCari"
@@ -242,23 +218,15 @@
             android:layout_marginTop="@dimen/spacing_medium"
             android:background="@color/colorPrimary">
 
-            <LinearLayout
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                    android:textAllCaps="true"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold"
-                    android:text="Cari"/>
-
-            </LinearLayout>
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:text="Cari"/>
 
         </com.balysv.materialripple.MaterialRippleLayout>
 

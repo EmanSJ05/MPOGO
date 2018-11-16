@@ -81,10 +81,21 @@
                 android:orientation="horizontal"
                 android:padding="0dp">
 
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:id="@+id/imvSmartIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/ic_outline_arrow_upward"/>
+
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:minWidth="@dimen/spacing_xxlarge"
                     android:fontFamily="@font/roboto_condensed_light"
                     android:textAlignment="textEnd"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption"
@@ -121,10 +132,22 @@
                 android:orientation="horizontal"
                 android:padding="0dp">
 
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:id="@+id/imvMpoIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:tint="@color/colorPrimary"
+                    app:srcCompat="@drawable/ic_outline_arrow_downward"/>
+
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:minWidth="@dimen/spacing_xxlarge"
                     android:fontFamily="@font/roboto_condensed_light"
                     android:textAlignment="textEnd"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption"

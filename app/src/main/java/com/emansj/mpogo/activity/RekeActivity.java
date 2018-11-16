@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -30,6 +29,7 @@ import com.emansj.mpogo.fragment.DialogReportFilter;
 import com.emansj.mpogo.helper.AppGlobal;
 import com.emansj.mpogo.helper.AppUtils;
 import com.emansj.mpogo.helper.ExceptionHandler;
+import com.emansj.mpogo.helper.Tools;
 import com.emansj.mpogo.helper.VolleyErrorHelper;
 import com.emansj.mpogo.helper.VolleySingleton;
 import com.emansj.mpogo.model.RealisasiKeuangan;
@@ -138,9 +138,6 @@ public class RekeActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.home) {
             finish();
         }
-        else if(item.getItemId() == R.id.action_search) {
-            showFilter();
-        }
         else if(item.getItemId() == R.id.action_filter) {
             showFilter();
         }
@@ -205,24 +202,24 @@ public class RekeActivity extends AppCompatActivity {
                 getDataKewenangan();
                 break;
             case "Kegiatan":
-                m_ListItem = RealisasiKeuangan.getKegiatan(m_Ctx);
-                break;
-            case "KegiatanOutput":
-                m_ListItem = RealisasiKeuangan.getKegiatanOutput(m_Ctx);
+                getDataKegiatan();
                 break;
             case "KegiatanNProvinsi":
-                m_ListItem = RealisasiKeuangan.getKegiatanOutput(m_Ctx);
+                getDataKegiatanProvinsi();
+                break;
+            case "KegiatanOutput":
+                getDataKegiatanOutput();
                 break;
             case "Satker":
-                m_ListItem = RealisasiKeuangan.getSatker(m_Ctx);
+                getDataSatker();
                 break;
             case "Output":
-                m_ListItem = RealisasiKeuangan.getOutput(m_Ctx);
+                getDataOutput();
                 break;
         }
     }
 
-    private void showTotal() {
+    private void getTotal() {
         double totalPagu = 0;
         double totalSmartValue = 0;
         double totalSmartPercent = 0;
@@ -232,9 +229,11 @@ public class RekeActivity extends AppCompatActivity {
         if (m_ListItem != null) {
 
             for (int row = 0; row < m_ListItem.size(); row++) {
-                totalPagu += m_ListItem.get(row).pagu;
-                totalSmartValue += m_ListItem.get(row).smartValue;
-                totalMpoValue += m_ListItem.get(row).mpoValue;
+                if (m_ListItem.get(row).tag == null || m_ListItem.get(row).tag.equals("subtotal")) {
+                    totalPagu += m_ListItem.get(row).pagu;
+                    totalSmartValue += m_ListItem.get(row).smartValue;
+                    totalMpoValue += m_ListItem.get(row).mpoValue;
+                }
             }
 
             totalSmartPercent = totalSmartValue / totalPagu * 100;
@@ -301,7 +300,7 @@ public class RekeActivity extends AppCompatActivity {
     }
 
     private void displayBackResult(int tahunRKA, boolean semuaSatker, String idSatkers) {
-        Toast.makeText(m_Ctx,   "tahun rka : " + tahunRKA + "\n semua satker : " + semuaSatker + "\n idsatkers : " + idSatkers, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(m_Ctx,   "tahun rka : " + tahunRKA + "\n semua satker : " + semuaSatker + "\n idsatkers : " + idSatkers, Toast.LENGTH_SHORT).show();
 
         initData();
         m_Adapter.notifyDataSetChanged();
@@ -317,14 +316,15 @@ public class RekeActivity extends AppCompatActivity {
     }
 
 
-    //---------------------------------------GET DATA LAPORAN
+    //---------------------------------------GET DATA
     private void getDataKewenangan() {
         final ProgressDialog progressDialog = new ProgressDialog(m_Ctx);
+        progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
         String api = "/Laporan/getRKPerJenisKewenangan";
-        String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserId());
+        String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
         String url = AppGlobal.URL_ROOT + api + params;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -343,17 +343,17 @@ public class RekeActivity extends AppCompatActivity {
                                         JSONObject row = data.getJSONObject(i);
 
                                         RealisasiKeuangan obj = new RealisasiKeuangan();
-                                        obj.title = row.getString("title");
-                                        obj.pagu = Double.parseDouble(row.getString("pagu"));
-                                        obj.smartValue = Double.parseDouble(row.getString("smartValue"));
-                                        obj.smartPercent = Double.parseDouble(row.getString("smartPercent"));
-                                        obj.mpoValue = Double.parseDouble(row.getString("mpoValue"));
-                                        obj.mpoPercent = Double.parseDouble(row.getString("mpoPercent"));
+                                        obj.title = Tools.parseString(row.getString("title"));
+                                        obj.pagu = Tools.parseDouble(row.getString("pagu"));
+                                        obj.smartValue = Tools.parseDouble(row.getString("smartValue"));
+                                        obj.smartPercent = Tools.parseDouble(row.getString("smartPercent"));
+                                        obj.mpoValue = Tools.parseDouble(row.getString("mpoValue"));
+                                        obj.mpoPercent = Tools.parseDouble(row.getString("mpoPercent"));
                                         m_ListItem.add(obj);
                                     }
                                     progressDialog.dismiss();
                                     m_Adapter.notifyDataSetChanged();
-                                    showTotal();
+                                    getTotal();
                                 }
                             }
 
@@ -373,4 +373,286 @@ public class RekeActivity extends AppCompatActivity {
         );
         VolleySingleton.getInstance(m_Ctx).addToRequestQueue(request, TAG);
     }
+
+    private void getDataKegiatan() {
+        final ProgressDialog progressDialog = new ProgressDialog(m_Ctx);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+
+        String api = "/Laporan/getRKPerKegiatan";
+        String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
+        String url = AppGlobal.URL_ROOT + api + params;
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>(){
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try{
+                            int status = response.getInt("status");
+                            if (status == 200 )
+                            {
+                                JSONArray data = response.getJSONArray("data");
+                                if (data.length() > 0)
+                                {
+                                    for (int i = 0; i < data.length(); i++)
+                                    {
+                                        JSONObject row = data.getJSONObject(i);
+
+                                        RealisasiKeuangan obj = new RealisasiKeuangan();
+                                        obj.title = Tools.parseString(row.getString("title"));
+                                        obj.pagu = Tools.parseDouble(row.getString("pagu"));
+                                        obj.smartValue = Tools.parseDouble(row.getString("smartValue"));
+                                        obj.smartPercent = Tools.parseDouble(row.getString("smartPercent"));
+                                        obj.mpoValue = Tools.parseDouble(row.getString("mpoValue"));
+                                        obj.mpoPercent = Tools.parseDouble(row.getString("mpoPercent"));
+                                        m_ListItem.add(obj);
+                                    }
+                                    progressDialog.dismiss();
+                                    m_Adapter.notifyDataSetChanged();
+                                    getTotal();
+                                }
+                            }
+
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        progressDialog.dismiss();
+                        VolleyErrorHelper.showError(error, m_Ctx);
+                    }
+                }
+        );
+        VolleySingleton.getInstance(m_Ctx).addToRequestQueue(request, TAG);
+    }
+
+    private void getDataKegiatanProvinsi() {
+        final ProgressDialog progressDialog = new ProgressDialog(m_Ctx);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+
+        String api = "/Laporan/getRKPerKegiatanProvinsi";
+        String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
+        String url = AppGlobal.URL_ROOT + api + params;
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>(){
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try{
+                            int status = response.getInt("status");
+                            if (status == 200 )
+                            {
+                                JSONArray data = response.getJSONArray("data");
+                                if (data.length() > 0)
+                                {
+                                    for (int i = 0; i < data.length(); i++)
+                                    {
+                                        JSONObject row = data.getJSONObject(i);
+
+                                        RealisasiKeuangan obj = new RealisasiKeuangan();
+                                        obj.tag = Tools.parseString(row.getString("tag"));
+                                        obj.title = Tools.parseString(row.getString("title"));
+                                        obj.pagu = Tools.parseDouble(row.getString("pagu"));
+                                        obj.smartValue = Tools.parseDouble(row.getString("smartValue"));
+                                        obj.smartPercent = Tools.parseDouble(row.getString("smartPercent"));
+                                        obj.mpoValue = Tools.parseDouble(row.getString("mpoValue"));
+                                        obj.mpoPercent = Tools.parseDouble(row.getString("mpoPercent"));
+                                        m_ListItem.add(obj);
+                                    }
+                                    progressDialog.dismiss();
+                                    m_Adapter.notifyDataSetChanged();
+                                    getTotal();
+                                }
+                            }
+
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        progressDialog.dismiss();
+                        VolleyErrorHelper.showError(error, m_Ctx);
+                    }
+                }
+        );
+        VolleySingleton.getInstance(m_Ctx).addToRequestQueue(request, TAG);
+    }
+
+    private void getDataKegiatanOutput() {
+        final ProgressDialog progressDialog = new ProgressDialog(m_Ctx);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+
+        String api = "/Laporan/getRKPerKegiatanOutput";
+        String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
+        String url = AppGlobal.URL_ROOT + api + params;
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>(){
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try{
+                            int status = response.getInt("status");
+                            if (status == 200 )
+                            {
+                                JSONArray data = response.getJSONArray("data");
+                                if (data.length() > 0)
+                                {
+                                    for (int i = 0; i < data.length(); i++)
+                                    {
+                                        JSONObject row = data.getJSONObject(i);
+
+                                        RealisasiKeuangan obj = new RealisasiKeuangan();
+                                        obj.title = Tools.parseString(row.getString("title"));
+                                        obj.pagu = Tools.parseDouble(row.getString("pagu"));
+                                        obj.smartValue = Tools.parseDouble(row.getString("smartValue"));
+                                        obj.smartPercent = Tools.parseDouble(row.getString("smartPercent"));
+                                        obj.mpoValue = Tools.parseDouble(row.getString("mpoValue"));
+                                        obj.mpoPercent = Tools.parseDouble(row.getString("mpoPercent"));
+                                        m_ListItem.add(obj);
+                                    }
+                                    progressDialog.dismiss();
+                                    m_Adapter.notifyDataSetChanged();
+                                    getTotal();
+                                }
+                            }
+
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        progressDialog.dismiss();
+                        VolleyErrorHelper.showError(error, m_Ctx);
+                    }
+                }
+        );
+        VolleySingleton.getInstance(m_Ctx).addToRequestQueue(request, TAG);
+    }
+
+    private void getDataSatker() {
+        final ProgressDialog progressDialog = new ProgressDialog(m_Ctx);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+
+        String api = "/Laporan/getRKPerSatker";
+        String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
+        String url = AppGlobal.URL_ROOT + api + params;
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>(){
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try{
+                            int status = response.getInt("status");
+                            if (status == 200 )
+                            {
+                                JSONArray data = response.getJSONArray("data");
+                                if (data.length() > 0)
+                                {
+                                    for (int i = 0; i < data.length(); i++)
+                                    {
+                                        JSONObject row = data.getJSONObject(i);
+
+                                        RealisasiKeuangan obj = new RealisasiKeuangan();
+                                        obj.title = Tools.parseString(row.getString("title"));
+                                        obj.pagu = Tools.parseDouble(row.getString("pagu"));
+                                        obj.smartValue = Tools.parseDouble(row.getString("smartValue"));
+                                        obj.smartPercent = Tools.parseDouble(row.getString("smartPercent"));
+                                        obj.mpoValue = Tools.parseDouble(row.getString("mpoValue"));
+                                        obj.mpoPercent = Tools.parseDouble(row.getString("mpoPercent"));
+                                        m_ListItem.add(obj);
+                                    }
+                                    progressDialog.dismiss();
+                                    m_Adapter.notifyDataSetChanged();
+                                    getTotal();
+                                }
+                            }
+
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        progressDialog.dismiss();
+                        VolleyErrorHelper.showError(error, m_Ctx);
+                    }
+                }
+        );
+        VolleySingleton.getInstance(m_Ctx).addToRequestQueue(request, TAG);
+    }
+
+    private void getDataOutput() {
+        final ProgressDialog progressDialog = new ProgressDialog(m_Ctx);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+
+        String api = "/Laporan/getRKPerOutput";
+        String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
+        String url = AppGlobal.URL_ROOT + api + params;
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>(){
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try{
+                            int status = response.getInt("status");
+                            if (status == 200 )
+                            {
+                                JSONArray data = response.getJSONArray("data");
+                                if (data.length() > 0)
+                                {
+                                    for (int i = 0; i < data.length(); i++)
+                                    {
+                                        JSONObject row = data.getJSONObject(i);
+
+                                        RealisasiKeuangan obj = new RealisasiKeuangan();
+                                        obj.title = Tools.parseString(row.getString("title"));
+                                        obj.pagu = Tools.parseDouble(row.getString("pagu"));
+                                        obj.smartValue = Tools.parseDouble(row.getString("smartValue"));
+                                        obj.smartPercent = Tools.parseDouble(row.getString("smartPercent"));
+                                        obj.mpoValue = Tools.parseDouble(row.getString("mpoValue"));
+                                        obj.mpoPercent = Tools.parseDouble(row.getString("mpoPercent"));
+                                        m_ListItem.add(obj);
+                                    }
+                                    progressDialog.dismiss();
+                                    m_Adapter.notifyDataSetChanged();
+                                    getTotal();
+                                }
+                            }
+
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        progressDialog.dismiss();
+                        VolleyErrorHelper.showError(error, m_Ctx);
+                    }
+                }
+        );
+        VolleySingleton.getInstance(m_Ctx).addToRequestQueue(request, TAG);
+    }
+
 }

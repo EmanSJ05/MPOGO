@@ -5,7 +5,9 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,12 +20,12 @@ public class ErrorRecoveryActivity extends AppCompatActivity {
     private static final String TAG = ErrorRecoveryActivity.class.getSimpleName();
     private Context m_Ctx;
 
-    //Define views
+    //View vars
     private TextView tvError;
+    private ImageButton imbCopyToClipboard, imbClose;
 
     //Custom vars
     private String m_Error;
-    private ImageView bg_image;
 
 
     @Override
@@ -58,10 +60,23 @@ public class ErrorRecoveryActivity extends AppCompatActivity {
     }
 
     private void initComponent() {
-        bg_image = (ImageView) findViewById(R.id.bg_image);
-        ViewGroup.LayoutParams params = bg_image.getLayoutParams();
-        params.height = Tools.getScreenWidth();
-        bg_image.setLayoutParams(params);
+        tvError = findViewById(R.id.tvError);
+        imbCopyToClipboard = findViewById(R.id.imbCopyToClipboard);
+        imbClose = findViewById(R.id.imbClose);
+
+        imbCopyToClipboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Tools.copyToClipboard(m_Ctx, tvError.getText().toString());
+            }
+        });
+
+        imbClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override

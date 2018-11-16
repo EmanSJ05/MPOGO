@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@android:color/white">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -22,7 +21,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:id="@+id/nested_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -35,7 +34,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-
             android:orientation="vertical">
 
             <!--Header-->
@@ -53,54 +51,48 @@
 
                 <!--Name-->
                 <TextView
-                    android:id="@+id/txtFullName"
+                    android:id="@+id/tvFullName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_medium"
                     android:gravity="center"
-                    android:text="Santosa Raharjo"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
                     android:textColor="@color/white"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:text="Full Name"/>
 
                 <TextView
-                    android:id="@+id/txtNickName"
+                    android:id="@+id/tvNickName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/txtFullName"
+                    android:layout_below="@+id/tvFullName"
                     android:layout_marginBottom="@dimen/spacing_medium"
                     android:gravity="center"
-                    android:text="SANTOSA"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                     android:fontFamily="@font/roboto_condensed_regular"
-                    android:textColor="@color/grey_100" />
+                    android:textColor="@color/grey_100"
+                    android:text="Nick Name"/>
 
                 <!--Photo Profile-->
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:layout_below="@+id/txtNickName">
+                    android:layout_below="@+id/tvNickName">
 
                     <View
                         android:id="@+id/imgLittleSquare"
                         android:layout_width="130dp"
                         android:layout_height="120dp" />
 
-                    <!--<com.mikhaellopez.circularimageview.CircularImageView-->
-                        <!--android:id="@+id/imgPhoto"-->
-                        <!--android:layout_width="150dp"-->
-                        <!--android:layout_height="150dp"-->
-                        <!--android:src="@drawable/photo_profile_default"-->
-                        <!--app:civ_border="true"-->
-                        <!--app:civ_border_color="@color/white"-->
-                        <!--app:civ_border_width="4dp" />-->
-
-                    <ImageView
-                        android:id="@+id/imgPhoto"
+                    <com.mikhaellopez.circularimageview.CircularImageView
+                        android:id="@+id/civUserImage"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
-                        app:srcCompat="@drawable/photo_profile_default"/>
+                        app:civ_border="true"
+                        app:civ_border_color="@color/white"
+                        app:civ_border_width="4dp"
+                        android:src="@drawable/img_user_profile_no_photo"/>
 
                 </RelativeLayout>
 
@@ -129,7 +121,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_centerInParent="true"
-                            android:tint="@color/blue_grey_800"
+                            android:tint="@color/colorPrimaryDark"
                             app:srcCompat="@drawable/shape_circle_outline_1dp" />
 
                         <ImageView
@@ -150,19 +142,18 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/spacing_small"
-                            android:fontFamily="@font/roboto_condensed_light"
+                            android:fontFamily="@font/roboto_condensed_regular"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small"
                             android:textColor="@color/colorPrimaryDark"
                             android:text="No. Telp."/>
 
                         <TextView
+                            android:id="@+id/tvUserTelpNo"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_condensed_regular"
                             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                             android:textColor="@color/blue_grey_800"
-                            android:textStyle="bold"
-                            android:text="+62 813-1766-9281"/>
+                            android:text="-"/>
 
                     </LinearLayout>
 
@@ -192,7 +183,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_centerInParent="true"
-                            android:tint="@color/blue_grey_800"
+                            android:tint="@color/colorPrimaryDark"
                             app:srcCompat="@drawable/shape_circle_outline_1dp" />
 
                         <ImageView
@@ -213,19 +204,18 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/spacing_small"
-                            android:fontFamily="@font/roboto_condensed_light"
+                            android:fontFamily="@font/roboto_condensed_regular"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small"
                             android:textColor="@color/colorPrimaryDark"
                             android:text="Email"/>
 
                         <TextView
+                            android:id="@+id/tvUserEmail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_condensed_regular"
                             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                             android:textColor="@color/blue_grey_800"
-                            android:textStyle="bold"
-                            android:text="santosa.raharjo@gmail.com"/>
+                            android:text="-"/>
 
                     </LinearLayout>
 
@@ -255,7 +245,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_centerInParent="true"
-                            android:tint="@color/blue_grey_800"
+                            android:tint="@color/colorPrimaryDark"
                             app:srcCompat="@drawable/shape_circle_outline_1dp" />
 
                         <ImageView
@@ -276,20 +266,19 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/spacing_small"
-                            android:fontFamily="@font/roboto_condensed_light"
+                            android:fontFamily="@font/roboto_condensed_regular"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small"
                             android:textColor="@color/colorPrimaryDark"
                             android:text="Provinsi"/>
 
                         <TextView
+                            android:id="@+id/tvProvinsi"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/spacing_small"
-                            android:fontFamily="@font/roboto_condensed_regular"
                             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                             android:textColor="@color/blue_grey_800"
-                            android:textStyle="bold"
-                            android:text="DKI "/>
+                            android:text="-"/>
 
                     </LinearLayout>
 
@@ -319,7 +308,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_centerInParent="true"
-                            android:tint="@color/blue_grey_800"
+                            android:tint="@color/colorPrimaryDark"
                             app:srcCompat="@drawable/shape_circle_outline_1dp" />
 
                         <ImageView
@@ -340,18 +329,17 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/spacing_small"
-                            android:fontFamily="@font/roboto_condensed_light"
+                            android:fontFamily="@font/roboto_condensed_regular"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small"
                             android:textColor="@color/colorPrimaryDark"
                             android:text="Kabupaten"/>
 
                         <TextView
+                            android:id="@+id/tvKabupaten"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_condensed_regular"
                             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                             android:textColor="@color/blue_grey_800"
-                            android:textStyle="bold"
                             android:text="-"/>
 
                     </LinearLayout>
@@ -382,7 +370,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_centerInParent="true"
-                            android:tint="@color/blue_grey_800"
+                            android:tint="@color/colorPrimaryDark"
                             app:srcCompat="@drawable/shape_circle_outline_1dp" />
 
                         <ImageView
@@ -403,19 +391,18 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/spacing_small"
-                            android:fontFamily="@font/roboto_condensed_light"
+                            android:fontFamily="@font/roboto_condensed_regular"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small"
                             android:textColor="@color/colorPrimaryDark"
                             android:text="Dinas"/>
 
                         <TextView
+                            android:id="@+id/tvDinas"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_condensed_regular"
                             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                             android:textColor="@color/blue_grey_800"
-                            android:textStyle="bold"
-                            android:text="Direktorat Jenderal Prasarana dan Sarana Pertanian"/>
+                            android:text="-"/>
 
                     </LinearLayout>
 
@@ -445,7 +432,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_centerInParent="true"
-                            android:tint="@color/blue_grey_800"
+                            android:tint="@color/colorPrimaryDark"
                             app:srcCompat="@drawable/shape_circle_outline_1dp" />
 
                         <ImageView
@@ -466,19 +453,18 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/spacing_small"
-                            android:fontFamily="@font/roboto_condensed_light"
+                            android:fontFamily="@font/roboto_condensed_regular"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small"
                             android:textColor="@color/colorPrimaryDark"
                             android:text="Satker"/>
 
                         <TextView
+                            android:id="@+id/tvSatker"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_condensed_regular"
                             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                             android:textColor="@color/blue_grey_800"
-                            android:textStyle="bold"
-                            android:text="633656 - Direktorat Jenderal Prasarana dan Sarana Pertanian"/>
+                            android:text="-"/>
 
                     </LinearLayout>
 
@@ -496,9 +482,7 @@
 
         </LinearLayout>
 
-    </ScrollView>
-
-
+    </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabChangePhoto"
@@ -512,4 +496,4 @@
         app:layout_anchorGravity="bottom|right|end"
         app:srcCompat="@drawable/ic_photo_camera" />
 
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.emansj.mpogo.R;
 
 
-public class RatingFragment extends Fragment {
+public class UserRatingFragment extends Fragment {
 
     //Standard vars
     private static final String TAG = RekeFragment.class.getSimpleName();
@@ -23,31 +23,29 @@ public class RatingFragment extends Fragment {
     private View parent_view;
     private View.OnClickListener m_OnClickListener;
     
-    public RatingFragment() {
+    public UserRatingFragment() {
         // Required empty public constructor
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         m_Ctx = this.getContext();
         parent_view = inflater.inflate(R.layout.fragment_rating, container, false);
+
         initComponent();
 
-        //init menu listener
+        return parent_view;
+    }
+
+    private void initComponent() {
+        //set one action for all
         m_OnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 gotoActivity(v);
             }
         };
-        initListener();
 
-        return parent_view;
-    }
-
-    private void initListener() {
         //per-provinsi
         CardView cvProvinsi = parent_view.findViewById(R.id.cvProvinsi);
         cvProvinsi.setOnClickListener(m_OnClickListener);
@@ -77,12 +75,6 @@ public class RatingFragment extends Fragment {
         tvUser.setOnClickListener(m_OnClickListener);
         ImageView imvUser = parent_view.findViewById(R.id.imvUser);
         imvUser.setOnClickListener(m_OnClickListener);
-
-        
-    }
-
-    private void initComponent() {
-
     }
 
     public void gotoActivity(View v)
@@ -92,17 +84,17 @@ public class RatingFragment extends Fragment {
         String tag = v.getTag().toString();
         switch(tag) {
             case "Provinsi":
-                title = "Per-Provinsi";
+                title = "Provinsi";
                 break;
             case "Kabupaten":
-                title = "Per-Kabupaten";
+                title = "Kabupaten";
                 break;
             case "User":
-                title = "All User";
+                title = "Semua User";
                 break;
         }
 
-        Intent i = new Intent(m_Ctx, RatingActivity.class);
+        Intent i = new Intent(m_Ctx, UserRatingActivity.class);
         i.putExtra("title", title);
         i.putExtra("report_name", tag);
         startActivity(i);

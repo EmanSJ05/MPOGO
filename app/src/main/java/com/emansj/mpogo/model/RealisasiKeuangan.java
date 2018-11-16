@@ -31,6 +31,7 @@ public class RealisasiKeuangan {
     public Double smartPercent;
     public Double mpoValue;
     public Double mpoPercent;
+    public boolean expanded = false;
 
     public RealisasiKeuangan() {
 
