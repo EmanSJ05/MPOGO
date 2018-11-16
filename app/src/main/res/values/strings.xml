@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">MPO</string>
-    <string name="timeout">Timeout bro</string>
-    <string name="generic_error">Tau dah error dimana nih bro</string>
-    <string name="no_internet">beli paket bro</string>
+    <string name="timeout">Server Connection Timeout</string>
+    <string name="generic_error">Server sedang pemeliharaan</string>
+    <string name="no_internet">Tidak ada koneksi</string>
     <string name="title_activity_nav">NavActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

@@ -72,7 +72,6 @@
         android:scrollingCache="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -85,7 +84,6 @@
                 android:scrollingCache="true"/>
 
         </RelativeLayout>
-
 
     </android.support.v4.widget.NestedScrollView>
 

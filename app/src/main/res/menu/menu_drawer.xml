@@ -10,7 +10,7 @@
             android:checkable="false"
             android:icon="@drawable/ic_outline_notifications"
             android:iconTint="@color/colorPrimary"
-            android:title="Notifications"
+            android:title="Notifikasi"
             app:actionLayout="@layout/badge_navigation_plain" />
         <item
             android:id="@+id/nav_home"
@@ -77,11 +77,11 @@
                     android:icon="@drawable/ic_outline_username"
                     android:iconTint="@color/colorPrimary"
                     android:title="Profile" />
-                <item
-                    android:id="@+id/nav_settings"
-                    android:icon="@drawable/ic_outline_settings"
-                    android:iconTint="@color/colorPrimary"
-                    android:title="Settings" />
+                <!--<item-->
+                    <!--android:id="@+id/nav_settings"-->
+                    <!--android:icon="@drawable/ic_outline_settings"-->
+                    <!--android:iconTint="@color/colorPrimary"-->
+                    <!--android:title="Settings" />-->
             </menu>
         </item>
     </group>

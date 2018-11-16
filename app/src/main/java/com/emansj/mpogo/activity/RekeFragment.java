@@ -29,27 +29,24 @@ public class RekeFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         m_Ctx = this.getContext();
         parent_view = inflater.inflate(R.layout.fragment_rk, container, false);
+
         initComponent();
 
-        //init menu listener
+        return parent_view;
+    }
+
+    private void initComponent() {
+        //set one action for all
         m_OnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 gotoActivity(v);
             }
         };
-        initListener();
 
-        return parent_view;
-    }
-
-
-    private void initListener() {
         //kewenangan
         CardView cvKewenangan = parent_view.findViewById(R.id.cvKewenangan);
         cvKewenangan.setOnClickListener(m_OnClickListener);
@@ -109,10 +106,6 @@ public class RekeFragment extends Fragment {
         tvOutput.setOnClickListener(m_OnClickListener);
         ImageView imvOutput = parent_view.findViewById(R.id.imvOutput);
         imvOutput.setOnClickListener(m_OnClickListener);
-    }
-
-    private void initComponent() {
-
     }
 
     public void gotoActivity(View v)

@@ -24,6 +24,7 @@ public class RealisasiKeuanganFisik {
     public Double fisikPercent;
     public Double fisikProgress;
     public Double fisikProgressTerbobot;
+    public boolean expanded = false;
 
 
     public RealisasiKeuanganFisik() {

@@ -1,18 +1,16 @@
 package com.emansj.mpogo.adapter;
 
 import android.content.Context;
-import android.support.annotation.DrawableRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.emansj.mpogo.R;
-import com.emansj.mpogo.helper.AppUtils;
 import com.emansj.mpogo.helper.Tools;
-import com.emansj.mpogo.model.RealisasiKeuangan;
 import com.emansj.mpogo.model.UserRating;
 
 import java.util.ArrayList;
@@ -23,6 +21,8 @@ public class AdapterUserRating extends RecyclerView.Adapter<RecyclerView.ViewHol
     private List<UserRating> m_Items = new ArrayList<>();
     private Context m_Ctx;
     private OnItemClickListener m_OnItemClickListener;
+    public enum HolderMode {PROVINSI, KABUPATEN, ALLUSER};
+    private HolderMode m_HolderMode;
 
 
     public interface OnItemClickListener{
@@ -38,21 +38,53 @@ public class AdapterUserRating extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.m_Ctx = context;
     }
 
-    public class OriginalViewHolder extends RecyclerView.ViewHolder {
-        public View lyRow;
-        public TextView tvTitle;
-        public TextView tvSubTitle;
-        public TextView tvCaption;
-        public TextView tvTotalPoin;
-        public ImageView imvImage;
+    public void setHolderMode(HolderMode holderMode){
+        this.m_HolderMode = holderMode;
+    }
 
-        public OriginalViewHolder(View v) {
+    public class ProvinsiViewHolder extends RecyclerView.ViewHolder {
+        public View lyRow;
+        public TextView tvTitle, tvTotalPoin, tvTotalUser, tvTotalAktifitas ;
+
+        public ProvinsiViewHolder(View v) {
             super(v);
             lyRow = v.findViewById(R.id.lyItem);
             tvTitle = v.findViewById(R.id.tvTitle);
-            tvSubTitle = v.findViewById(R.id.tvSubtitle);
+            tvTotalPoin = v.findViewById(R.id.tvTotalPoin);
+            tvTotalUser = v.findViewById(R.id.tvTotalUser);
+            tvTotalAktifitas = v.findViewById(R.id.tvTotalAktifitas);
+        }
+    }
+
+    public class KabupatenViewHolder extends RecyclerView.ViewHolder {
+        public View lyRow, lySection;
+        public TextView tvTitle, tvSection, tvTotalPoin, tvTotalUser, tvTotalAktifitas ;
+
+        public KabupatenViewHolder(View v) {
+            super(v);
+            lyRow = v.findViewById(R.id.lyItem);
+            lySection = v.findViewById(R.id.lySection);
+            tvTitle = v.findViewById(R.id.tvTitle);
+            tvSection = v.findViewById(R.id.tvSection);
+            tvTotalPoin = v.findViewById(R.id.tvTotalPoin);
+            tvTotalUser = v.findViewById(R.id.tvTotalUser);
+            tvTotalAktifitas = v.findViewById(R.id.tvTotalAktifitas);
+        }
+    }
+
+    public class AllUserViewHolder extends RecyclerView.ViewHolder {
+        public View lyRow;
+        public TextView tvTitle, tvSubtitle, tvCaption, tvTotalPoin, tvTotalAktifitas ;
+        public ImageView imvImage;
+
+        public AllUserViewHolder(View v) {
+            super(v);
+            lyRow = v.findViewById(R.id.lyItem);
+            tvTitle = v.findViewById(R.id.tvTitle);
+            tvSubtitle = v.findViewById(R.id.tvSubtitle);
             tvCaption = v.findViewById(R.id.tvCaption);
             tvTotalPoin = v.findViewById(R.id.tvTotalPoin);
+            tvTotalAktifitas = v.findViewById(R.id.tvTotalAktifitas);
             imvImage = v.findViewById(R.id.imvImage);
         }
     }
@@ -60,30 +92,34 @@ public class AdapterUserRating extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder vh;
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user_rating, parent,false);
-        vh = new OriginalViewHolder(v);
+
+        if (m_HolderMode == HolderMode.PROVINSI) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user_rating_provinsi, parent, false);
+            vh = new ProvinsiViewHolder(v);
+
+        }else if (m_HolderMode == HolderMode.KABUPATEN) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user_rating_kabupaten, parent, false);
+            vh = new KabupatenViewHolder(v);
+
+        }else {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user_rating_semua_user, parent, false);
+            vh = new AllUserViewHolder(v);
+        }
+
         return vh;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        String caption;
 
-        if (holder instanceof OriginalViewHolder) {
-            OriginalViewHolder view = (OriginalViewHolder) holder;
+        if (holder instanceof ProvinsiViewHolder) {
+            ProvinsiViewHolder view = (ProvinsiViewHolder) holder;
 
             UserRating i = m_Items.get(position);
-
-            view.tvTitle.setText(Tools.initCaps(i.name));
-            view.tvSubTitle.setText(Tools.initCaps(i.subTitle));
-            if (!i.caption.equals("-")){
-                caption = Tools.initCaps(i.groupName) + " | " + Tools.initCaps(i.caption);
-            }else{
-                caption = Tools.initCaps(i.groupName);
-            }
-            view.tvCaption.setText(caption);
+            view.tvTitle.setText(i.name);
             view.tvTotalPoin.setText(i.totalPoin.toString());
-
+            view.tvTotalUser.setText(i.totalUser.toString());
+            view.tvTotalAktifitas.setText(i.totalAktifitas.toString());
             view.lyRow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -93,26 +129,80 @@ public class AdapterUserRating extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
             });
 
-            displayImage(view, i);
+        }else if (holder instanceof KabupatenViewHolder) {
+            KabupatenViewHolder view = (KabupatenViewHolder) holder;
 
+            UserRating i = m_Items.get(position);
+            if (position > 0 && i.groupName.equals(m_Items.get(position-1).groupName)) {
+                view.lySection.setVisibility(View.GONE);
+            } else {
+                view.lySection.setVisibility(View.VISIBLE);
+            }
+            view.tvSection.setText(i.groupName);
+            view.tvTitle.setText(i.name);
+            view.tvTotalPoin.setText(i.totalPoin.toString());
+            view.tvTotalUser.setText(i.totalUser.toString());
+            view.tvTotalAktifitas.setText(i.totalAktifitas.toString());
+            view.lyRow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (m_OnItemClickListener != null) {
+                        m_OnItemClickListener.onItemClick(view, m_Items.get(position), position);
+                    }
+                }
+            });
+
+        }else { //AllUserViewHolder)
+            AllUserViewHolder view = (AllUserViewHolder) holder;
+
+            UserRating i = m_Items.get(position);
+            view.tvTitle.setText(i.name);
+            view.tvSubtitle.setText(i.subTitle);
+            view.tvCaption.setText(i.caption);
+            view.tvTotalPoin.setText(i.totalPoin.toString());
+            view.tvTotalAktifitas.setText(i.totalAktifitas.toString());
+            view.lyRow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (m_OnItemClickListener != null) {
+                        m_OnItemClickListener.onItemClick(view, m_Items.get(position), position);
+                    }
+                }
+            });
+
+            if (i.imageUrl != null) {
+                Tools.displayImageRound(m_Ctx, view.imvImage, i.imageUrl, 36, 36);
+            }
         }
     }
 
-    private void displayImage(OriginalViewHolder holder, UserRating item) {
-        if (item.imageDrawableResource != null) {
-            Tools.displayImageRound(m_Ctx, holder.imvImage, item.imageDrawableResource);
-            holder.imvImage.setColorFilter(null);
-        } else {
-            @DrawableRes int drawableRes = Tools.getDrawableResource(m_Ctx, "photo_user_no_image");
-            Tools.displayImageRound(m_Ctx, holder.imvImage, drawableRes);
-            //holder.imvImage.setImageResource(R.drawable.photo_user_no_image);
-            holder.imvImage.setColorFilter(null);
-        }
-    }
+//    private void displayImage(AllUserViewHolder holder, UserRating item) {
+////        if (item.imageDrawableResource != null) {
+////            Tools.displayImageRound(m_Ctx, holder.imvImage, item.imageDrawableResource);
+////            holder.imvImage.setColorFilter(null);
+////        } else {
+////            @DrawableRes int drawableRes = Tools.getDrawableResource(m_Ctx, "photo_user_no_image");
+////            Tools.displayImageRound(m_Ctx, holder.imvImage, drawableRes);
+////            //holder.imvImage.setImageResource(R.drawable.photo_user_no_image);
+////            holder.imvImage.setColorFilter(null);
+////        }
+//
+//        if (item.imageDrawableResource != null) {
+//            Tools.displayImageRound(m_Ctx, holder.imvImage, item.imageDrawableResource);
+//            holder.imvImage.setColorFilter(null);
+//        } else {
+//            @DrawableRes int drawableRes = Tools.getDrawableResource(m_Ctx, "photo_user_no_image");
+//            Tools.displayImageRound(m_Ctx, holder.imvImage, drawableRes);
+//            //holder.imvImage.setImageResource(R.drawable.photo_user_no_image);
+//            holder.imvImage.setColorFilter(null);
+//
+//        }
+//    }
 
     @Override
     public int getItemCount() {
         return m_Items.size();
     }
+
 }
 

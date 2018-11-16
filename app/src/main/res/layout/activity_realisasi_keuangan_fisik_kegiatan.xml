@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true">
+
+    <!--Appbar-->
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:contentInsetStartWithNavigation="0dp"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:titleTextAppearance="@style/Toolbar.TitleText">
+
+            <!--Search-->
+            <LinearLayout
+                android:id="@+id/lySearch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <EditText
+                    android:id="@+id/editSearch"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:hint="Search"
+                    android:imeOptions="actionSearch"
+                    android:maxLines="1"
+                    android:singleLine="true">
+
+                    <!--<requestFocus />-->
+
+                </EditText>
+
+                <ImageButton
+                    android:id="@+id/btnSearchClear"
+                    android:layout_width="?attr/actionBarSize"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@android:color/transparent"
+                    android:tint="@color/grey_80"
+                    android:visibility="visible"
+                    app:srcCompat="@drawable/ic_close" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <!--Content-->
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nsvScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:scrollingCache="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvData"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"
+                android:scrollingCache="true"/>
+
+        </RelativeLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <!--Bottom-->
+    <LinearLayout
+        android:id="@+id/lyBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/lyBottomCaption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cv_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardElevation="4dp"
+                app:cardCornerRadius="4dp">
+
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="4dp"
+                    android:layout_gravity="top"
+                    android:background="@drawable/bg_gradient_soft"/>
+
+                <TextView
+                    android:id="@+id/total"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:paddingTop="@dimen/spacing_small"
+                    android:paddingBottom="@dimen/spacing_small"
+                    android:paddingLeft="@dimen/spacing_large"
+                    android:paddingRight="@dimen/spacing_large"
+                    android:background="@color/colorPrimary"
+                    android:fontFamily="@font/roboto_condensed_bold"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textColor="@color/white"
+                    android:text="T O T A L" />
+
+            </android.support.v7.widget.CardView>
+
+            <View
+                android:id="@+id/overlay"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/bg_gradient_soft" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimary"/>
+
+        //Content
+        <LinearLayout
+            android:id="@+id/lyBottomTotal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/spacing_medium"
+            android:paddingBottom="@dimen/spacing_medium"
+            android:paddingLeft="@dimen/spacing_small"
+            android:paddingRight="@dimen/spacing_small"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            //detail
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:paddingLeft="@dimen/spacing_middle"
+                android:paddingRight="@dimen/spacing_middle"
+                android:orientation="vertical">
+
+                //keuangan
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    //icon
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="@dimen/spacing_medium"
+                        android:layout_weight="0.8"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical|right"
+                            android:tint="@color/colorPrimary"
+                            app:srcCompat="@drawable/ic_outline_realisasi_keuangan"/>
+
+                    </LinearLayout>
+
+                    //value
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_weight="0.2">
+
+                        //PAGU
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/spacing_xsmall"
+                            android:orientation="horizontal"
+                            android:padding="0dp">
+
+                            <TextView
+                                android:id="@+id/tvTotalPaguLong"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingRight="@dimen/spacing_medium"
+                                android:background="@color/white"
+                                android:fontFamily="@font/roboto_condensed_regular"
+                                android:textAlignment="textEnd"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/blue_grey_800"/>
+
+                            <TextView
+                                android:id="@+id/tvTotalPagu"
+                                android:layout_width="70dp"
+                                android:layout_height="wrap_content"
+                                android:paddingRight="@dimen/spacing_medium"
+                                android:background="@color/white"
+                                android:fontFamily="@font/roboto_bold"
+                                android:textAlignment="textEnd"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/blue_grey_800"/>
+
+                            <TextView
+                                android:layout_width="70dp"
+                                android:layout_height="wrap_content"
+                                android:textAlignment="textEnd"
+                                android:textSize="10sp" />
+
+                        </LinearLayout>
+
+                        //SMART
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/spacing_xsmall"
+                            android:orientation="horizontal"
+                            android:padding="0dp">
+
+                            <TextView
+                                android:id="@+id/tvTotalSmartLong"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingRight="@dimen/spacing_medium"
+                                android:background="@color/white"
+                                android:fontFamily="@font/roboto_condensed_regular"
+                                android:textAlignment="textEnd"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/blue_grey_800"/>
+
+                            <TextView
+                                android:id="@+id/tvTotalSmartValue"
+                                android:layout_width="70dp"
+                                android:layout_height="wrap_content"
+                                android:paddingRight="@dimen/spacing_medium"
+                                android:background="@color/white"
+                                android:fontFamily="@font/roboto_bold"
+                                android:textAlignment="textEnd"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/blue_grey_800"/>
+
+                            <TextView
+                                android:id="@+id/tvTotalSmartPercent"
+                                android:layout_width="70dp"
+                                android:layout_height="match_parent"
+                                android:paddingRight="@dimen/spacing_medium"
+                                android:background="@color/white"
+                                android:fontFamily="@font/roboto_bold"
+                                android:textAlignment="textEnd"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/colorPrimaryDark"/>
+
+                        </LinearLayout>
+
+                        //MPO
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/spacing_xsmall"
+                            android:orientation="horizontal"
+                            android:padding="0dp">
+
+                            <TextView
+                                android:id="@+id/tvTotalMpoLong"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingRight="@dimen/spacing_medium"
+                                android:background="@color/white"
+                                android:fontFamily="@font/roboto_condensed_regular"
+                                android:textAlignment="textEnd"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/blue_grey_800"/>
+
+                            <TextView
+                                android:id="@+id/tvTotalMpoValue"
+                                android:layout_width="70dp"
+                                android:layout_height="wrap_content"
+                                android:paddingRight="@dimen/spacing_medium"
+                                android:background="@color/white"
+                                android:fontFamily="@font/roboto_bold"
+                                android:textAlignment="textEnd"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/blue_grey_800"/>
+
+                            <TextView
+                                android:id="@+id/tvTotalMpoPercent"
+                                android:layout_width="70dp"
+                                android:layout_height="wrap_content"
+                                android:paddingRight="@dimen/spacing_medium"
+                                android:background="@color/white"
+                                android:fontFamily="@font/roboto_bold"
+                                android:textAlignment="textEnd"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/colorPrimaryDark"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

@@ -13,6 +13,8 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -62,10 +64,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Field;
+import java.net.InetAddress;
 import java.security.MessageDigest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -131,6 +138,44 @@ public class Tools {
         }
     }
 
+    public static void displayImageRound(final Context ctx, final ImageView img, String url, int width, int height, @DrawableRes int no_img_drawable) {
+        try {
+            RequestOptions options = new RequestOptions()
+                    .centerCrop()
+                    .circleCrop()
+                    .placeholder(no_img_drawable)
+                    .error(no_img_drawable)
+                    .override(width, height).centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE);
+
+            Glide.with(ctx).load(url).apply(options).into(img);
+        } catch (Exception e) {
+        }
+    }
+
+    public static void displayImageRound(final Context ctx, final ImageView img, String url, int width, int height) {
+        try {
+            RequestOptions options = new RequestOptions()
+                    .override(width, height).centerCrop().circleCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE);
+
+            Glide.with(ctx).load(url).apply(options).into(img);
+        } catch (Exception e) {
+        }
+    }
+
+//    public static void displayImageRound(final Context ctx, final ImageView img, @DrawableRes int drawable) {
+//        try {
+//            RequestOptions options = new RequestOptions()
+//                    .centerCrop()
+//                    .circleCrop()
+//                    .diskCacheStrategy(DiskCacheStrategy.NONE);
+//
+//            Glide.with(ctx).load(drawable).apply(options).into(img);
+//        } catch (Exception e) {
+//        }
+//    }
+
     public static void displayImageOriginal(Context ctx, ImageView img, @DrawableRes int drawable) {
         try {
             Glide.with(ctx).load(drawable)
@@ -146,6 +191,18 @@ public class Tools {
                     .load(url)
                     .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
                     .into(img);
+        } catch (Exception e) {
+        }
+    }
+
+    public static void displayImage(Context ctx, ImageView img, String url, int width, int height) {
+        try {
+            RequestOptions options = new RequestOptions()
+                    .centerCrop()
+                    .override(width, height).centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE);
+
+            Glide.with(ctx).load(url).apply(options).into(img);
         } catch (Exception e) {
         }
     }
@@ -170,8 +227,8 @@ public class Tools {
                     .centerCrop()
                     .placeholder(no_img_drawable)
                     .error(no_img_drawable)
-                    .centerCrop()
-                    .diskCacheStrategy(DiskCacheStrategy.NONE);
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    ;
 
             Glide.with(ctx).load(url).apply(options).into(img);
         } catch (Exception e) {
@@ -207,6 +264,11 @@ public class Tools {
         }else{
             return ResourceID;
         }
+    }
+
+    public static String getFormattedDate(Long dateTime, String pattern) {
+        SimpleDateFormat newFormat = new SimpleDateFormat(pattern);
+        return newFormat.format(new Date(dateTime));
     }
 
     public static String getFormattedDateSimple(Long dateTime) {
@@ -443,7 +505,7 @@ public class Tools {
         // The bellow line return a directory in internal storage
         File file = wrapper.getDir("Images",MODE_PRIVATE);
 
-        // Create a file to save the image
+        // Create a file to save the imageUrl
         file = new File(file, "UniqueFileName"+".jpg");
 
         try{
@@ -467,10 +529,10 @@ public class Tools {
             e.printStackTrace();
         }
 
-        // Parse the gallery image url to uri
+        // Parse the gallery imageUrl url to uri
         Uri savedImageURI = Uri.parse(file.getAbsolutePath());
 
-        // Return the saved image Uri
+        // Return the saved imageUrl Uri
         return savedImageURI;
     }
 
@@ -498,4 +560,90 @@ public class Tools {
         }
     }
 
+    public static int parseInt(String s, int the_default) {
+        try {
+            return Integer.parseInt(s);
+        } catch(NumberFormatException e) {
+            return the_default;
+        }
+    }
+
+    public static int parseInt(String s) {
+        try {
+            return Integer.parseInt(s);
+        } catch(NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    public static double parseDouble(String s, int the_default) {
+        try {
+            return Double.parseDouble(s);
+        } catch(NumberFormatException e) {
+            return the_default;
+        }
+    }
+
+    public static double parseDouble(String s) {
+        try {
+            return Double.parseDouble(s);
+        } catch(NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    public static String parseString(String s) {
+        String str;
+        try {
+            if (s.toUpperCase().equals("NULL")){
+                str = null;
+            }else{
+                str = s;
+            }
+            return str;
+        } catch(NumberFormatException e) {
+            return null;
+        }
+    }
+
+    public static String getYearCurrent(){
+        return String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+    }
+
+    public static String getDateCurrent(String pattern) {
+        //Get current date
+        int date = Calendar.getInstance().get(Calendar.DATE);
+        SimpleDateFormat newFormat = new SimpleDateFormat(pattern);
+        return newFormat.format(new Date(date));
+    }
+
+//    public static ArrayList<String> ListToCharSequence(ArrayList arrayList, String fieldName) {
+//        ArrayList<String> str = new ArrayList<String>();
+//        for (int i = 0; i < arrayList.size(); i++) {
+//            str.add(arrayList.get(i).getClass().getDeclaredField(fieldName).toString());
+//            Object fld = arrayList.getClass().getField(fieldName).get().hashCode();
+//        }
+//        return str;
+//    }
+//
+//    private String[] getFields(List itemList) {
+//        final List<String> lines = itemList;
+//        for (final Field field: this.getClass().getFields()) {
+//            field.setAccessible(true);
+//            try {
+//                //lines.add(field.getName() + " = " + field.get(this));
+//                lines.add(field.getName() + " = " + field.get(this));
+//            } catch (final IllegalAccessException e) {
+//                lines.add(field.getName() + " > " + e.getClass().getSimpleName());
+//            }
+//        }
+//        return lines.toArray(new String[lines.size()]);
+//    }
+
+    /*check device connect to internet*/
+    private static boolean isOnline(Context ctx) {
+        ConnectivityManager cm = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return ( netInfo != null && netInfo.isConnected() );
+    }
 }

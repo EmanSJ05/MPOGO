@@ -1,6 +1,8 @@
 package com.emansj.mpogo.activity;
 
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -27,6 +29,7 @@ import com.emansj.mpogo.helper.Tools;
 import com.emansj.mpogo.helper.VolleySingleton;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DrawerActivity extends AppCompatActivity {
@@ -157,10 +160,9 @@ public class DrawerActivity extends AppCompatActivity {
 
     private void initData(){
         tvTahunRKA.setText(String.valueOf(m_Global.getTahunRKA()));
-        tvFullName.setText(m_Global.getUserFullName());
-        tvEmail.setText(m_Global.getUserEmail());
-        //civAvatar.setImageDrawable(m_Global.getUserImageDrawable());
-        Tools.displayImage(m_Ctx, civAvatar, m_Global.getUserImageUrl(), R.drawable.img_no_available_user_photo);
+        tvFullName.setText(m_Global.UserProfile.FullName);
+        tvEmail.setText(m_Global.UserProfile.Email);
+        Tools.displayImage(m_Ctx, civAvatar, m_Global.UserProfile.ImageUrl, R.drawable.img_no_available_user_photo);
     }
 
     private void loadNotifications() {
@@ -185,58 +187,65 @@ public class DrawerActivity extends AppCompatActivity {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.frameLayout, new HomeFragment());
             ft.commit();
+            drwLayout.closeDrawer(GravityCompat.START);
 
         } else if (itemId == R.id.nav_dashboard){
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.frameLayout, new DashboardFragment());
             ft.commit();
+            drwLayout.closeDrawer(GravityCompat.START);
 
         } else if (itemId == R.id.nav_rk){
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.frameLayout, new RekeFragment());
             ft.commit();
+            getSupportActionBar().setTitle("Realisasi Keuangan");
+            drwLayout.closeDrawer(GravityCompat.START);
 
         } else if (itemId == R.id.nav_rkf){
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.frameLayout, new RekesikFragment());
             ft.commit();
+            getSupportActionBar().setTitle("Realisasi Keuangan & Fisik");
+            drwLayout.closeDrawer(GravityCompat.START);
+
+        } else if (itemId == R.id.nav_user_rating){
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.frameLayout, new UserRatingFragment());
+            ft.commit();
+            getSupportActionBar().setTitle("User Rating");
+            drwLayout.closeDrawer(GravityCompat.START);
 
         } else if (itemId == R.id.nav_fisik){
             Intent i = new Intent(m_Ctx, FisikActivity.class);
             startActivity(i);
 
-        } else if (itemId == R.id.nav_user_rating){
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.frameLayout, new RatingFragment());
-            ft.commit();
-
         } else if (itemId == R.id.nav_user_profile){
             Intent i = new Intent(m_Ctx, ProfileActivity.class);
             startActivity(i);
 
-        } else if (itemId == R.id.nav_settings){
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.frameLayout, new HomeFragment());
-            ft.commit();
-
         }
-        drwLayout.closeDrawer(GravityCompat.START);
     }
 
+    private String selectedTahun;
     private void showDialogTahunRKA() {
-
-        if (m_Global.getTahunRKA_List().isEmpty() == false)
+        if (m_Global.getTahunRKAList().isEmpty() == false)
         {
+            //get choice list
+            m_ListTahunRKA = m_Global.getTahunRKAList();
             String[] tahun = new String[m_ListTahunRKA.size()];
             tahun = m_ListTahunRKA.toArray(tahun);
 
+            //get default choice
+            int defaultChoice = m_ListTahunRKA.indexOf(tvTahunRKA.getText());
+
             //init alert dialog
             AlertDialog.Builder builder = new AlertDialog.Builder(m_Ctx);
-            builder.setTitle("Pilih Tahun RKA");
-            builder.setSingleChoiceItems(tahun, 0, new DialogInterface.OnClickListener() {
+            builder.setTitle("Pilih Tahun");
+            builder.setSingleChoiceItems(tahun, defaultChoice, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    m_SelectedTahunRKA = m_ListTahunRKA.get(i).toString();
+                    selectedTahun = m_ListTahunRKA.get(i);
                 }
             });
 
@@ -246,7 +255,10 @@ public class DrawerActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i)
                 {
-                    Snackbar.make(parent_view, "selected : " + m_SelectedTahunRKA, Snackbar.LENGTH_SHORT).show();
+                    m_SelectedTahunRKA = selectedTahun;
+                    tvTahunRKA.setText(selectedTahun);
+                    m_Global.setTahunRKA(Tools.parseInt(selectedTahun));
+                    refreshFragment();
                 }
             });
 
@@ -256,5 +268,15 @@ public class DrawerActivity extends AppCompatActivity {
         }
     }
 
+    private void refreshFragment(){
+        FragmentManager fm = getSupportFragmentManager();
+
+        //if you added fragment via layout xml
+        Fragment fragment = fm.findFragmentById(R.id.frameLayout);
+        if (fragment instanceof HomeFragment){
+            HomeFragment homeFragment = (HomeFragment) fm.findFragmentById(R.id.frameLayout);
+            homeFragment.refreshData();
+        }
+    }
 }
 

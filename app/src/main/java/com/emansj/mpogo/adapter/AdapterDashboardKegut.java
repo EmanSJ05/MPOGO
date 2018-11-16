@@ -9,6 +9,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.emansj.mpogo.R;
+import com.emansj.mpogo.helper.Tools;
 import com.emansj.mpogo.model.DashboardKegut;
 
 import java.util.ArrayList;
@@ -66,7 +67,7 @@ public class AdapterDashboardKegut extends RecyclerView.Adapter<RecyclerView.Vie
             DashboardKegut p = items.get(position);
             view.categoryName.setText(p.categoryName);
             view.realPercent.setText(p.realPercent + "%") ;
-            int percentValue = (int)Double.parseDouble(p.realPercent);
+            int percentValue = (int) Tools.parseDouble(p.realPercent.toString());
             view.progress.setProgress(percentValue);
 
             view.lyParent.setOnClickListener(new View.OnClickListener() {

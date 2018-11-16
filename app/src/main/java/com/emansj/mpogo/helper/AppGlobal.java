@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.emansj.mpogo.R;
+import com.emansj.mpogo.model.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +32,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -40,8 +42,6 @@ public class AppGlobal {
     private static volatile AppGlobal ourInstance;
     private SharedPreferences m_SharedPref;
     private Context m_Ctx;
-    private ImageLoader imageLoader;
-    private JSONObject m_JsonObjTemp;
 
     public static AppGlobal getInstance(Context context) {
         if (ourInstance == null)
@@ -66,35 +66,25 @@ public class AppGlobal {
     }
 
     //Static Global vars
-    //public static String URL_ROOT = "http://192.168.100.5:8080/mpogo";
-    //public static String URL_ROOT = "http://192.168.80.176:8080/mpogo";
-    //public static String URL_ROOT = "http://192.168.43.127:8080/mpogo";
-    public static String URL_ROOT = "http://117.102.94.187:8081/mpoapi";
-    public static String URL_LOGIN = URL_ROOT + "/user/signin";
+    public static String URL_MPO = "http://mpo.psp.pertanian.go.id/";
+    public static String URL_ROOT = "http://192.168.100.5:8080/mpoapi";
+    //public static String URL_ROOT = "http://192.168.1.103:8080/mpoapi";
+//    public static String URL_ROOT = "http://192.168.80.176:8080/mpoapi";
+    //public static String URL_ROOT = "http://192.168.43.127:8080/mpoapi";
+    //public static String URL_ROOT = "http://117.102.94.187:8081/mpoapi";
     private static String TAG = "MPOGO.GLOBAL";
 
 
     //GLOBAL VARS
     //user
-    private int UserId;
-    private String UserName;
-    private String UserPass;
-    private String UserEmail;
-    private String UserNickName;
-    private String UserFullName;
-    private String UserMobileNo;
-    private String UserImageUrl;
-    private Drawable UserImageDraw;
-    private String UserType;
-    private int UserProvId;
-    private int UserKabId;
-    private int UserDinasId;
-    private int UserSatkerId;
+    private int UserLoginId;
+    private String UserLoginName;
+    private String UserLoginPass;
+    public User UserProfile;
 
     //app
     private int TahunRKA;                               //tahun rka sedang aktif [menu, ganti tahun rka, report filter]
-    private List<String> TahunRKA_List;                 //semua tahun RKA [login]
-    //private List<Integer> SatkerId_List;              //satker bawahan user [login, ganti tahun rka, report filter]
+    private List<String> TahunRKAList;                  //semua tahun RKA [login]
     private boolean IsRememberMe;                       //pengingat username [login]
     private boolean FilterRunFirst = true;              //runfirst untuk report, jika report dijalankan pertama kali, list satker tidak ada yang dipilih [report filter]
     private boolean FilterIsAllSatker = true;           //pilihan semua satker di laporan [report filter]
@@ -102,89 +92,35 @@ public class AppGlobal {
     private List<String> FilterSelectedIdSatkers_List;  //satker yang terpilih di laporan [report filter]
 
     //METHODS
-    public int getUserId() {return UserId;}
-    public void setUserId(int userId) {UserId = userId;}
-
-    public String getUserName() {return UserName;}
-    public void setUserName(String userName) {UserName = userName;}
-
-    public String getUserPass() {return UserPass;}
-    public void setUserPass(String userPass) {UserPass = userPass;}
-
-    public String getUserEmail() {return UserEmail;}
-    public void setUserEmail(String userEmail) {UserEmail = userEmail;}
-
-    public String getUserNickName() {return UserNickName;}
-    public void setUserNickName(String userNickName) {UserNickName = userNickName;}
-
-    public String getUserFullName() {return UserFullName;}
-    public void setUserFullName(String userFullName) {UserFullName = userFullName;}
-
-    public String getUserMobileNo() {return UserMobileNo;}
-    public void setUserMobileNo(String userMobileNo) {UserMobileNo = userMobileNo;}
-
-    public String getUserImageUrl() {return UserImageUrl;}
-    public void setUserImageUrl(String userImageUrl) {UserImageUrl = userImageUrl;}
-
-    public Drawable getUserImageDrawable() {
-        return UserImageDraw;
-    }
-
-    public void setUserImageDrawable() {
-        ImageView imgView = null;
-
-        Tools.displayImage(m_Ctx, imgView, UserImageUrl);
-        //imgView.invalidate();
-        Drawable drw = imgView.getDrawable();
-        UserImageDraw = drw;
-    }
-
-    public String getUserType() {return UserType;}
-    public void setUserType(String userType) {UserType = userType;}
-
-    public int getUserProvId() {return UserProvId;}
-    public void setUserProvId(int userProvId) {UserProvId = userProvId;}
-
-    public int getUserKabId() {return UserKabId;}
-    public void setUserKabId(int userKabId) {UserKabId = userKabId;}
-
-    public int getUserDinasId() {return UserDinasId;}
-    public void setUserDinasId(int userDinasId) {UserDinasId = userDinasId;}
-
-    public int getUserSatkerId() {return UserSatkerId;}
-    public void setUserSatkerId(int userSatkerId) {UserSatkerId = userSatkerId;}
-
-    public int getTahunRKA() {
-        int tahun = m_SharedPref.getInt("tahunrka", 0);
-
-        if (TahunRKA == 0){ //cek TahunRKA
-            if (tahun == 0) { //cek Preferences
-                if (TahunRKA_List != null) { //cek dari list
-                    tahun = Integer.parseInt(TahunRKA_List.get(0));
-                } else {
-                    tahun = 0;
-                }
-            }
-        }else {
-            tahun = TahunRKA;
-        }
-
-        return tahun;
-    }
-    public void setTahunRKA(int tahunRKA) {
-        TahunRKA = tahunRKA;
+    public int getUserLoginId() {return UserLoginId;}
+    public void setUserLoginId(int userLoginId) {
+        UserLoginId = userLoginId;
 
         //save to pref
         SharedPreferences.Editor editor = m_SharedPref.edit();
-        m_SharedPref.edit().putInt("tahunrka", tahunRKA);
+        m_SharedPref.edit().putInt("user_login_id", userLoginId);
         m_SharedPref.edit().commit();
     }
 
-    public List<String> getTahunRKA_List() {return TahunRKA_List;}
-    public void setTahunRKA_List(List<String> tahunRKA_List) {TahunRKA_List = tahunRKA_List;}
+    public String getUserLoginName() {return UserLoginName;}
+    public void setUserLoginName(String userLoginName) {
+        UserLoginName = userLoginName;
 
-    //public List<Integer> getSatkerId_List() {return SatkerId_List;}
-    //public void setSatkerId_List(List<Integer> satkerId_List) {SatkerId_List = satkerId_List;}
+        //save to pref
+        SharedPreferences.Editor editor = m_SharedPref.edit();
+        m_SharedPref.edit().putString("user_login_name", userLoginName);
+        m_SharedPref.edit().commit();
+    }
+
+    public String getUserLoginPass() {return UserLoginPass;}
+    public void setUserLoginPass(String userLoginPass) {
+        UserLoginPass = userLoginPass;
+
+        //save to pref
+        SharedPreferences.Editor editor = m_SharedPref.edit();
+        m_SharedPref.edit().putString("user_login_pass", userLoginPass);
+        m_SharedPref.edit().commit();
+    }
 
     public boolean getIsRememberMe(){
         boolean value = m_SharedPref.getBoolean("is_remember_me", false);
@@ -201,6 +137,36 @@ public class AppGlobal {
         m_SharedPref.edit().putBoolean("is_remember_me", isRememberMe);
         m_SharedPref.edit().commit();
     }
+
+    public int getTahunRKA() {
+        int tahun = m_SharedPref.getInt("tahun_rka", 0);
+
+        if (TahunRKA == 0){ //cek TahunRKA
+            if (tahun == 0) { //cek Preferences
+                if (TahunRKAList != null) { //cek dari list
+                    tahun = Integer.parseInt(TahunRKAList.get(0));
+                    setTahunRKA(tahun);
+                } else {
+                    tahun = 0;
+                }
+            }
+        }else {
+            tahun = TahunRKA;
+        }
+
+        return tahun;
+    }
+    public void setTahunRKA(int tahunRKA) {
+        TahunRKA = tahunRKA;
+
+        //save to pref
+        SharedPreferences.Editor editor = m_SharedPref.edit();
+        m_SharedPref.edit().putInt("tahun_rka", tahunRKA);
+        m_SharedPref.edit().commit();
+    }
+
+    public List<String> getTahunRKAList() {return TahunRKAList;}
+    public void setTahunRKAList(List<String> tahunRKAList) {TahunRKAList = tahunRKAList;}
 
     public boolean getFilterRunFirst() {
         return FilterRunFirst;
@@ -253,6 +219,134 @@ public class AppGlobal {
         m_SharedPref.edit().commit();
     }
 
+    
+    //-------------------------------------------------------------------------------DATA LOAD
+    public void loadInitData(){
+        UserProfile = new User();
+    }
+
+    public void loadTahunRKAList(final Runnable r){
+        String api = "/AppGlobal/tahunrka_list";
+        String params = "";
+        String url = AppGlobal.URL_ROOT + api + params;
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>(){
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try{
+                            JSONArray jsonArray = response.getJSONArray("data");
+                            List<String> list_tahunrka = new ArrayList<>();
+
+                            for (int i = 0; i < jsonArray.length(); i++)
+                            {
+                                JSONObject dt = jsonArray.getJSONObject(i);
+                                list_tahunrka.add(dt.getString("tahun"));
+                            }
+
+                            //save to AppGlobal
+                            setTahunRKAList(list_tahunrka);
+
+                            //save to pref
+                            SharedPreferences.Editor editor = m_SharedPref.edit();
+                            Set<String> setStr = new HashSet<String>();
+                            setStr.addAll(list_tahunrka);
+                            m_SharedPref.edit().putStringSet("tahun_rka_list", setStr);
+                            m_SharedPref.edit().commit();
+
+                            //run
+                            r.run();
+
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        //error.printStackTrace();
+                        VolleyErrorHelper.showError(error, m_Ctx);
+                    }
+                }
+        );
+        VolleySingleton.getInstance(m_Ctx).addToRequestQueue(request, TAG);
+    }
+
+    public void loadLastLogin(){
+        //set global vars from settings
+        IsRememberMe = m_SharedPref.getBoolean("is_remember_me", false);
+        UserLoginId = m_SharedPref.getInt("user_login_id",0);
+        UserLoginName = m_SharedPref.getString("user_login_name",null);
+        UserLoginPass = m_SharedPref.getString("user_login_pass",null);
+        TahunRKA = m_SharedPref.getInt("tahun_rka", getTahunRKA());
+    }
+
+    public void loadUserProfile(final Runnable r){
+        String api = "/AppGlobal/userprofile";
+        String params = String.format("?userid=%1$d", UserLoginId);
+        String url = AppGlobal.URL_ROOT + api + params;
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>(){
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try{
+                            int status = response.getInt("status");
+                            if (status == 200 )
+                            {
+                                JSONArray data = response.getJSONArray("data");
+                                if (data.length() > 0)
+                                {
+                                    JSONObject row = data.getJSONObject(0);
+
+                                    UserProfile = new User();
+                                    UserProfile.UserId = Tools.parseInt(row.getString("userid"));
+                                    UserProfile.UserName = Tools.parseString(row.getString("username"));
+                                    UserProfile.UserPass = getUserLoginPass();
+                                    UserProfile.FullName = Tools.parseString(row.getString("fullname"));
+                                    UserProfile.NickName = Tools.parseString(row.getString("nickname"));
+                                    UserProfile.MobileNo = Tools.parseString(row.getString("usertelpno"));
+                                    UserProfile.Email = Tools.parseString(row.getString("useremail"));
+                                    UserProfile.ImageUrl = Tools.parseString(row.getString("userimage"));
+                                    UserProfile.Peran = Tools.parseString(row.getString("peran"));
+                                    UserProfile.UserType = Tools.parseString(row.getString("usertype"));
+                                    UserProfile.ProvId = Tools.parseInt(row.getString("provid"));
+                                    UserProfile.KodeProvinsi = Tools.parseString(row.getString("kdprov"));
+                                    UserProfile.NamaProvinsi = Tools.parseString(row.getString("nmprov"));
+                                    UserProfile.KabId = Tools.parseInt(row.getString("kabid"));
+                                    UserProfile.KodeKabupaten = Tools.parseString(row.getString("kdkab"));
+                                    UserProfile.NamaKabupaten = Tools.parseString(row.getString("nmkab"));
+                                    UserProfile.DinasId = Tools.parseInt(row.getString("dinasid"));
+                                    UserProfile.NamaDinas = Tools.parseString(row.getString("namadinas"));
+                                    UserProfile.SatkerId = Tools.parseInt(row.getString("idsatker"));
+                                    UserProfile.KodeSatker = Tools.parseString(row.getString("kdsatker"));
+                                    UserProfile.NamaSatker = Tools.parseString(row.getString("nmsatker"));
+                                    if (UserProfile.SatkerId != 0){
+                                        String satker = UserProfile.KodeSatker + " - " + UserProfile.NamaSatker;
+                                        UserProfile.Satker = satker;
+                                    }
+                                    if (r != null) {
+                                        r.run();
+                                    }
+                                }
+                            }
+
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        VolleyErrorHelper.showError(error, m_Ctx);
+                    }
+                }
+        );
+        VolleySingleton.getInstance(m_Ctx).addToRequestQueue(request, TAG);
+    }
+
 
     //-------------------------------------------------------------------------------PUBLIC DATA (retrieve data from server)
     public class Data
@@ -268,111 +362,133 @@ public class AppGlobal {
             VolleySingleton.getInstance(m_Ctx).getRequestQueue().cancelAll(tag);
         }
 
-        public void loadTahunRKA_List(){
-            String url = URL_ROOT + "/AppGlobal/tahunrka_list";
+//        public void loadTahunRKAList(){
+//            String api = "/AppGlobal/tahunrka_list";
+//            String params = "";
+//            String url = AppGlobal.URL_ROOT + api + params;
+//
+//            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+//                    new Response.Listener<JSONObject>(){
+//                        @Override
+//                        public void onResponse(JSONObject response) {
+//                            try{
+//                                JSONArray jsonArray = response.getJSONArray("data");
+//                                List<String> list_tahunrka = new ArrayList<>();
+//
+//                                for (int i = 0; i < jsonArray.length(); i++)
+//                                {
+//                                    JSONObject dt = jsonArray.getJSONObject(i);
+//                                    list_tahunrka.add(dt.getString("tahun"));
+//                                }
+//
+//                                //save to AppGlobal
+//                                setTahunRKAList(list_tahunrka);
+//
+//                                //save to pref
+//                                SharedPreferences.Editor editor = m_SharedPref.edit();
+//                                Set<String> setStr = new HashSet<String>();
+//                                setStr.addAll(list_tahunrka);
+//                                m_SharedPref.edit().putStringSet("tahun_rka_list", setStr);
+//                                m_SharedPref.edit().commit();
+//
+//                            }catch (JSONException e){
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    },
+//                    new Response.ErrorListener(){
+//                        @Override
+//                        public void onErrorResponse(VolleyError error){
+//                            //error.printStackTrace();
+//                            VolleyErrorHelper.showError(error, m_Ctx);
+//                        }
+//                    }
+//            );
+//            VolleySingleton.getInstance(m_Ctx).addToRequestQueue(request, TAG);
+//
+//            //m_JsonObjTemp = VolleySingleton.getInstance(m_Ctx).getRequestJSONObject("xxx", Request.Method.GET, "data");
+//        }
+//
+//        public void loadLastLogin(){
+//            //set global vars from settings
+//            IsRememberMe = m_SharedPref.getBoolean("is_remember_me", false);
+//            UserLoginId = m_SharedPref.getInt("user_login_id",0);
+//            UserLoginName = m_SharedPref.getString("user_login_name",null);
+//            UserLoginPass = m_SharedPref.getString("user_login_pass",null);
+//            TahunRKA = m_SharedPref.getInt("tahun_rka", getTahunRKA());
+//        }
 
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                    new Response.Listener<JSONObject>(){
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            try{
-                                JSONArray jsonArray = response.getJSONArray("data");
-                                List<String> list_tahunrka = new ArrayList<>();
+//        public void loadUserProfile(final Runnable r){
+//            String api = "/AppGlobal/userprofile";
+//            String params = String.format("?userid=%1$d", UserLoginId);
+//            String url = AppGlobal.URL_ROOT + api + params;
+//
+//            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+//                    new Response.Listener<JSONObject>(){
+//                        @Override
+//                        public void onResponse(JSONObject response) {
+//                            try{
+//                                int status = response.getInt("status");
+//                                if (status == 200 )
+//                                {
+//                                    JSONArray data = response.getJSONArray("data");
+//                                    if (data.length() > 0)
+//                                    {
+//                                        for (int i = 0; i < data.length(); i++)
+//                                        {
+//                                            JSONObject row = data.getJSONObject(i);
+//
+//                                            obj.UserId = Tools.parseInt(row.getString("userid"));
+//                                            obj.UserName = Tools.parseString(row.getString("username"));
+//                                            obj.UserPass = Tools.parseString(row.getString("userpass"));
+//                                            obj.FullName = Tools.parseString(row.getString("fullname"));
+//                                            obj.NickName = Tools.parseString(row.getString("nickname"));
+//                                            obj.MobileNo = Tools.parseString(row.getString("usertelpno"));
+//                                            obj.Email = Tools.parseString(row.getString("useremail"));
+//                                            obj.ImageUrl = Tools.parseString(row.getString("userimage"));
+//                                            obj.ProvId = Tools.parseInt(row.getString("provid"));
+//                                            obj.Provinsi = Tools.parseString(row.getString("nmprov"));
+//                                            obj.KabId = Tools.parseInt(row.getString("kabid"));
+//                                            obj.Kabupaten = Tools.parseString(row.getString("nmkab"));
+//                                            obj.DinasId = Tools.parseInt(row.getString("dinasid"));
+//                                            obj.Dinas = Tools.parseString(row.getString("namadinas"));
+//                                            obj.SatkerId = Tools.parseInt(row.getString("idsatker"));
+//                                            obj.KodeSatker = Tools.parseString(row.getString("kdsatker"));
+//                                            obj.Satker = Tools.parseString(row.getString("nmsatker"));
+//
+//                                            UserName = Tools.parseString(row.getString("username"));
+//                                            UserEmail = Tools.parseString(row.getString("useremail"));
+//                                            UserNickName = Tools.parseString(row.getString("nickname"));
+//                                            UserFullName = Tools.parseString(row.getString("fullname"));
+//                                            UserMobileNo = Tools.parseString(row.getString("usertelpno"));
+//                                            UserImageUrl = Tools.parseString(row.getString("userimage"));
+//                                            UserType = Tools.parseString(row.getString("usertype"));
+//                                            UserProvId = row.optInt("provid");
+//                                            UserKabId = row.optInt("kabid");
+//                                            UserDinasId = row.optInt("dinasid");
+//                                            UserSatkerId = row.optInt("idsatker");
+//                                        }
+//                                        r.run();
+//                                    }
+//                                }
+//
+//                            }catch (JSONException e){
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    },
+//                    new Response.ErrorListener(){
+//                        @Override
+//                        public void onErrorResponse(VolleyError error){
+//                            VolleyErrorHelper.showError(error, m_Ctx);
+//                        }
+//                    }
+//            );
+//
+//            VolleySingleton.getInstance(m_Ctx).addToRequestQueue(request, TAG);
+//        }
 
-                                for (int i = 0; i < jsonArray.length(); i++)
-                                {
-                                    JSONObject dt = jsonArray.getJSONObject(i);
-                                    list_tahunrka.add(dt.getString("tahun"));
-                                }
-
-                                //save to AppGlobal
-                                setTahunRKA_List(list_tahunrka);
-
-                                //save to pref
-                                SharedPreferences.Editor editor = m_SharedPref.edit();
-                                Set<String> setStr = new HashSet<String>();
-                                setStr.addAll(list_tahunrka);
-                                m_SharedPref.edit().putStringSet("tahunrka_list", setStr);
-                                m_SharedPref.edit().commit();
-
-                            }catch (JSONException e){
-                                e.printStackTrace();
-                            }
-                        }
-                    },
-                    new Response.ErrorListener(){
-                        @Override
-                        public void onErrorResponse(VolleyError error){
-                            //error.printStackTrace();
-                            VolleyErrorHelper.showError(error, m_Ctx);
-                        }
-                    }
-            );
-            VolleySingleton.getInstance(m_Ctx).addToRequestQueue(request, TAG);
-
-            //m_JsonObjTemp = VolleySingleton.getInstance(m_Ctx).getRequestJSONObject("xxx", Request.Method.GET, "data");
-        }
-
-        public void loadLastLogin(){
-            //set global vars from settings
-            IsRememberMe = m_SharedPref.getBoolean("is_remember_me", false);
-            UserId = m_SharedPref.getInt("userid",0);
-            UserName = m_SharedPref.getString("username",null);
-            UserPass = m_SharedPref.getString("userpass",null);
-            TahunRKA = m_SharedPref.getInt("tahunrka", getTahunRKA());
-        }
-
-        public void loadUserProfile(final Runnable r){
-            String url = String.format(URL_ROOT + "/AppGlobal/userprofile?userid=%1$s", UserId);
-
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                    new Response.Listener<JSONObject>(){
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            try{
-                                int status = response.getInt("status");
-                                if (status == 200 )
-                                {
-                                    JSONArray data = response.getJSONArray("data");
-                                    if (data.length() > 0)
-                                    {
-                                        for (int i = 0; i < data.length(); i++)
-                                        {
-                                            JSONObject row = data.getJSONObject(i);
-
-                                            UserName = row.getString("username");
-                                            UserEmail = row.getString("useremail");
-                                            UserNickName = row.getString("nickname");
-                                            UserFullName = row.getString("fullname");
-                                            UserMobileNo = row.getString("usertelpno");
-                                            UserImageUrl = row.getString("userimage");
-                                            UserType = row.getString("usertype");
-                                            UserProvId = row.optInt("provid");
-                                            UserKabId = row.optInt("kabid");
-                                            UserDinasId = row.optInt("dinasid");
-                                            UserSatkerId = row.optInt("idsatker");
-
-                                            //setUserImageDrawable();
-                                        }
-                                        r.run();
-                                    }
-                                }
-
-                            }catch (JSONException e){
-                                e.printStackTrace();
-                            }
-                        }
-                    },
-                    new Response.ErrorListener(){
-                        @Override
-                        public void onErrorResponse(VolleyError error){
-                            VolleyErrorHelper.showError(error, m_Ctx);
-                        }
-                    }
-            );
-
-            VolleySingleton.getInstance(m_Ctx).addToRequestQueue(request, TAG);
-        }
+        
 
     }
 }

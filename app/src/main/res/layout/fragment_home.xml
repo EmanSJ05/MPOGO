@@ -85,8 +85,7 @@
                                     android:padding="@dimen/spacing_medium"
                                     android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                                     android:textSize="10sp"
-                                    android:textColor="@color/blue_grey_400"
-                                    android:text="19 Jan 2018"/>
+                                    android:textColor="@color/blue_grey_400"/>
 
                             </LinearLayout>
 
@@ -111,7 +110,7 @@
                                     android:layout_height="wrap_content"
                                     app:donut_finished_color="@color/colorPrimaryDark"
                                     app:donut_text_color="@color/colorPrimaryDark"
-                                    app:donut_progress="92.0"
+                                    app:donut_progress="0"
                                     android:theme="@style/TextAppearance.AppCompat.Headline" />
 
                             </LinearLayout>
@@ -151,8 +150,7 @@
                                         android:padding="@dimen/spacing_small"
                                         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                                         android:textColor="@color/blue_grey_800"
-                                        android:textStyle="bold"
-                                        android:text="6,9 T "/>
+                                        android:textStyle="bold"/>
 
                                 </RelativeLayout>
 
@@ -178,8 +176,7 @@
                                         android:padding="@dimen/spacing_small"
                                         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                                         android:textColor="@color/blue_grey_800"
-                                        android:textStyle="bold"
-                                        android:text="6,3 T "/>
+                                        android:textStyle="bold"/>
 
                                 </RelativeLayout>
 
@@ -205,8 +202,7 @@
                                         android:padding="@dimen/spacing_small"
                                         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                                         android:textColor="@color/blue_grey_800"
-                                        android:textStyle="bold"
-                                        android:text="556,7 M "/>
+                                        android:textStyle="bold"/>
 
                                 </RelativeLayout>
 
@@ -261,8 +257,7 @@
                                     android:padding="@dimen/spacing_medium"
                                     android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                                     android:textSize="10sp"
-                                    android:textColor="@color/blue_grey_400"
-                                    android:text="28 Mar 2018"/>
+                                    android:textColor="@color/blue_grey_400"/>
 
                             </LinearLayout>
 
@@ -287,7 +282,7 @@
                                     android:layout_height="wrap_content"
                                     app:donut_finished_color="@color/colorPrimaryDark"
                                     app:donut_text_color="@color/colorPrimaryDark"
-                                    app:donut_progress="90.7"
+                                    app:donut_progress="0"
                                     android:theme="@style/TextAppearance.AppCompat.Headline" />
 
                             </LinearLayout>
@@ -327,8 +322,7 @@
                                         android:padding="@dimen/spacing_small"
                                         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                                         android:textColor="@color/blue_grey_800"
-                                        android:textStyle="bold"
-                                        android:text="6,9 T "/>
+                                        android:textStyle="bold"/>
 
                                 </RelativeLayout>
 
@@ -354,8 +348,7 @@
                                         android:padding="@dimen/spacing_small"
                                         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                                         android:textColor="@color/blue_grey_800"
-                                        android:textStyle="bold"
-                                        android:text="6,2 T "/>
+                                        android:textStyle="bold"/>
 
                                 </RelativeLayout>
 
@@ -381,8 +374,7 @@
                                         android:padding="@dimen/spacing_small"
                                         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                                         android:textColor="@color/blue_grey_800"
-                                        android:textStyle="bold"
-                                        android:text="645,8 M "/>
+                                        android:textStyle="bold"/>
 
                                 </RelativeLayout>
 
@@ -458,8 +450,7 @@
                                     android:padding="@dimen/spacing_medium"
                                     android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                                     android:textSize="10sp"
-                                    android:textColor="@color/blue_grey_400"
-                                    android:text="19 Jan 2018" />
+                                    android:textColor="@color/blue_grey_400"/>
 
                             </LinearLayout>
 
@@ -491,7 +482,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_medium"
                     android:padding="@dimen/spacing_medium"
-                    android:text="Realisasi Keuangan Per Kegiatan Utama"
+                    android:text="Realisasi Fisik Per Kegiatan Utama"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:textColor="@color/blue_grey_400" />
 
@@ -542,8 +533,7 @@
                                     android:padding="@dimen/spacing_medium"
                                     android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                                     android:textSize="10sp"
-                                    android:textColor="@color/blue_grey_400"
-                                    android:text="14 Aug 2018" />
+                                    android:textColor="@color/blue_grey_400"/>
 
                             </LinearLayout>
 

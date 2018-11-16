@@ -22,7 +22,6 @@ public class AdapterSatkerFilter extends RecyclerView.Adapter<AdapterSatkerFilte
     private Context m_Ctx;
     private OnItemClickListener m_OnItemClickListener;
     public CustomFilter filter;
-    private boolean m_IsNotified = true;
 
 
     public interface OnItemClickListener{
@@ -66,9 +65,9 @@ public class AdapterSatkerFilter extends RecyclerView.Adapter<AdapterSatkerFilte
     @Override
     public void onBindViewHolder(final MyHolder holder, final int position) {
         Satker i = m_Items.get(position);
-        holder.tvKdSatker.setText(i.kdSatker);
-        holder.tvNmSatker.setText(i.nmSatker);
-        holder.chkSelected.setChecked(i.isSelected);
+        holder.tvKdSatker.setText(i.KodeSatker);
+        holder.tvNmSatker.setText(i.NamaSatker);
+        holder.chkSelected.setChecked(i.IsSelected);
 
         //row clicked
         holder.lyRow.setOnClickListener(new View.OnClickListener() {
@@ -104,8 +103,8 @@ public class AdapterSatkerFilter extends RecyclerView.Adapter<AdapterSatkerFilte
         Satker i = m_Items.get(position);
         boolean value = holder.chkSelected.isChecked();
 
-        i.isSelected = value;
-        m_Items.get(position).isSelected = value;
+        i.IsSelected = value;
+        m_Items.get(position).IsSelected = value;
         if (value){
             m_ItemsChecked.add(i);
         }else{
@@ -123,14 +122,14 @@ public class AdapterSatkerFilter extends RecyclerView.Adapter<AdapterSatkerFilte
     @Override
     public long getItemId(int position) {
         Satker item = m_Items.get(position);
-        return item.idSatker;
+        return item.SatkerId;
     }
 
     public long getSelectedItemCount(){
 
         if (m_ItemsChecked.size() <= 0){
             for (Satker i : m_Items) {
-                if (i.isSelected){
+                if (i.IsSelected){
                     m_ItemsChecked.add(i);
                 }
             }
@@ -144,7 +143,7 @@ public class AdapterSatkerFilter extends RecyclerView.Adapter<AdapterSatkerFilte
 
         if (getSelectedItemCount() > 0){
             for (Satker i : m_ItemsChecked) {
-                items.add(i.idSatker);
+                items.add(i.SatkerId);
             }
         }
         return items;
@@ -187,7 +186,7 @@ public class AdapterSatkerFilter extends RecyclerView.Adapter<AdapterSatkerFilte
                 for (int i=0;i<filterList.size();i++)
                 {
                     //CHECK
-                    if(filterList.get(i).kdSatker.toUpperCase().contains(constraint))
+                    if(filterList.get(i).KodeSatker.toUpperCase().contains(constraint))
                     {
                         //ADD PLAYER TO FILTERED PLAYERS
                         filteredItems.add(filterList.get(i));

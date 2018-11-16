@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -43,11 +44,11 @@
             <!--</intent-filter>-->
         </activity>
         <activity android:name=".activity.RekesikActivity" />
-        <activity android:name=".activity.RatingActivity" />
+        <activity android:name=".activity.UserRatingActivity" />
         <activity android:name=".activity.FisikActivity" />
         <activity android:name=".activity.ProfileActivity" />
+        <activity android:name=".activity.ProfileEditActivity" />
         <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.TestActivity" />
         <activity android:name=".activity.MainActivity" />
 
         <meta-data

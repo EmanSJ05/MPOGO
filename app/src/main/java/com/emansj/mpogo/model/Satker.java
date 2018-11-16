@@ -7,10 +7,11 @@ import java.util.List;
 
 public class Satker {
 
-    public int idSatker;
-    public String kdSatker;
-    public String nmSatker;
-    public boolean isSelected;
+    public int SatkerId;
+    public String KodeSatker;
+    public String NamaSatker;
+    public String Satker;
+    public boolean IsSelected;
 
 
     public Satker() {
@@ -27,9 +28,9 @@ public class Satker {
             String str = dtArray[i].toString();
             String[] dt = str.split("\\|");
 
-            obj.idSatker = Integer.parseInt(dt[1]);
-            obj.kdSatker = dt[2];
-            obj.nmSatker = dt[3];
+            obj.SatkerId = Integer.parseInt(dt[1]);
+            obj.KodeSatker = dt[2];
+            obj.NamaSatker = dt[3];
 
             items.add(obj);
         }

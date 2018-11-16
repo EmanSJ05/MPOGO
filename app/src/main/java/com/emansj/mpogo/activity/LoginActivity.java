@@ -98,7 +98,7 @@ public class LoginActivity extends Activity {
             public void onClick(View v) {
                 CheckBox c = (CheckBox) v;
                 if (c.isChecked()){
-                    editUsername.setText("coder");
+                    editUsername.setText("distannaksambas@yahoo.co.id");
                     editPassword.setText("Admin123");
                 }
             }
@@ -108,18 +108,20 @@ public class LoginActivity extends Activity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //LOGIN
                 logIn();
             }
         });
     }
 
     private void initData(){
-        m_GlobalData.loadLastLogin();
+        //LOAD LAST LOGIN
+        m_Global.loadLastLogin();
 
         boolean is_remember_me = m_Global.getIsRememberMe();
         if (is_remember_me)
         {
-            editUsername.setText(m_Global.getUserName());
+            editUsername.setText(m_Global.getUserLoginName());
             editPassword.setText("");
             chkRememberMe.setChecked(true);
             //btnLogin.requestFocus();
@@ -140,11 +142,13 @@ public class LoginActivity extends Activity {
         m_PDialog.setMessage("Authenticating...");
         showDialog();
 
-        StringRequest strReq = new StringRequest(Method.POST, AppGlobal.URL_LOGIN,
+        String api = "/user/signin";
+        String params = "";
+        String url = AppGlobal.URL_ROOT + api + params;
+        StringRequest strReq = new StringRequest(Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d(TAG, "Login Response: " + response.toString());
                         hideDialog();
 
                         try {
@@ -152,23 +156,22 @@ public class LoginActivity extends Activity {
                             int status = jsonObj.getInt("status");
 
                             if (status == 200) { //login succeed
-                                //get value & response
-                                int user_id = jsonObj.getInt("userid");
-                                String user_name = jsonObj.getString("username");
+                                int userId = jsonObj.getInt("userid");
 
                                 //set to AppGlobal
                                 m_Global.setIsRememberMe(chkRememberMe.isChecked());
-                                m_Global.setUserId(user_id);
-                                m_Global.setUserName(user_name);
+                                m_Global.setUserLoginId(userId);
+                                m_Global.setUserLoginName(userName);
+                                m_Global.setUserLoginPass(userPass);
 
-                                //load user profile
+                                //LOAD USER PROFILE
                                 Runnable r = new Runnable() {
                                     @Override
                                     public void run() {
                                         gotoActivityHome();
                                     }
                                 };
-                                m_GlobalData.loadUserProfile(r);
+                                m_Global.loadUserProfile(r);
 
                             }else{
                                 String errorMsg = jsonObj.getString("message");
@@ -177,7 +180,7 @@ public class LoginActivity extends Activity {
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Login error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
                 },

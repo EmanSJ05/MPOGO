@@ -7,7 +7,7 @@
         android:id="@+id/action_edit"
         android:icon="@drawable/ic_create"
         android:orderInCategory="100"
-        android:title="Search"
+        android:title="Ubah Profile"
         app:showAsAction="always" />
 
     <item

@@ -54,7 +54,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="70dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_condensed_light"
                         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
@@ -120,7 +120,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="70dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_condensed_light"
                         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
@@ -189,7 +189,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="70dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_condensed_light"
                         android:textAlignment="textStart"
@@ -258,7 +258,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="70dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_condensed_light"
                         android:textAlignment="textStart"
@@ -324,7 +324,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="70dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_condensed_light"
                         android:textAlignment="textStart"
