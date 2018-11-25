@@ -24,44 +24,43 @@
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:titleTextAppearance="@style/Toolbar.TitleText">
 
-            <!--Search-->
             <LinearLayout
-                android:id="@+id/lySearch"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="gone">
+                android:layout_height="?attr/actionBarSize"
+                android:layout_marginEnd="@dimen/spacing_large"
+                android:layout_marginRight="@dimen/spacing_large"
+                android:gravity="center|center_vertical"
+                android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/editSearch"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:hint="Search"
-                    android:imeOptions="actionSearch"
-                    android:maxLines="1"
-                    android:singleLine="true">
+                <TextView
+                    android:id="@+id/tvToolbarTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:fontFamily="sans-serif"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"/>
 
-                    <!--<requestFocus />-->
-
-                </EditText>
-
-                <ImageButton
-                    android:id="@+id/btnSearchClear"
-                    android:layout_width="?attr/actionBarSize"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="@android:color/transparent"
-                    app:srcCompat="@drawable/ic_close"
-                    android:tint="@color/grey_80"
-                    android:visibility="visible" />
+                <TextView
+                    android:id="@+id/tvToolbarSubTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:fontFamily="sans-serif"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:textColor="@color/white"/>
 
             </LinearLayout>
 
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
 
     <!--Content-->
     <android.support.v4.widget.NestedScrollView

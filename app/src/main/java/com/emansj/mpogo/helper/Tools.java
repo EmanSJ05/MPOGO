@@ -2,6 +2,7 @@ package com.emansj.mpogo.helper;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -39,6 +40,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -641,9 +643,23 @@ public class Tools {
 //    }
 
     /*check device connect to internet*/
-    private static boolean isOnline(Context ctx) {
+    public static boolean isOnline(Context ctx) {
         ConnectivityManager cm = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return ( netInfo != null && netInfo.isConnected() );
+    }
+
+    public static void showProgress(ProgressDialog progressDialog, String title, String message) {
+        if (!progressDialog.isShowing()) {
+            progressDialog.setTitle(title);
+            progressDialog.setMessage(message);
+            progressDialog.show();
+        }
+    }
+
+    public static void hideProgress(ProgressDialog progressDialog) {
+        if (progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
     }
 }

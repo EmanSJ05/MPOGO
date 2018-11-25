@@ -7,6 +7,8 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.widget.ImageView;
@@ -22,6 +24,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.emansj.mpogo.R;
 import com.emansj.mpogo.model.User;
+import com.emansj.mpogo.model.UserOten;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -62,17 +65,17 @@ public class AppGlobal {
             throw new RuntimeException("Use getInstance() method to get the single instance of this class.");
         }
         m_Ctx = context;
-        m_SharedPref = m_Ctx.getSharedPreferences("MPOGO_SETTINGS", MODE_PRIVATE);
+        m_SharedPref = m_Ctx.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        AppSharedPref.init(m_Ctx);
     }
 
     //Static Global vars
     public static String URL_MPO = "http://mpo.psp.pertanian.go.id/";
-    public static String URL_ROOT = "http://192.168.100.5:8080/mpoapi";
-    //public static String URL_ROOT = "http://192.168.1.103:8080/mpoapi";
-//    public static String URL_ROOT = "http://192.168.80.176:8080/mpoapi";
-    //public static String URL_ROOT = "http://192.168.43.127:8080/mpoapi";
-    //public static String URL_ROOT = "http://117.102.94.187:8081/mpoapi";
-    private static String TAG = "MPOGO.GLOBAL";
+    public static String URL_ROOT = "http://app2.psp.pertanian.go.id";
+    public static String TAG = "MPOGO.GLOBAL";
+    public static String PREFS_NAME = "MPOGO.SETTINGS";
+    public static String SERVER_KEY =
+            "AAAAwwwuA14:APA91bG1xTKNmt1lIWZLQH-lu4zKe6FzM-asEq8oVGkJ_fMn_ILzG7RKPHArJSxC6TLnt3HG6hPLkqKW1akFMogAK1yh0JcuX-Tv2jPhyLRmqHTjh99Gyv_WK0EySGG2d6ilutyAXUJq";
 
 
     //GLOBAL VARS
@@ -80,6 +83,10 @@ public class AppGlobal {
     private int UserLoginId;
     private String UserLoginName;
     private String UserLoginPass;
+    private String UserAndroidId;
+    private String UserToken;
+    private String UserTopic;
+    public UserOten UserLogin;
     public User UserProfile;
 
     //app
@@ -91,39 +98,46 @@ public class AppGlobal {
     private String FilterSelectedIdSatkers;             //satker yang terpilih di laporan [report filter]
     private List<String> FilterSelectedIdSatkers_List;  //satker yang terpilih di laporan [report filter]
 
+
     //METHODS
     public int getUserLoginId() {return UserLoginId;}
     public void setUserLoginId(int userLoginId) {
         UserLoginId = userLoginId;
-
-        //save to pref
-        SharedPreferences.Editor editor = m_SharedPref.edit();
-        m_SharedPref.edit().putInt("user_login_id", userLoginId);
-        m_SharedPref.edit().commit();
+        AppSharedPref.write(AppSharedPref.USER_ID, userLoginId);
     }
 
     public String getUserLoginName() {return UserLoginName;}
     public void setUserLoginName(String userLoginName) {
         UserLoginName = userLoginName;
-
-        //save to pref
-        SharedPreferences.Editor editor = m_SharedPref.edit();
-        m_SharedPref.edit().putString("user_login_name", userLoginName);
-        m_SharedPref.edit().commit();
+        AppSharedPref.write(AppSharedPref.USER_NAME, userLoginName);
     }
 
     public String getUserLoginPass() {return UserLoginPass;}
     public void setUserLoginPass(String userLoginPass) {
         UserLoginPass = userLoginPass;
+        AppSharedPref.write(AppSharedPref.USER_PASS, userLoginPass);
+    }
 
-        //save to pref
-        SharedPreferences.Editor editor = m_SharedPref.edit();
-        m_SharedPref.edit().putString("user_login_pass", userLoginPass);
-        m_SharedPref.edit().commit();
+    public String getUserAndroidId() {return UserAndroidId;}
+    public void setUserAndroidId(String userAndroidId) {
+        UserAndroidId = userAndroidId;
+        AppSharedPref.write(AppSharedPref.USER_ANDROID_ID, userAndroidId);
+    }
+
+    public String getUserToken() {return UserToken;}
+    public void setUserToken(String userToken) {
+        UserToken = userToken;
+        AppSharedPref.write(AppSharedPref.USER_TOKEN, userToken);
+    }
+
+    public String getUserTopic() {return UserTopic;}
+    public void setUserTopic(String userTopic) {
+        UserTopic = userTopic;
+        AppSharedPref.write(AppSharedPref.USER_TOPIC, userTopic);
     }
 
     public boolean getIsRememberMe(){
-        boolean value = m_SharedPref.getBoolean("is_remember_me", false);
+        boolean value = AppSharedPref.read(AppSharedPref.USER_REMEMBER_LOGIN, false);
         if (value == false){
             value = IsRememberMe;
         }
@@ -131,15 +145,11 @@ public class AppGlobal {
     }
     public void setIsRememberMe(boolean isRememberMe){
         IsRememberMe = isRememberMe;
-
-        //save to pref
-        SharedPreferences.Editor editor = m_SharedPref.edit();
-        m_SharedPref.edit().putBoolean("is_remember_me", isRememberMe);
-        m_SharedPref.edit().commit();
+        AppSharedPref.write(AppSharedPref.USER_REMEMBER_LOGIN, isRememberMe);
     }
 
     public int getTahunRKA() {
-        int tahun = m_SharedPref.getInt("tahun_rka", 0);
+        int tahun = AppSharedPref.read(AppSharedPref.APP_TAHUN_RKA, 0);
 
         if (TahunRKA == 0){ //cek TahunRKA
             if (tahun == 0) { //cek Preferences
@@ -158,11 +168,7 @@ public class AppGlobal {
     }
     public void setTahunRKA(int tahunRKA) {
         TahunRKA = tahunRKA;
-
-        //save to pref
-        SharedPreferences.Editor editor = m_SharedPref.edit();
-        m_SharedPref.edit().putInt("tahun_rka", tahunRKA);
-        m_SharedPref.edit().commit();
+        AppSharedPref.write(AppSharedPref.APP_TAHUN_RKA, tahunRKA);
     }
 
     public List<String> getTahunRKAList() {return TahunRKAList;}
@@ -178,21 +184,14 @@ public class AppGlobal {
     public boolean getFilterIsAllSatker() {return FilterIsAllSatker;}
     public void setFilterIsAllSatker(boolean filterIsAllSatker) {
         FilterIsAllSatker = filterIsAllSatker;
-
         if (filterIsAllSatker){
             FilterSelectedIdSatkers_List = null;
         }
-
-        //save to pref
-        SharedPreferences.Editor editor = m_SharedPref.edit();
-        m_SharedPref.edit().putBoolean("filter_semua_satker", filterIsAllSatker);
-        m_SharedPref.edit().commit();
+        AppSharedPref.write(AppSharedPref.APP_FILTER_SEMUA_SATKER, filterIsAllSatker);
     }
 
     public String getFilterSelectedIdSatkers() {
         String str = FilterSelectedIdSatkers;
-        //str = "986,987";
-
         if (str == null){
             str = "";
         }
@@ -200,36 +199,45 @@ public class AppGlobal {
     }
     public void setFilterSelectedIdSatkers(String filterSelectedIdSatkers) {
         FilterSelectedIdSatkers = filterSelectedIdSatkers;
-
-        //save to pref
-        SharedPreferences.Editor editor = m_SharedPref.edit();
-        m_SharedPref.edit().putString("filter_selected_idsatkers", filterSelectedIdSatkers);
-        m_SharedPref.edit().commit();
+        AppSharedPref.write(AppSharedPref.APP_FILTER_SELECTED_IDSATKERS, filterSelectedIdSatkers);
     }
 
     public List<String> getFilterSelectedIdSatkers_List() {return FilterSelectedIdSatkers_List;}
     public void setFilterSelectedIdSatkers_List(List<String> filterSelectedIdSatkers_List) {
         FilterSelectedIdSatkers_List = filterSelectedIdSatkers_List;
 
-        //save to pref
-        SharedPreferences.Editor editor = m_SharedPref.edit();
         Set<String> setStr = new HashSet<String>();
         setStr.addAll(filterSelectedIdSatkers_List);
-        m_SharedPref.edit().putStringSet("filter_selected_idsatkers_list", setStr);
-        m_SharedPref.edit().commit();
+        AppSharedPref.writeSet(AppSharedPref.APP_FILTER_SELECTED_IDSATKERS_LIST, setStr);
     }
 
-    
+
     //-------------------------------------------------------------------------------DATA LOAD
     public void loadInitData(){
         UserProfile = new User();
     }
 
-    public void loadTahunRKAList(final Runnable r){
-        String api = "/AppGlobal/tahunrka_list";
-        String params = "";
-        String url = AppGlobal.URL_ROOT + api + params;
+    public void loadLastLogin(){
+        //set global vars from settings
+        IsRememberMe = AppSharedPref.read(AppSharedPref.USER_REMEMBER_LOGIN, false);
+        UserLoginId = AppSharedPref.read(AppSharedPref.USER_ID, 0);
+        UserLoginName = AppSharedPref.read(AppSharedPref.USER_NAME, null);
+        UserLoginPass = AppSharedPref.read(AppSharedPref.USER_PASS, null);
+        TahunRKA = AppSharedPref.read(AppSharedPref.APP_TAHUN_RKA, getTahunRKA());
+    }
 
+    public void clearLastLogin(){
+        setUserLoginId(0);
+        setUserLoginName(null);
+        setUserLoginPass(null);
+        setUserAndroidId(null);
+        setUserToken(null);
+        setUserTopic(null);
+        setIsRememberMe(false);
+    }
+
+    public void loadTahunRKAList(final Runnable methodOnSuccess){
+        String url = AppGlobal.URL_ROOT + "/AppGlobal/get_tahun_rka";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>(){
                     @Override
@@ -247,15 +255,10 @@ public class AppGlobal {
                             //save to AppGlobal
                             setTahunRKAList(list_tahunrka);
 
-                            //save to pref
-                            SharedPreferences.Editor editor = m_SharedPref.edit();
-                            Set<String> setStr = new HashSet<String>();
-                            setStr.addAll(list_tahunrka);
-                            m_SharedPref.edit().putStringSet("tahun_rka_list", setStr);
-                            m_SharedPref.edit().commit();
-
                             //run
-                            r.run();
+                            if (methodOnSuccess != null) {
+                                methodOnSuccess.run();
+                            }
 
                         }catch (JSONException e){
                             e.printStackTrace();
@@ -273,17 +276,8 @@ public class AppGlobal {
         VolleySingleton.getInstance(m_Ctx).addToRequestQueue(request, TAG);
     }
 
-    public void loadLastLogin(){
-        //set global vars from settings
-        IsRememberMe = m_SharedPref.getBoolean("is_remember_me", false);
-        UserLoginId = m_SharedPref.getInt("user_login_id",0);
-        UserLoginName = m_SharedPref.getString("user_login_name",null);
-        UserLoginPass = m_SharedPref.getString("user_login_pass",null);
-        TahunRKA = m_SharedPref.getInt("tahun_rka", getTahunRKA());
-    }
-
     public void loadUserProfile(final Runnable r){
-        String api = "/AppGlobal/userprofile";
+        String api = "/User/get_user";
         String params = String.format("?userid=%1$d", UserLoginId);
         String url = AppGlobal.URL_ROOT + api + params;
 
@@ -351,7 +345,6 @@ public class AppGlobal {
     //-------------------------------------------------------------------------------PUBLIC DATA (retrieve data from server)
     public class Data
     {
-
         public Data(){}
 
         public void cancelAllRequest(){
@@ -361,134 +354,5 @@ public class AppGlobal {
         public void cancelRequest(String tag){
             VolleySingleton.getInstance(m_Ctx).getRequestQueue().cancelAll(tag);
         }
-
-//        public void loadTahunRKAList(){
-//            String api = "/AppGlobal/tahunrka_list";
-//            String params = "";
-//            String url = AppGlobal.URL_ROOT + api + params;
-//
-//            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-//                    new Response.Listener<JSONObject>(){
-//                        @Override
-//                        public void onResponse(JSONObject response) {
-//                            try{
-//                                JSONArray jsonArray = response.getJSONArray("data");
-//                                List<String> list_tahunrka = new ArrayList<>();
-//
-//                                for (int i = 0; i < jsonArray.length(); i++)
-//                                {
-//                                    JSONObject dt = jsonArray.getJSONObject(i);
-//                                    list_tahunrka.add(dt.getString("tahun"));
-//                                }
-//
-//                                //save to AppGlobal
-//                                setTahunRKAList(list_tahunrka);
-//
-//                                //save to pref
-//                                SharedPreferences.Editor editor = m_SharedPref.edit();
-//                                Set<String> setStr = new HashSet<String>();
-//                                setStr.addAll(list_tahunrka);
-//                                m_SharedPref.edit().putStringSet("tahun_rka_list", setStr);
-//                                m_SharedPref.edit().commit();
-//
-//                            }catch (JSONException e){
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                    },
-//                    new Response.ErrorListener(){
-//                        @Override
-//                        public void onErrorResponse(VolleyError error){
-//                            //error.printStackTrace();
-//                            VolleyErrorHelper.showError(error, m_Ctx);
-//                        }
-//                    }
-//            );
-//            VolleySingleton.getInstance(m_Ctx).addToRequestQueue(request, TAG);
-//
-//            //m_JsonObjTemp = VolleySingleton.getInstance(m_Ctx).getRequestJSONObject("xxx", Request.Method.GET, "data");
-//        }
-//
-//        public void loadLastLogin(){
-//            //set global vars from settings
-//            IsRememberMe = m_SharedPref.getBoolean("is_remember_me", false);
-//            UserLoginId = m_SharedPref.getInt("user_login_id",0);
-//            UserLoginName = m_SharedPref.getString("user_login_name",null);
-//            UserLoginPass = m_SharedPref.getString("user_login_pass",null);
-//            TahunRKA = m_SharedPref.getInt("tahun_rka", getTahunRKA());
-//        }
-
-//        public void loadUserProfile(final Runnable r){
-//            String api = "/AppGlobal/userprofile";
-//            String params = String.format("?userid=%1$d", UserLoginId);
-//            String url = AppGlobal.URL_ROOT + api + params;
-//
-//            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-//                    new Response.Listener<JSONObject>(){
-//                        @Override
-//                        public void onResponse(JSONObject response) {
-//                            try{
-//                                int status = response.getInt("status");
-//                                if (status == 200 )
-//                                {
-//                                    JSONArray data = response.getJSONArray("data");
-//                                    if (data.length() > 0)
-//                                    {
-//                                        for (int i = 0; i < data.length(); i++)
-//                                        {
-//                                            JSONObject row = data.getJSONObject(i);
-//
-//                                            obj.UserId = Tools.parseInt(row.getString("userid"));
-//                                            obj.UserName = Tools.parseString(row.getString("username"));
-//                                            obj.UserPass = Tools.parseString(row.getString("userpass"));
-//                                            obj.FullName = Tools.parseString(row.getString("fullname"));
-//                                            obj.NickName = Tools.parseString(row.getString("nickname"));
-//                                            obj.MobileNo = Tools.parseString(row.getString("usertelpno"));
-//                                            obj.Email = Tools.parseString(row.getString("useremail"));
-//                                            obj.ImageUrl = Tools.parseString(row.getString("userimage"));
-//                                            obj.ProvId = Tools.parseInt(row.getString("provid"));
-//                                            obj.Provinsi = Tools.parseString(row.getString("nmprov"));
-//                                            obj.KabId = Tools.parseInt(row.getString("kabid"));
-//                                            obj.Kabupaten = Tools.parseString(row.getString("nmkab"));
-//                                            obj.DinasId = Tools.parseInt(row.getString("dinasid"));
-//                                            obj.Dinas = Tools.parseString(row.getString("namadinas"));
-//                                            obj.SatkerId = Tools.parseInt(row.getString("idsatker"));
-//                                            obj.KodeSatker = Tools.parseString(row.getString("kdsatker"));
-//                                            obj.Satker = Tools.parseString(row.getString("nmsatker"));
-//
-//                                            UserName = Tools.parseString(row.getString("username"));
-//                                            UserEmail = Tools.parseString(row.getString("useremail"));
-//                                            UserNickName = Tools.parseString(row.getString("nickname"));
-//                                            UserFullName = Tools.parseString(row.getString("fullname"));
-//                                            UserMobileNo = Tools.parseString(row.getString("usertelpno"));
-//                                            UserImageUrl = Tools.parseString(row.getString("userimage"));
-//                                            UserType = Tools.parseString(row.getString("usertype"));
-//                                            UserProvId = row.optInt("provid");
-//                                            UserKabId = row.optInt("kabid");
-//                                            UserDinasId = row.optInt("dinasid");
-//                                            UserSatkerId = row.optInt("idsatker");
-//                                        }
-//                                        r.run();
-//                                    }
-//                                }
-//
-//                            }catch (JSONException e){
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                    },
-//                    new Response.ErrorListener(){
-//                        @Override
-//                        public void onErrorResponse(VolleyError error){
-//                            VolleyErrorHelper.showError(error, m_Ctx);
-//                        }
-//                    }
-//            );
-//
-//            VolleySingleton.getInstance(m_Ctx).addToRequestQueue(request, TAG);
-//        }
-
-        
-
     }
 }

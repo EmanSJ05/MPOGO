@@ -135,4 +135,9 @@ public class VolleySingleton {
         addToRequestQueue(req, TAG);
         return jObj;
     }
+
+    public interface VolleyCallback {
+        void onSuccess(JSONObject result) throws JSONException;
+        void onError(String result) throws Exception;
+    }
 }

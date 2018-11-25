@@ -1,27 +1,37 @@
 package com.emansj.mpogo.activity;
 
 import android.content.Context;
-import android.os.AsyncTask;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.ActionBar;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
 import com.emansj.mpogo.R;
-import com.emansj.mpogo.adapter.AdapterReke;
-import com.emansj.mpogo.helper.AppUtils;
-import com.emansj.mpogo.model.RealisasiKeuangan;
+import com.emansj.mpogo.adapter.AdapterNotification;
+import com.emansj.mpogo.helper.AppGlobal;
+import com.emansj.mpogo.helper.AppSharedPref;
+import com.emansj.mpogo.helper.ExceptionHandler;
+import com.emansj.mpogo.helper.Tools;
+import com.emansj.mpogo.helper.VolleySingleton;
+import com.emansj.mpogo.model.Notif;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class NotificationActivity extends AppCompatActivity {
@@ -29,51 +39,59 @@ public class NotificationActivity extends AppCompatActivity {
     //Standard vars
     private static final String TAG = NotificationActivity.class.getSimpleName();
     private Context m_Ctx;
-    private RequestQueue m_Queue;
+    private SharedPreferences m_SharedPref;
+    private AppGlobal m_Global;
+    private AppGlobal.Data m_GlobalData;
 
-    //Define views
-    private View m_View;
-    private ActionBar m_ActionBar;
-    private Toolbar m_Toolbar;
-    private FloatingActionButton fabChangePhoto;
+    //View vars
+    private View parent_view;
+    private Toolbar toolbar;
+    private RecyclerView rvList;
+    private ProgressBar progress;
+    private SwipeRefreshLayout refreshLayout;
 
     //Custom vars
-    //write here ......
-    myTask m_Task = new myTask();
-    private List<RealisasiKeuangan> m_ListItem;
-    private AdapterReke m_Adapter;
-    private LinearLayout lyProgress;
-    private ProgressBar pbProgress;
+    private List<Notif> m_ListItem;
+    private AdapterNotification m_Adapter;
+    private final static int REQUEST_CODE = 1;
 
 
+    //---------------------------------------OVERRIDE
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_progress_basic);
+        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
+        setContentView(R.layout.activity_notification);
 
         //Activity settings
-        m_View = findViewById(android.R.id.content);
+        parent_view = findViewById(android.R.id.content);
         m_Ctx = NotificationActivity.this;
+        m_Global = AppGlobal.getInstance(m_Ctx);
+        m_SharedPref = m_Ctx.getSharedPreferences(AppGlobal.PREFS_NAME, MODE_PRIVATE);
 
-        //lyProgress = findViewById(R.id.lyProgress);
-        pbProgress = findViewById(R.id.pbProgress);
-        pbProgress.setVisibility(View.VISIBLE);
-        //Init view
         initToolbar();
-        loading();
+        initComponent();
+        initData();
     }
 
-    private void initToolbar(){
-        m_Toolbar = findViewById(R.id.toolbar);
-        m_Toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
-        setSupportActionBar(m_Toolbar);
-        getSupportActionBar().setTitle("");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    @Override
+    protected void onStop () {
+        super.onStop();
+        VolleySingleton.getInstance(m_Ctx).cancelPendingRequests(TAG);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        VolleySingleton.getInstance(m_Ctx).cancelPendingRequests(TAG);
+        Intent i = new Intent(m_Ctx, DrawerActivity.class);
+        i.putExtra("loadNotifications", true);
+        setResult(RESULT_OK, i);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_profile, menu);
+        getMenuInflater().inflate(R.menu.menu_delete_all, menu);
         return true;
     }
 
@@ -81,66 +99,119 @@ public class NotificationActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             finish();
-        } else {
-            Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
+        } else if(item.getItemId() == R.id.action_delete_all) {
+            deleteAll();
+        }
+        else {
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
-    private class myTask extends AsyncTask<String, Integer, String> {
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
+    // This method is invoked when target activity return result data back.
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent dataIntent) {
+        super.onActivityResult(requestCode, resultCode, dataIntent);
 
-        @Override
-        protected String doInBackground(String... params) {
-            showList();
-            showList();
-            showList();
-            showList();
-            showList();
-            showList();
-            showList();
-            showList();
-            showList();
-            showTotal();
-            return "ok";
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            pbProgress.setVisibility(View.GONE);
+        switch (requestCode)
+        {
+            case REQUEST_CODE:
+                if(resultCode == RESULT_OK)
+                {
+                    if (dataIntent.getBooleanExtra("item_deleted", false)){
+                        initData();
+                    }
+                }
         }
     }
 
-    private void loading() {
-        m_Task = new myTask();
-        m_Task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+    //---------------------------------------INIT COMPONENTS & DATA
+    private void initToolbar(){
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //Toolbar Title & SubTitle
+        ((TextView) parent_view.findViewById(R.id.tvToolbarTitle)).setText("Notifikasi");
     }
 
-    private void showList() {
-        m_ListItem = RealisasiKeuangan.getSatker(m_Ctx);
-        m_Adapter = new AdapterReke(m_Ctx, m_ListItem);
-    }
+    private void initComponent(){
+        progress = findViewById(R.id.progress);
+        refreshLayout = findViewById(R.id.swipeRefresh);
 
-    private void showTotal() {
-        double totalPagu = 0;
-        double totalSmartValue = 0;
-        double totalSmartPercent = 0;
-        double totalMpoValue = 0;
-        double totalMpoPercent = 0;
-
-        if (m_ListItem.isEmpty() == false) {
-
-            for (int row = 0; row < m_ListItem.size(); row++) {
-                totalPagu += m_ListItem.get(row).pagu;
-                totalSmartValue += m_ListItem.get(row).smartValue;
-                totalMpoValue += m_ListItem.get(row).mpoValue;
+        //listener
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initData();
+                refreshLayout.setRefreshing(false);
             }
-            totalSmartPercent = totalSmartValue / totalPagu * 100;
-            totalMpoPercent = totalMpoValue / totalPagu * 100;
+        });
+
+        //LIST
+        rvList = findViewById(R.id.rvData);
+        rvList.setLayoutManager(new LinearLayoutManager(m_Ctx));
+        rvList.setHasFixedSize(true);
+        rvList.setNestedScrollingEnabled(false);
+    }
+
+    private void initData() {
+        m_ListItem = new ArrayList<>();
+        getDataNotification();
+
+        if (m_ListItem != null) {
+            //LIST - ADAPTER - LISTENER
+            m_Adapter = new AdapterNotification(m_Ctx, m_ListItem);
+            m_Adapter.setOnItemClickListener(new AdapterNotification.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, Notif obj, int position) {
+                    final Notif item = m_ListItem.get(position);
+                    showNotificationItem(item.NotificationId);
+                }
+            });
+            rvList.setAdapter(m_Adapter);
+        } else {
+            Toast.makeText(m_Ctx, "Tidak ada data notifikasi", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+    //---------------------------------------ACTIONS
+    private void showNotificationItem(int notifId) {
+        Intent i = new Intent(m_Ctx, NotificationItemActivity.class);
+        i.putExtra("notificationid", notifId);
+        startActivityForResult(i, REQUEST_CODE);
+    }
+
+    private void deleteAll() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Hapus semua notifikasi ?");
+        builder.setMessage("Anda yakin ingin menghapus semua notifikasi ?");
+        builder.setPositiveButton("HAPUS SEMUA", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                //hapus semua notifikasi (simpan kosongan)
+                Notif notif = new Notif();
+                notif.removeNotifs(m_Ctx);
+                initData();
+            }
+        });
+        builder.setNegativeButton("BATAL", null);
+        builder.show();
+    }
+
+
+    //---------------------------------------GET DATA
+    private void getDataNotification() {
+        try {
+            Notif notif = new Notif();
+            m_ListItem = new ArrayList<>();
+            m_ListItem = notif.getNotifs(m_Ctx);
+
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 }

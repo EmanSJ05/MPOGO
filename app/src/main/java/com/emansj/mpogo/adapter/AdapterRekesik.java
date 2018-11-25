@@ -2,14 +2,9 @@ package com.emansj.mpogo.adapter;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.ImageViewCompat;
 import android.support.v7.widget.RecyclerView;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.BackgroundColorSpan;
-import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +15,8 @@ import android.widget.TextView;
 import com.emansj.mpogo.R;
 import com.emansj.mpogo.helper.AppUtils;
 import com.emansj.mpogo.helper.Tools;
-import com.emansj.mpogo.helper.ViewAnimation;
-import com.emansj.mpogo.model.RealisasiKeuangan;
+import com.emansj.mpogo.helper.ToolAnimation;
 import com.emansj.mpogo.model.RealisasiKeuanganFisik;
-import com.github.lzyzsd.circleprogress.DonutProgress;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -294,9 +287,9 @@ public class AdapterRekesik extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private boolean toggleLayoutExpand(boolean show, View view, View ly_expand) {
         Tools.toggleArrow(show, view);
         if (show) {
-            ViewAnimation.expand(ly_expand);
+            ToolAnimation.expand(ly_expand);
         } else {
-            ViewAnimation.collapse(ly_expand);
+            ToolAnimation.collapse(ly_expand);
         }
         return show;
     }

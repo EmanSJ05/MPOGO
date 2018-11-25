@@ -178,7 +178,7 @@ public class HomeFragment extends Fragment {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Dashboard/getPusatSmartAndSas";
+        String api = "/Dashboard/get_pusat_smart_and_sas";
         String params = String.format("?tahun=%1$d", m_Global.getTahunRKA());
         String url = AppGlobal.URL_ROOT + api + params;
 
@@ -245,7 +245,7 @@ public class HomeFragment extends Fragment {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Dashboard/getPusatRekeKegut";
+        String api = "/Dashboard/get_pusat_reke_kegut";
         String params = String.format("?tahun=%1$d", m_Global.getTahunRKA());
         String url = AppGlobal.URL_ROOT + api + params;
 
@@ -300,7 +300,7 @@ public class HomeFragment extends Fragment {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Dashboard/getPusatRefiKegut";
+        String api = "/Dashboard/get_pusat_refi_kegut";
         String params = String.format("?tahun=%1$d", m_Global.getTahunRKA());
         String url = AppGlobal.URL_ROOT + api + params;
 

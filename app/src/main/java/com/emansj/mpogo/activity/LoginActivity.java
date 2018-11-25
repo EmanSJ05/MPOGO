@@ -4,10 +4,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatCheckBox;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -15,13 +13,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 
 import com.emansj.mpogo.helper.AppGlobal;
+import com.emansj.mpogo.helper.AppOten;
 import com.emansj.mpogo.helper.VolleyErrorHelper;
 import com.emansj.mpogo.R;
 import com.emansj.mpogo.helper.VolleySingleton;
@@ -93,23 +90,45 @@ public class LoginActivity extends Activity {
         chkRememberMe = findViewById(R.id.chkRememberMe);
         btnLogin = findViewById(R.id.btnLogin);
 
-        chkRememberMe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CheckBox c = (CheckBox) v;
-                if (c.isChecked()){
-                    editUsername.setText("distannaksambas@yahoo.co.id");
-                    editPassword.setText("Admin123");
-                }
-            }
-        });
+//        chkRememberMe.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                CheckBox c = (CheckBox) v;
+//                if (c.isChecked()){
+//                    editUsername.setText("distannaksambas@yahoo.co.id");
+//                    editPassword.setText("Admin123");
+//                }
+//            }
+//        });
 
         //LOGIN
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //LOGIN
-                logIn();
+                final Runnable run_GotoActivityHome = new Runnable() {
+                    @Override
+                    public void run() {
+                        gotoActivityHome();
+                    }
+                };
+
+                final Runnable run_loadUserProfile = new Runnable() {
+                    @Override
+                    public void run() {
+                        m_Global.loadUserProfile(run_GotoActivityHome);
+
+                    }
+                };
+
+                //save is remember me to AppGlobal (settings)
+                m_Global.setIsRememberMe(chkRememberMe.isChecked());
+
+                //logIn();
+                final String userName = editUsername.getText().toString().trim();
+                final String password = editPassword.getText().toString().trim();
+                AppOten appOten = new AppOten(m_Ctx);
+                appOten.logIn(userName, password, run_loadUserProfile, null);
             }
         });
     }
@@ -163,6 +182,8 @@ public class LoginActivity extends Activity {
                                 m_Global.setUserLoginId(userId);
                                 m_Global.setUserLoginName(userName);
                                 m_Global.setUserLoginPass(userPass);
+                                //String androidId = Settings.Secure.getString(getContentResolver(),Settings.Secure.ANDROID_ID);
+                                //m_Global.setUserAndoidId(androidId);
 
                                 //LOAD USER PROFILE
                                 Runnable r = new Runnable() {

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MPO</string>
+    <string name="app_name">MPO GO</string>
     <string name="timeout">Server Connection Timeout</string>
     <string name="generic_error">Server sedang pemeliharaan</string>
     <string name="no_internet">Tidak ada koneksi</string>

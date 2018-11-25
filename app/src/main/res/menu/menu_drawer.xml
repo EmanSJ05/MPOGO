@@ -19,12 +19,12 @@
             android:icon="@drawable/ic_outline_home"
             android:iconTint="@color/colorPrimary"
             android:title="Home" />
-        <item
-            android:id="@+id/nav_dashboard"
-            android:checkable="true"
-            android:icon="@drawable/ic_outline_dashboard"
-            android:iconTint="@color/colorPrimary"
-            android:title="Dashboard" />
+        <!--<item-->
+            <!--android:id="@+id/nav_dashboard"-->
+            <!--android:checkable="true"-->
+            <!--android:icon="@drawable/ic_outline_dashboard"-->
+            <!--android:iconTint="@color/colorPrimary"-->
+            <!--android:title="Dashboard" />-->
     </group>
 
     <group
@@ -77,12 +77,20 @@
                     android:icon="@drawable/ic_outline_username"
                     android:iconTint="@color/colorPrimary"
                     android:title="Profile" />
-                <!--<item-->
-                    <!--android:id="@+id/nav_settings"-->
-                    <!--android:icon="@drawable/ic_outline_settings"-->
-                    <!--android:iconTint="@color/colorPrimary"-->
-                    <!--android:title="Settings" />-->
+
+                <item
+                    android:id="@+id/nav_user_logout"
+                    android:icon="@drawable/ic_outline_logout"
+                    android:iconTint="@color/colorPrimary"
+                    android:title="Logout" />
+
+                <item
+                    android:id="@+id/nav_app_out"
+                    android:icon="@drawable/ic_outline_exit_app"
+                    android:iconTint="@color/colorPrimary"
+                    android:title="Keluar" />
             </menu>
+
         </item>
     </group>
 

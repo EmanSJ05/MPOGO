@@ -171,8 +171,11 @@ public class RekesikActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(m_Title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //Toolbar Title & SubTitle
+        ((TextView) parent_view.findViewById(R.id.tvToolbarTitle)).setText("Realisasi Keuangan & Fisik");
+        ((TextView) parent_view.findViewById(R.id.tvToolbarSubTitle)).setText(m_Title);
     }
 
     private void initComponent(){
@@ -414,7 +417,7 @@ public class RekesikActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Laporan/getRKFPerKegiatan";
+        String api = "/Laporan/get_RKF_Kegiatan";
         String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
         String url = AppGlobal.URL_ROOT + api + params;
 
@@ -444,11 +447,11 @@ public class RekesikActivity extends AppCompatActivity {
                                         obj.fisikProgressTerbobot = Tools.parseDouble(row.getString("fisikProgressTerbobot"));
                                         m_ListItem.add(obj);
                                     }
-                                    progressDialog.dismiss();
                                     m_Adapter.notifyDataSetChanged();
                                     getTotalKegiatan();
                                 }
                             }
+                            progressDialog.dismiss();
 
                         }catch (JSONException e){
                             e.printStackTrace();
@@ -473,7 +476,7 @@ public class RekesikActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Laporan/getRKFPerKegiatanOutput";
+        String api = "/Laporan/get_RKF_KegiatanOutput";
         String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
         String url = AppGlobal.URL_ROOT + api + params;
 
@@ -504,11 +507,11 @@ public class RekesikActivity extends AppCompatActivity {
                                         obj.fisikPercent = Tools.parseDouble(row.getString("fisikPercent"));
                                         m_ListItem.add(obj);
                                     }
-                                    progressDialog.dismiss();
                                     m_Adapter.notifyDataSetChanged();
                                     getTotalDefault();
                                 }
                             }
+                            progressDialog.dismiss();
 
                         }catch (JSONException e){
                             e.printStackTrace();
@@ -533,7 +536,7 @@ public class RekesikActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Laporan/getRKFPerOutput";
+        String api = "/Laporan/get_RKF_Output";
         String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
         String url = AppGlobal.URL_ROOT + api + params;
 
@@ -564,11 +567,11 @@ public class RekesikActivity extends AppCompatActivity {
                                         obj.fisikPercent = Tools.parseDouble(row.getString("fisikPercent"));
                                         m_ListItem.add(obj);
                                     }
-                                    progressDialog.dismiss();
                                     m_Adapter.notifyDataSetChanged();
                                     getTotalDefault();
                                 }
                             }
+                            progressDialog.dismiss();
 
                         }catch (JSONException e){
                             e.printStackTrace();
@@ -593,7 +596,7 @@ public class RekesikActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Laporan/getRKFPerOutputProvinsiSmartMPO";
+        String api = "/Laporan/get_RKF_OutputProvinsiSmartMPO";
         String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
         String url = AppGlobal.URL_ROOT + api + params;
 
@@ -625,11 +628,11 @@ public class RekesikActivity extends AppCompatActivity {
                                         obj.fisikPercent = Tools.parseDouble(row.getString("fisikPercent"));
                                         m_ListItem.add(obj);
                                     }
-                                    progressDialog.dismiss();
                                     m_Adapter.notifyDataSetChanged();
                                     getTotalDefault();
                                 }
                             }
+                            progressDialog.dismiss();
 
                         }catch (JSONException e){
                             e.printStackTrace();

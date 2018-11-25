@@ -364,7 +364,7 @@ public class DialogReportFilter extends DialogFragment {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/AppGlobal/satkerfilter";
+        String api = "/AppGlobal/get_satker_filter";
         String params = String.format("?tahun=%1$d&userid=%2$d", m_Global.getTahunRKA(), m_Global.getUserLoginId());
         String url = AppGlobal.URL_ROOT + api + params;
 

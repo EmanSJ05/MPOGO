@@ -22,15 +22,28 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.emansj.mpogo.R;
 import com.emansj.mpogo.helper.AppGlobal;
 import com.emansj.mpogo.helper.ExceptionHandler;
 import com.emansj.mpogo.helper.Tools;
+import com.emansj.mpogo.helper.VolleyErrorHelper;
 import com.emansj.mpogo.helper.VolleySingleton;
+import com.emansj.mpogo.model.Notif;
 import com.mikhaellopez.circularimageview.CircularImageView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DrawerActivity extends AppCompatActivity {
 
@@ -53,6 +66,7 @@ public class DrawerActivity extends AppCompatActivity {
     //Custom vars
     private List<String> m_ListTahunRKA = new ArrayList<>();
     private String m_SelectedTahunRKA;
+    private final static int REQUEST_CODE = 1;
 
 
     //---------------------------------------OVERRIDE
@@ -103,6 +117,21 @@ public class DrawerActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent dataIntent) {
+        super.onActivityResult(requestCode, resultCode, dataIntent);
+
+        switch (requestCode)
+        {
+            case REQUEST_CODE:
+                if(resultCode == RESULT_OK)
+                {
+                    if (dataIntent.getBooleanExtra("loadNotifications", false)){
+                        loadNotifications();
+                    }
+                }
+        }
+    }
 
     //---------------------------------------INIT COMPONENTS & DATA
     private void initToolbar(){
@@ -111,7 +140,9 @@ public class DrawerActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setTitle("Home");
+
+        //Toolbar Title & SubTitle
+        ((TextView) parent_view.findViewById(R.id.tvToolbarTitle)).setText("Home");
     }
 
     private void initComponent(){
@@ -131,6 +162,13 @@ public class DrawerActivity extends AppCompatActivity {
                 showDialogTahunRKA();
             }
         });
+    }
+
+    private void initData(){
+        tvTahunRKA.setText(String.valueOf(m_Global.getTahunRKA()));
+        tvFullName.setText(m_Global.UserProfile.FullName);
+        tvEmail.setText(m_Global.UserProfile.Email);
+        Tools.displayImage(m_Ctx, civAvatar, m_Global.UserProfile.ImageUrl, R.drawable.img_no_available_user_photo);
     }
 
     private void initNavigationMenu() {
@@ -158,21 +196,17 @@ public class DrawerActivity extends AppCompatActivity {
         showNavigation(navView.getMenu().getItem(1), R.id.nav_home);
     }
 
-    private void initData(){
-        tvTahunRKA.setText(String.valueOf(m_Global.getTahunRKA()));
-        tvFullName.setText(m_Global.UserProfile.FullName);
-        tvEmail.setText(m_Global.UserProfile.Email);
-        Tools.displayImage(m_Ctx, civAvatar, m_Global.UserProfile.ImageUrl, R.drawable.img_no_available_user_photo);
-    }
+    public void loadNotifications() {
+        Notif notif = new Notif();
+        int totalUnread = notif.totalUnread(m_Ctx);
 
-    private void loadNotifications() {
-        Menu menu = navView.getMenu();
-        ((TextView) menu.findItem(R.id.nav_notifications).getActionView().findViewById(R.id.text)).setText("75");
-
-        TextView badgePrioNotif = menu.findItem(R.id.nav_notifications).getActionView().findViewById(R.id.text);
-        badgePrioNotif.setText("3");
-        badgePrioNotif.setTextColor(getResources().getColor(R.color.red_A700));
-        //badgePrioNotif.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+        if (totalUnread > 0) {
+            Menu menu = navView.getMenu();
+            TextView badgePrioNotif = menu.findItem(R.id.nav_notifications).getActionView().findViewById(R.id.text);
+            badgePrioNotif.setText(String.valueOf(totalUnread));
+            badgePrioNotif.setTextColor(getResources().getColor(R.color.red_A700));
+            badgePrioNotif.setBackgroundColor(getResources().getColor(R.color.grey_10));
+        }
     }
 
 
@@ -181,39 +215,48 @@ public class DrawerActivity extends AppCompatActivity {
 
         if (itemId == R.id.nav_notifications){
             Intent i = new Intent(m_Ctx, NotificationActivity.class);
-            startActivity(i);
+            startActivityForResult(i, REQUEST_CODE);
 
         } else if (itemId == R.id.nav_home){
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.frameLayout, new HomeFragment());
             ft.commit();
+
+            ((TextView) parent_view.findViewById(R.id.tvToolbarTitle)).setText("Home");
+
             drwLayout.closeDrawer(GravityCompat.START);
 
-        } else if (itemId == R.id.nav_dashboard){
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.frameLayout, new DashboardFragment());
-            ft.commit();
-            drwLayout.closeDrawer(GravityCompat.START);
+//        } else if (itemId == R.id.nav_dashboard){
+//            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//            ft.replace(R.id.frameLayout, new DashboardFragment());
+//            ft.commit();
+//            drwLayout.closeDrawer(GravityCompat.START);
 
         } else if (itemId == R.id.nav_rk){
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.frameLayout, new RekeFragment());
             ft.commit();
-            getSupportActionBar().setTitle("Realisasi Keuangan");
+
+            ((TextView) parent_view.findViewById(R.id.tvToolbarTitle)).setText("Realisasi Keuangan");
+
             drwLayout.closeDrawer(GravityCompat.START);
 
         } else if (itemId == R.id.nav_rkf){
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.frameLayout, new RekesikFragment());
             ft.commit();
-            getSupportActionBar().setTitle("Realisasi Keuangan & Fisik");
+
+            ((TextView) parent_view.findViewById(R.id.tvToolbarTitle)).setText("Realisasi Keuangan & Fisik");
+
             drwLayout.closeDrawer(GravityCompat.START);
 
         } else if (itemId == R.id.nav_user_rating){
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.frameLayout, new UserRatingFragment());
             ft.commit();
-            getSupportActionBar().setTitle("User Rating");
+
+            ((TextView) parent_view.findViewById(R.id.tvToolbarTitle)).setText("User Rating");
+
             drwLayout.closeDrawer(GravityCompat.START);
 
         } else if (itemId == R.id.nav_fisik){
@@ -223,6 +266,12 @@ public class DrawerActivity extends AppCompatActivity {
         } else if (itemId == R.id.nav_user_profile){
             Intent i = new Intent(m_Ctx, ProfileActivity.class);
             startActivity(i);
+
+        } else if (itemId == R.id.nav_user_logout){
+            logOut();
+
+        } else if (itemId == R.id.nav_app_out){
+            finish();
 
         }
     }
@@ -278,5 +327,21 @@ public class DrawerActivity extends AppCompatActivity {
             homeFragment.refreshData();
         }
     }
+
+    private void logOut(){
+        m_Global.setIsRememberMe(false);
+        gotoActivityLogin();
+    }
+
+    private void gotoActivityLogin() {
+        Intent intent = new Intent(m_Ctx, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void gotoOut() {
+        finish();
+    }
+
 }
 
