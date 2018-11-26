@@ -326,7 +326,7 @@ public class ProfileEditActivity extends AppCompatActivity {
         m_PDialog.setMessage("Menyimpan data...");
         showDialog();
 
-        String url = m_Global.URL_ROOT + "/user/save_user";
+        String url = m_Global.URL_ROOT + "/User/save_user";
         StringRequest strReq = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
@@ -415,10 +415,10 @@ public class ProfileEditActivity extends AppCompatActivity {
         String api = "";
         String params = "";
         if (m_User.DinasId != 0) {
-            api = "/appglobal/get_dinas_by_dinas";
+            api = "/AppGlobal/get_dinas_by_dinas";
             params = String.format("?id=%1$d", m_User.DinasId);
         }else if(m_User.ProvId != 0){
-            api = "/appglobal/get_dinas_by_prov";
+            api = "/AppGlobal/get_dinas_by_prov";
             params = String.format("?id=%1$d", m_User.ProvId);
         }else{
             return;
@@ -468,10 +468,10 @@ public class ProfileEditActivity extends AppCompatActivity {
         String api = "";
         String params = "";
         if (m_User.DinasId != 0) {
-            api = "/appglobal/get_satker_by_dinas";
+            api = "/AppGlobal/get_satker_by_dinas";
             params = String.format("?id=%1$d", m_User.DinasId);
         }else if(m_User.ProvId != 0){
-            api = "/appglobal/get_satker_by_prov";
+            api = "/AppGlobal/get_satker_by_prov";
             params = String.format("?id=%1$d", m_User.ProvId);
         }else{
             return;

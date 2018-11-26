@@ -55,7 +55,7 @@
             android:id="@+id/company2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Kementrian Pertaninan"
+            android:text="Kementerian Pertanian"
             android:textAlignment="center"
             android:textSize="13dp"
             android:textColor="#000"/>

@@ -26,6 +26,8 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.emansj.mpogo.adapter.AdapterReke;
@@ -51,6 +53,7 @@ public class FisikActivity extends AppCompatActivity implements SwipeRefreshLayo
     private Toolbar toolbar;
     private WebView webView;
     private SwipeRefreshLayout refreshLayout;
+    private ProgressBar progress;
 
     //Custom vars
     private ValueCallback<Uri> mUploadMessage;
@@ -91,16 +94,14 @@ public class FisikActivity extends AppCompatActivity implements SwipeRefreshLayo
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.home) {
             finish();
-        }
-        else if(item.getItemId() == R.id.action_entri_fisik) {
-            Uri url = Uri.parse(webView.getUrl());
-            String strUrl = m_Global.URL_MPO +
-                    "mInputFisik/index?userid=" + url.getQueryParameter("userid") +
-                    "&tahun=" + url.getQueryParameter("tahun");
-            webView.loadUrl(strUrl);
+
+        }else if(item.getItemId() == R.id.action_keluar) {
+            finish();
+
         }
         else {
             finish();
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -108,15 +109,20 @@ public class FisikActivity extends AppCompatActivity implements SwipeRefreshLayo
     //---------------------------------------INIT COMPONENTS & DATA
     private void initToolbar(){
         toolbar = findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+        toolbar.setNavigationIcon(R.drawable.ic_close);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Fisik");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //Toolbar Title & SubTitle
+        String strTahun = String.valueOf(m_Global.getTahunRKA());
+        ((TextView) parent_view.findViewById(R.id.tvToolbarTitle)).setText("Entri Fisik");
+        ((TextView) parent_view.findViewById(R.id.tvToolbarSubTitle)).setText(strTahun);
     }
 
     private void initComponent(){
         webView = (WebView) findViewById(R.id.webView);
         refreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
+        progress = findViewById(R.id.progress);
 
         //listener
         refreshLayout.setOnRefreshListener(this);
@@ -147,11 +153,9 @@ public class FisikActivity extends AppCompatActivity implements SwipeRefreshLayo
         });
         // entahlah kenapa harus ditambahin ini
 
-        webView.setWebViewClient(new MyBrowser());
-
+        webView.setWebViewClient(new MyBrowser(progress));
         webView.clearCache(true);
-        webView.loadUrl(m_Global.URL_MPO + "mInputFisik/index?userid="+m_UserId+"&tahun="+m_Tahun);
-
+        webView.loadUrl(m_Global.URL_MPO + "MInputFisik/index?userid="+m_UserId+"&tahun="+m_Tahun);
         webView.setWebChromeClient(new WebChromeClient() {
             // For 3.0+ Devices (Start)
             // onActivityResult attached before constructor
@@ -259,13 +263,13 @@ public class FisikActivity extends AppCompatActivity implements SwipeRefreshLayo
                     super.onBackPressed();
                     break;
                 case "kegiatan_list":
-                    webView.loadUrl(m_Global.URL_MPO + "mInputFisik/index?userid="+url.getQueryParameter("userid")+"&tahun="+url.getQueryParameter("tahun"));
+                    webView.loadUrl(m_Global.URL_MPO + "MInputFisik/index?userid="+url.getQueryParameter("userid")+"&tahun="+url.getQueryParameter("tahun"));
                     break;
                 case "realisasi_list":
-                    webView.loadUrl(m_Global.URL_MPO + "mInputFisik/kegiatan_list?idsatker="+url.getQueryParameter("idsatker")+"&userid="+m_UserId+"&tahun="+m_Tahun);
+                    webView.loadUrl(m_Global.URL_MPO + "MInputFisik/kegiatan_list?idsatker="+url.getQueryParameter("idsatker")+"&userid="+m_UserId+"&tahun="+m_Tahun);
                     break;
                 case "form":
-                    webView.loadUrl(m_Global.URL_MPO + "mInputFisik/realisasi_list?idsatker="+url.getQueryParameter("idsatker")+"&iditem="+url.getQueryParameter("iditem"));
+                    webView.loadUrl(m_Global.URL_MPO + "MInputFisik/realisasi_list?idsatker="+url.getQueryParameter("idsatker")+"&iditem="+url.getQueryParameter("iditem"));
                     break;
                 default: webView.goBack();
             }
@@ -323,5 +327,17 @@ public class FisikActivity extends AppCompatActivity implements SwipeRefreshLayo
 //            view.loadData("Maaf Internet Anda tidak stabil", "text/html", "utf-8");
 //            super.onReceivedHttpError(view, request, errorResponse);
 //        }
+
+        private ProgressBar progressBar;
+        public MyBrowser(ProgressBar progressBar){
+            this.progressBar = progressBar;
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+            progressBar.setVisibility(View.GONE);
+        }
     }
 }

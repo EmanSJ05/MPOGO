@@ -164,7 +164,7 @@ public class RekeActivity extends AppCompatActivity {
     }
 
     private void initComponent(){
-        progress = findViewById(R.id.progress);
+//        progress = findViewById(R.id.progress);
         lyBottom = findViewById(R.id.lyBottom);
         lyBottomTotal = findViewById(R.id.lyBottomTotal);
 
@@ -337,7 +337,7 @@ public class RekeActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Laporan/get_RK_Kewenangan";
+        String api = "/Laporan/get_rk_kewenangan";
         String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
         String url = AppGlobal.URL_ROOT + api + params;
 
@@ -395,7 +395,7 @@ public class RekeActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Laporan/get_RK_Kegiatan";
+        String api = "/Laporan/get_rk_kegiatan";
         String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
         String url = AppGlobal.URL_ROOT + api + params;
 
@@ -451,7 +451,7 @@ public class RekeActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Laporan/get_RK_KegiatanDanProvinsi";
+        String api = "/Laporan/get_rk_kegiatan_dan_provinsi";
         String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
         String url = AppGlobal.URL_ROOT + api + params;
 
@@ -508,7 +508,7 @@ public class RekeActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Laporan/get_RK_KegiatanOutput";
+        String api = "/Laporan/get_rk_kegiatan_output";
         String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
         String url = AppGlobal.URL_ROOT + api + params;
 
@@ -564,7 +564,7 @@ public class RekeActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Laporan/get_RK_Satker";
+        String api = "/Laporan/get_rk_satker";
         String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
         String url = AppGlobal.URL_ROOT + api + params;
 
@@ -620,7 +620,7 @@ public class RekeActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Laporan/get_RK_Output";
+        String api = "/Laporan/get_rk_output";
         String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
         String url = AppGlobal.URL_ROOT + api + params;
 

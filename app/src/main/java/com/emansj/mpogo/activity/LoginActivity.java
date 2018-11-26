@@ -161,7 +161,7 @@ public class LoginActivity extends Activity {
         m_PDialog.setMessage("Authenticating...");
         showDialog();
 
-        String api = "/user/signin";
+        String api = "/Oten/login";
         String params = "";
         String url = AppGlobal.URL_ROOT + api + params;
         StringRequest strReq = new StringRequest(Method.POST, url,

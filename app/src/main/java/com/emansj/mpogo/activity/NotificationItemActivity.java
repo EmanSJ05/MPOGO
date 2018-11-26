@@ -149,7 +149,7 @@ public class NotificationItemActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/notification/get_notification";
+        String api = "/Notification/get_notification";
         String params = String.format("?id=%1$d", m_NotificationId);
         String url = AppGlobal.URL_ROOT + api + params;
 

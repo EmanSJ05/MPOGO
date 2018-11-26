@@ -104,8 +104,8 @@ public class NotificationUtils {
                         .setStyle(bigTextStyle)
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setLargeIcon(BitmapFactory.decodeResource(m_Ctx.getResources(), icon))
-                        .setSound(m_AlarmSound3)
-                        .setVibrate(new long[] {0, 300, 50, 300, 50, 300, 50, 800})
+                        .setSound(m_AlarmSound2)
+                        .setVibrate(new long[] {0, 300, 50, 300})
                         .setDefaults(Notification.DEFAULT_LIGHTS)
                         .build();
 
@@ -122,65 +122,14 @@ public class NotificationUtils {
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setLargeIcon(BitmapFactory.decodeResource(m_Ctx.getResources(), icon))
                         .setContentText(message)
-                        .setSound(m_AlarmSound3)
-                        .setVibrate(new long[] {0, 300, 50, 300, 50, 300, 50, 800})
+                        .setSound(m_AlarmSound2)
+                        .setVibrate(new long[] {0, 300, 50, 300})
                         .setDefaults(Notification.DEFAULT_LIGHTS)
                         .build();
             }
 
             NotificationManager notificationManager = (NotificationManager) m_Ctx.getSystemService(NOTIFICATION_SERVICE);
             notificationManager.notify(NOTIFICATION_ID, notification);
-        }
-    }
-
-    public void displayNotificationx(Notif notif, Intent resultIntent) {
-        {
-            Integer notifid = notif.NotificationId;
-            m_Title = notif.Title;
-            m_Message = notif.Message;
-            m_ImageUrl = notif.ImageUrl;
-            m_LinkUrl = notif.LinkUrl;
-            m_BitmapImage = null;
-
-            if (!m_ImageUrl.equals("")) {
-                m_BitmapImage = getBitmapFromURL(m_ImageUrl);
-            }
-            final int icon = R.mipmap.ic_launcher;
-
-            PendingIntent resultPendingIntent;
-
-            if (!m_LinkUrl.equals("")) { //this is a link notification
-                //result (to run setHasBeenRead only)
-                resultIntent = new Intent(m_Ctx, NotificationUpdateActivity.class);
-                resultIntent.putExtra("notificationid", notifid);
-                resultIntent.putExtra("link_url", m_LinkUrl);
-
-                //notification
-                Intent notificationIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(m_LinkUrl));
-                //resultPendingIntent = PendingIntent.getActivity(m_Ctx, 0, notificationIntent, 0);
-
-                Intent[] intens = {resultIntent, notificationIntent};
-                //resultPendingIntent = PendingIntent.getActivities(m_Ctx, 0, intens, PendingIntent.FLAG_UPDATE_CURRENT);
-                m_PendingIntent = PendingIntent.getActivities(m_Ctx, 0, intens, PendingIntent.FLAG_UPDATE_CURRENT);
-
-            } else {
-                //notification
-                Intent notificationIntent = new Intent(m_Ctx, NotificationItemActivity.class);
-                notificationIntent.putExtra("notificationid", notifid);
-
-                Intent[] intens = {notificationIntent};
-                //resultPendingIntent = PendingIntent.getActivities(m_Ctx, 0, intens, PendingIntent.FLAG_CANCEL_CURRENT);
-                m_PendingIntent = PendingIntent.getActivities(m_Ctx, 0, intens, PendingIntent.FLAG_CANCEL_CURRENT);
-
-            }
-            notif.addNotif(m_Ctx, notif);
-
-            if (m_BitmapImage == null) {
-                largeTextNotification();
-
-            } else {
-                imageNotification();
-            }
         }
     }
 
@@ -209,94 +158,146 @@ public class NotificationUtils {
         }
     }
 
-    public void largeTextNotification() {
-        final int icon = R.mipmap.ic_launcher;
 
-        NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
-        bigTextStyle.bigText(m_Message);
-
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(m_Ctx, CHANNEL_ID)
-                .setSmallIcon(icon).setTicker(m_Title).setWhen(0)
-                .setAutoCancel(true)
-                .setContentTitle(m_Title)
-                .setContentIntent(m_PendingIntent)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setLargeIcon(BitmapFactory.decodeResource(m_Ctx.getResources(), R.mipmap.ic_launcher))
-                .setStyle(bigTextStyle)
-                .setSound(m_AlarmSound3)
-                .setVibrate(new long[] {0, 300, 50, 300, 50, 300, 50, 800})
-                .setDefaults(Notification.DEFAULT_LIGHTS);
-
-
-        NotificationManager notificationManager = (NotificationManager) m_Ctx.getSystemService(NOTIFICATION_SERVICE);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            String channelId2 = "2";
-            String channelName2 = "channel2";
-
-            NotificationChannel channel = new NotificationChannel(channelId2, channelName2, NotificationManager.IMPORTANCE_DEFAULT);
-
-            channel.enableLights(true);
-            channel.setLightColor(Color.RED);
-            channel.setShowBadge(true);
-            channel.enableVibration(true);
-
-            mBuilder.setChannelId(channelId2);
-
-            if (notificationManager != null) {
-                notificationManager.createNotificationChannel(channel);
-            }
-
-        }
-
-        if (notificationManager != null) {
-            notificationManager.notify(NOTIFICATION_ID, mBuilder.build());
-        }
-    }
-
-    public void imageNotification() {
-        int notifyId = 004;
-
-        NotificationCompat.BigPictureStyle bigPictureStyle = new NotificationCompat.BigPictureStyle();
-        bigPictureStyle.bigPicture(m_BitmapImage);
-
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(m_Ctx, CHANNEL_ID)
-                .setAutoCancel(true)
-                .setContentTitle(m_Title)
-                .setContentIntent(m_PendingIntent)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setLargeIcon(BitmapFactory.decodeResource(m_Ctx.getResources(), R.mipmap.ic_launcher))
-                .addAction(android.R.drawable.ic_menu_share, "Share", m_PendingIntent)
-                .setContentText(m_Message)
-                .setStyle(bigPictureStyle)
-                .setSound(m_AlarmSound2)
-                .setVibrate(new long[] {0, 300, 50, 300, 50, 300, 50, 800})
-                .setDefaults(Notification.DEFAULT_LIGHTS);
-
-
-        NotificationManager notificationManager = (NotificationManager) m_Ctx.getSystemService(NOTIFICATION_SERVICE);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            String channelId2 = "2";
-            String channelName2 = "channel2";
-
-            NotificationChannel channel = new NotificationChannel(channelId2, channelName2, NotificationManager.IMPORTANCE_DEFAULT);
-
-            channel.enableLights(true);
-            channel.setLightColor(Color.RED);
-            channel.setShowBadge(true);
-            channel.enableVibration(true);
-
-            mBuilder.setChannelId(channelId2);
-
-            if (notificationManager != null) {
-                notificationManager.createNotificationChannel(channel);
-            }
-        }
-
-        if (notificationManager != null) {
-            notificationManager.notify(notifyId, mBuilder.build());
-        }
-    }
+//    public void displayNotificationx(Notif notif, Intent resultIntent) {
+//        {
+//            Integer notifid = notif.NotificationId;
+//            m_Title = notif.Title;
+//            m_Message = notif.Message;
+//            m_ImageUrl = notif.ImageUrl;
+//            m_LinkUrl = notif.LinkUrl;
+//            m_BitmapImage = null;
+//
+//            if (!m_ImageUrl.equals("")) {
+//                m_BitmapImage = getBitmapFromURL(m_ImageUrl);
+//            }
+//            final int icon = R.mipmap.ic_launcher;
+//
+//            PendingIntent resultPendingIntent;
+//
+//            if (!m_LinkUrl.equals("")) { //this is a link notification
+//                //result (to run setHasBeenRead only)
+//                resultIntent = new Intent(m_Ctx, NotificationUpdateActivity.class);
+//                resultIntent.putExtra("notificationid", notifid);
+//                resultIntent.putExtra("link_url", m_LinkUrl);
+//
+//                //notification
+//                Intent notificationIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(m_LinkUrl));
+//                //resultPendingIntent = PendingIntent.getActivity(m_Ctx, 0, notificationIntent, 0);
+//
+//                Intent[] intens = {resultIntent, notificationIntent};
+//                //resultPendingIntent = PendingIntent.getActivities(m_Ctx, 0, intens, PendingIntent.FLAG_UPDATE_CURRENT);
+//                m_PendingIntent = PendingIntent.getActivities(m_Ctx, 0, intens, PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//            } else {
+//                //notification
+//                Intent notificationIntent = new Intent(m_Ctx, NotificationItemActivity.class);
+//                notificationIntent.putExtra("notificationid", notifid);
+//
+//                Intent[] intens = {notificationIntent};
+//                //resultPendingIntent = PendingIntent.getActivities(m_Ctx, 0, intens, PendingIntent.FLAG_CANCEL_CURRENT);
+//                m_PendingIntent = PendingIntent.getActivities(m_Ctx, 0, intens, PendingIntent.FLAG_CANCEL_CURRENT);
+//
+//            }
+//            notif.addNotif(m_Ctx, notif);
+//
+//            if (m_BitmapImage == null) {
+//                //largeTextNotification();
+//
+//            } else {
+//                //imageNotification();
+//            }
+//        }
+//    }
+//
+//    public void largeTextNotification() {
+//        final int icon = R.mipmap.ic_launcher;
+//
+//        NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
+//        bigTextStyle.bigText(m_Message);
+//
+//        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(m_Ctx, CHANNEL_ID)
+//                .setSmallIcon(icon).setTicker(m_Title).setWhen(0)
+//                .setAutoCancel(true)
+//                .setContentTitle(m_Title)
+//                .setContentIntent(m_PendingIntent)
+//                .setSmallIcon(R.mipmap.ic_launcher)
+//                .setLargeIcon(BitmapFactory.decodeResource(m_Ctx.getResources(), R.mipmap.ic_launcher))
+//                .setStyle(bigTextStyle)
+//                .setSound(m_AlarmSound3)
+//                .setVibrate(new long[] {0, 300, 50, 300, 50, 300, 50, 800})
+//                .setDefaults(Notification.DEFAULT_LIGHTS);
+//
+//
+//        NotificationManager notificationManager = (NotificationManager) m_Ctx.getSystemService(NOTIFICATION_SERVICE);
+//
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            String channelId2 = "2";
+//            String channelName2 = "channel2";
+//
+//            NotificationChannel channel = new NotificationChannel(channelId2, channelName2, NotificationManager.IMPORTANCE_DEFAULT);
+//
+//            channel.enableLights(true);
+//            channel.setLightColor(Color.RED);
+//            channel.setShowBadge(true);
+//            channel.enableVibration(true);
+//
+//            mBuilder.setChannelId(channelId2);
+//
+//            if (notificationManager != null) {
+//                notificationManager.createNotificationChannel(channel);
+//            }
+//
+//        }
+//
+//        if (notificationManager != null) {
+//            notificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+//        }
+//    }
+//
+//    public void imageNotification() {
+//        int notifyId = 004;
+//
+//        NotificationCompat.BigPictureStyle bigPictureStyle = new NotificationCompat.BigPictureStyle();
+//        bigPictureStyle.bigPicture(m_BitmapImage);
+//
+//        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(m_Ctx, CHANNEL_ID)
+//                .setAutoCancel(true)
+//                .setContentTitle(m_Title)
+//                .setContentIntent(m_PendingIntent)
+//                .setSmallIcon(R.mipmap.ic_launcher)
+//                .setLargeIcon(BitmapFactory.decodeResource(m_Ctx.getResources(), R.mipmap.ic_launcher))
+//                .addAction(android.R.drawable.ic_menu_share, "Share", m_PendingIntent)
+//                .setContentText(m_Message)
+//                .setStyle(bigPictureStyle)
+//                .setSound(m_AlarmSound2)
+//                .setVibrate(new long[] {0, 300, 50, 300, 50, 300, 50, 800})
+//                .setDefaults(Notification.DEFAULT_LIGHTS);
+//
+//
+//        NotificationManager notificationManager = (NotificationManager) m_Ctx.getSystemService(NOTIFICATION_SERVICE);
+//
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            String channelId2 = "2";
+//            String channelName2 = "channel2";
+//
+//            NotificationChannel channel = new NotificationChannel(channelId2, channelName2, NotificationManager.IMPORTANCE_DEFAULT);
+//
+//            channel.enableLights(true);
+//            channel.setLightColor(Color.RED);
+//            channel.setShowBadge(true);
+//            channel.enableVibration(true);
+//
+//            mBuilder.setChannelId(channelId2);
+//
+//            if (notificationManager != null) {
+//                notificationManager.createNotificationChannel(channel);
+//            }
+//        }
+//
+//        if (notificationManager != null) {
+//            notificationManager.notify(notifyId, mBuilder.build());
+//        }
+//    }
 
 }

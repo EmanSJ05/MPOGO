@@ -72,6 +72,10 @@ public class AppGlobal {
     //Static Global vars
     public static String URL_MPO = "http://mpo.psp.pertanian.go.id/";
     public static String URL_ROOT = "http://app2.psp.pertanian.go.id";
+//    public static String URL_MPO = "http://192.168.80.176:8080/newmpo";
+//    public static String URL_ROOT = "http://192.168.80.176:8080/mpoapi/";
+//    public static String URL_MPO = "http://192.168.8.102:8080/newmpo";
+//    public static String URL_ROOT = "http://192.168.8.102:8080/mpoapi/";
     public static String TAG = "MPOGO.GLOBAL";
     public static String PREFS_NAME = "MPOGO.SETTINGS";
     public static String SERVER_KEY =

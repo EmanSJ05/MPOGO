@@ -417,7 +417,7 @@ public class RekesikActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Laporan/get_RKF_Kegiatan";
+        String api = "/Laporan/get_rkf_kegiatan";
         String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
         String url = AppGlobal.URL_ROOT + api + params;
 
@@ -476,7 +476,7 @@ public class RekesikActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Laporan/get_RKF_KegiatanOutput";
+        String api = "/Laporan/get_rkf_kegiatan_output";
         String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
         String url = AppGlobal.URL_ROOT + api + params;
 
@@ -536,7 +536,7 @@ public class RekesikActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Laporan/get_RKF_Output";
+        String api = "/Laporan/get_rkf_output";
         String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
         String url = AppGlobal.URL_ROOT + api + params;
 
@@ -596,7 +596,7 @@ public class RekesikActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Laporan/get_RKF_OutputProvinsiSmartMPO";
+        String api = "/Laporan/get_rkf_output_dan_provinsi_smart_mpo";
         String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
         String url = AppGlobal.URL_ROOT + api + params;
 

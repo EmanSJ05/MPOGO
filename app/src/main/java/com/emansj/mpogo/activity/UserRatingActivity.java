@@ -222,7 +222,7 @@ public class UserRatingActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Laporan/get_UR_Provinsi";
+        String api = "/Laporan/get_ur_provinsi";
         String params = String.format("?from=%1$s&to=%2$s", m_DateFrom, m_DateTo);
         String url = AppGlobal.URL_ROOT + api + params;
 
@@ -277,7 +277,7 @@ public class UserRatingActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Laporan/get_UR_Kabupaten";
+        String api = "/Laporan/get_ur_kabupaten";
         String params = String.format("?from=%1$s&to=%2$s", m_DateFrom, m_DateTo);
         String url = AppGlobal.URL_ROOT + api + params;
 
@@ -334,7 +334,7 @@ public class UserRatingActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Laporan/get_UR_SemuaUser";
+        String api = "/Laporan/get_ur_semua_user";
         String params = String.format("?from=%1$s&to=%2$s", m_DateFrom, m_DateTo);
         String url = AppGlobal.URL_ROOT + api + params;
 

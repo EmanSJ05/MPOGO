@@ -47,7 +47,6 @@ public class NotificationActivity extends AppCompatActivity {
     private View parent_view;
     private Toolbar toolbar;
     private RecyclerView rvList;
-    private ProgressBar progress;
     private SwipeRefreshLayout refreshLayout;
 
     //Custom vars
@@ -138,7 +137,6 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     private void initComponent(){
-        progress = findViewById(R.id.progress);
         refreshLayout = findViewById(R.id.swipeRefresh);
 
         //listener
