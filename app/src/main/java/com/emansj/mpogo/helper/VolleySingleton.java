@@ -90,13 +90,13 @@ public class VolleySingleton {
     }
 
     public <T> void addToRequestQueue(Request<T> req,String tag) {
-//        final int MY_SOCKET_TIMEOUT_MS = 10000; //10 seconds
-//        final int MY_MAX_RETRIES = 2; //2 times
-//
-//        req.setRetryPolicy(new DefaultRetryPolicy(
-//                MY_SOCKET_TIMEOUT_MS,
-//                MY_MAX_RETRIES,
-//                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        final int MY_SOCKET_TIMEOUT_MS = 10000; //10 seconds
+        final int MY_MAX_RETRIES = 2; //2 times
+
+        req.setRetryPolicy(new DefaultRetryPolicy(
+                MY_SOCKET_TIMEOUT_MS,
+                MY_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         // set the default tag if tag is empty
         req.setTag(TextUtils.isEmpty(tag) ? TAG : tag);
@@ -134,5 +134,10 @@ public class VolleySingleton {
         );
         addToRequestQueue(req, TAG);
         return jObj;
+    }
+
+    public interface VolleyCallback {
+        void onSuccess(JSONObject result) throws JSONException;
+        void onError(String result) throws Exception;
     }
 }

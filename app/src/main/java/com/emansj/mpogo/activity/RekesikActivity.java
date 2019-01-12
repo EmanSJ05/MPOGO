@@ -3,6 +3,8 @@ package com.emansj.mpogo.activity;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,28 +29,24 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.emansj.mpogo.R;
-import com.emansj.mpogo.adapter.AdapterReke;
 import com.emansj.mpogo.adapter.AdapterRekesik;
-import com.emansj.mpogo.adapter.AdapterSatkerFilter;
-import com.emansj.mpogo.fragment.DialogRekeDetail;
 import com.emansj.mpogo.fragment.DialogRekesikDetail;
 import com.emansj.mpogo.fragment.DialogReportFilter;
 import com.emansj.mpogo.helper.AppGlobal;
 import com.emansj.mpogo.helper.AppUtils;
 import com.emansj.mpogo.helper.ExceptionHandler;
+import com.emansj.mpogo.helper.RequestHandler;
 import com.emansj.mpogo.helper.Tools;
 import com.emansj.mpogo.helper.VolleyErrorHelper;
 import com.emansj.mpogo.helper.VolleySingleton;
-import com.emansj.mpogo.model.RealisasiKeuangan;
 import com.emansj.mpogo.model.RealisasiKeuanganFisik;
-import com.github.lzyzsd.circleprogress.DonutProgress;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
 
 public class RekesikActivity extends AppCompatActivity {
 
@@ -61,6 +60,7 @@ public class RekesikActivity extends AppCompatActivity {
     private View parent_view;
     private Toolbar toolbar;
     private RecyclerView rvList;
+    private ProgressBar progressBar;
     private View lyBottom, lyBottomTotal;
     private TextView    tvTotalPagu, tvTotalPaguLong,
                         tvTotalSmartValue, tvTotalSmartPercent, tvTotalSmartLong,
@@ -171,11 +171,16 @@ public class RekesikActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(m_Title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //Toolbar Title & SubTitle
+        ((TextView) parent_view.findViewById(R.id.tvToolbarTitle)).setText("Realisasi Keuangan & Fisik");
+        ((TextView) parent_view.findViewById(R.id.tvToolbarSubTitle)).setText(m_Title);
     }
 
     private void initComponent(){
+        progressBar = findViewById(R.id.progressBar);
+        //progressBar = (ProgressBar) findViewById(R.id.progressBar);
         lyBottom = findViewById(R.id.lyBottom);
         lyBottomTotal = findViewById(R.id.lyBottomTotal);
 
@@ -414,7 +419,7 @@ public class RekesikActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Laporan/getRKFPerKegiatan";
+        String api = "/Laporan/get_rkf_kegiatan";
         String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
         String url = AppGlobal.URL_ROOT + api + params;
 
@@ -444,11 +449,11 @@ public class RekesikActivity extends AppCompatActivity {
                                         obj.fisikProgressTerbobot = Tools.parseDouble(row.getString("fisikProgressTerbobot"));
                                         m_ListItem.add(obj);
                                     }
-                                    progressDialog.dismiss();
                                     m_Adapter.notifyDataSetChanged();
                                     getTotalKegiatan();
                                 }
                             }
+                            progressDialog.dismiss();
 
                         }catch (JSONException e){
                             e.printStackTrace();
@@ -473,7 +478,7 @@ public class RekesikActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Laporan/getRKFPerKegiatanOutput";
+        String api = "/Laporan/get_rkf_kegiatan_output";
         String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
         String url = AppGlobal.URL_ROOT + api + params;
 
@@ -504,11 +509,11 @@ public class RekesikActivity extends AppCompatActivity {
                                         obj.fisikPercent = Tools.parseDouble(row.getString("fisikPercent"));
                                         m_ListItem.add(obj);
                                     }
-                                    progressDialog.dismiss();
                                     m_Adapter.notifyDataSetChanged();
                                     getTotalDefault();
                                 }
                             }
+                            progressDialog.dismiss();
 
                         }catch (JSONException e){
                             e.printStackTrace();
@@ -533,7 +538,7 @@ public class RekesikActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Laporan/getRKFPerOutput";
+        String api = "/Laporan/get_rkf_output";
         String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
         String url = AppGlobal.URL_ROOT + api + params;
 
@@ -564,11 +569,11 @@ public class RekesikActivity extends AppCompatActivity {
                                         obj.fisikPercent = Tools.parseDouble(row.getString("fisikPercent"));
                                         m_ListItem.add(obj);
                                     }
-                                    progressDialog.dismiss();
                                     m_Adapter.notifyDataSetChanged();
                                     getTotalDefault();
                                 }
                             }
+                            progressDialog.dismiss();
 
                         }catch (JSONException e){
                             e.printStackTrace();
@@ -593,7 +598,7 @@ public class RekesikActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Laporan/getRKFPerOutputProvinsiSmartMPO";
+        String api = "/Laporan/get_rkf_output_dan_provinsi_smart_mpo";
         String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
         String url = AppGlobal.URL_ROOT + api + params;
 
@@ -625,11 +630,11 @@ public class RekesikActivity extends AppCompatActivity {
                                         obj.fisikPercent = Tools.parseDouble(row.getString("fisikPercent"));
                                         m_ListItem.add(obj);
                                     }
-                                    progressDialog.dismiss();
                                     m_Adapter.notifyDataSetChanged();
                                     getTotalDefault();
                                 }
                             }
+                            progressDialog.dismiss();
 
                         }catch (JSONException e){
                             e.printStackTrace();
@@ -647,4 +652,168 @@ public class RekesikActivity extends AppCompatActivity {
         );
         VolleySingleton.getInstance(m_Ctx).addToRequestQueue(request, TAG);
     }
+
+
+
+//    private void getDataKegiatanOutputx() {
+//        final ProgressDialog progressDialog = new ProgressDialog(m_Ctx);
+//        progressDialog.setCancelable(false);
+//        progressDialog.setMessage("Loading...");
+//        progressDialog.show();
+//
+//        String api = "/Laporan/get_rkf_kegiatan_output";
+//        String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
+//        String url = AppGlobal.URL_ROOT + api + params;
+//
+//        class UserLogin extends AsyncTask<Void, Void, String> {
+//
+//            ProgressBar progressBar;
+//
+//            @Override
+//            protected void onPreExecute() {
+//                super.onPreExecute();
+//                progressBar = (ProgressBar) findViewById(R.id.progressBar);
+//                progressBar.setVisibility(View.VISIBLE);
+//            }
+//
+//            @Override
+//            protected void onPostExecute(String s) {
+//                super.onPostExecute(s);
+//                progressBar.setVisibility(View.GONE);
+//
+//                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+//                        new Response.Listener<JSONObject>(){
+//                            @Override
+//                            public void onResponse(JSONObject response) {
+//                                try{
+//                                    int status = response.getInt("status");
+//                                    if (status == 200 )
+//                                    {
+//                                        JSONArray data = response.getJSONArray("data");
+//                                        if (data.length() > 0)
+//                                        {
+//                                            for (int i = 0; i < data.length(); i++)
+//                                            {
+//                                                JSONObject row = data.getJSONObject(i);
+//
+//                                                RealisasiKeuanganFisik obj = new RealisasiKeuanganFisik();
+//                                                obj.title = Tools.parseString(row.getString("title"));
+//                                                obj.pagu = Tools.parseDouble(row.getString("pagu"));
+//                                                obj.smartValue = Tools.parseDouble(row.getString("smartValue"));
+//                                                obj.smartPercent = Tools.parseDouble(row.getString("smartPercent"));
+//                                                obj.mpoValue = Tools.parseDouble(row.getString("mpoValue"));
+//                                                obj.mpoPercent = Tools.parseDouble(row.getString("mpoPercent"));
+//                                                obj.fisikTarget = Tools.parseDouble(row.getString("fisikTarget"));
+//                                                obj.fisikValue = Tools.parseDouble(row.getString("fisikValue"));
+//                                                obj.fisikPercent = Tools.parseDouble(row.getString("fisikPercent"));
+//                                                m_ListItem.add(obj);
+//                                            }
+//                                            m_Adapter.notifyDataSetChanged();
+//                                            getTotalDefault();
+//                                        }
+//                                    }
+//
+//                                }catch (JSONException e){
+//                                    e.printStackTrace();
+//                                }
+//                            }
+//                        },
+//                        new Response.ErrorListener(){
+//                            @Override
+//                            public void onErrorResponse(VolleyError error){
+//                                VolleyErrorHelper.showError(error, m_Ctx);
+//                            }
+//                        }
+//                );
+//                VolleySingleton.getInstance(m_Ctx).addToRequestQueue(request, TAG);
+//            }
+//
+//            @Override
+//            protected String doInBackground(Void... voids) {
+//                //creating request handler object
+//                RequestHandler requestHandler = new RequestHandler();
+//
+//                //creating request parameters
+//                HashMap<String, String> params = new HashMap<>();
+//                params.put("username", username);
+//                params.put("password", password);
+//
+//                //returing the response
+//                return requestHandler.sendPostRequest(URLs.URL_LOGIN, params);
+//            }
+//        }
+//
+//        UserLogin ul = new UserLogin();
+//        ul.execute();
+//    }
+
+
+
+
+//    private void getDataKegiatanOutput() {
+////        final ProgressDialog progressDialog = new ProgressDialog(m_Ctx);
+////        progressDialog.setCancelable(false);
+////        progressDialog.setMessage("Loading...");
+////        progressDialog.show();
+//
+//
+//
+//        progressBar.setVisibility(View.VISIBLE);
+//
+//        String api = "/Laporan/get_rkf_kegiatan_output";
+//        String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
+//        String url = AppGlobal.URL_ROOT + api + params;
+//
+//        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+//                new Response.Listener<JSONObject>(){
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                        try{
+//                            int status = response.getInt("status");
+//                            if (status == 200 )
+//                            {
+//                                JSONArray data = response.getJSONArray("data");
+//                                if (data.length() > 0)
+//                                {
+//                                    for (int i = 0; i < data.length(); i++)
+//                                    {
+//                                        JSONObject row = data.getJSONObject(i);
+//
+//                                        RealisasiKeuanganFisik obj = new RealisasiKeuanganFisik();
+//                                        obj.title = Tools.parseString(row.getString("title"));
+//                                        obj.pagu = Tools.parseDouble(row.getString("pagu"));
+//                                        obj.smartValue = Tools.parseDouble(row.getString("smartValue"));
+//                                        obj.smartPercent = Tools.parseDouble(row.getString("smartPercent"));
+//                                        obj.mpoValue = Tools.parseDouble(row.getString("mpoValue"));
+//                                        obj.mpoPercent = Tools.parseDouble(row.getString("mpoPercent"));
+//                                        obj.fisikTarget = Tools.parseDouble(row.getString("fisikTarget"));
+//                                        obj.fisikValue = Tools.parseDouble(row.getString("fisikValue"));
+//                                        obj.fisikPercent = Tools.parseDouble(row.getString("fisikPercent"));
+//                                        m_ListItem.add(obj);
+//                                    }
+//                                    m_Adapter.notifyDataSetChanged();
+//                                    getTotalDefault();
+//                                }
+//                            }
+//                            //progressDialog.dismiss();
+//                            progressBar.setVisibility(View.GONE);
+//
+//                        }catch (JSONException e){
+//                            e.printStackTrace();
+//                            //progressDialog.dismiss();
+//                            progressBar.setVisibility(View.GONE);
+//                        }
+//                    }
+//                },
+//                new Response.ErrorListener(){
+//                    @Override
+//                    public void onErrorResponse(VolleyError error){
+//                        //progressDialog.dismiss();
+//                        progressBar.setVisibility(View.GONE);
+//                        VolleyErrorHelper.showError(error, m_Ctx);
+//                    }
+//                }
+//        );
+//        VolleySingleton.getInstance(m_Ctx).addToRequestQueue(request, TAG);
+//    }
 }

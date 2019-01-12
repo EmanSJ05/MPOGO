@@ -2,31 +2,20 @@ package com.emansj.mpogo.adapter;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.ImageViewCompat;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.BackgroundColorSpan;
-import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.load.engine.Resource;
 import com.emansj.mpogo.R;
 import com.emansj.mpogo.helper.AppUtils;
 import com.emansj.mpogo.helper.Tools;
-import com.emansj.mpogo.helper.ViewAnimation;
+import com.emansj.mpogo.helper.ToolAnimation;
 import com.emansj.mpogo.model.RealisasiKeuangan;
 
 import java.util.ArrayList;
@@ -195,9 +184,9 @@ public class AdapterReke extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private boolean toggleLayoutExpand(boolean show, View view, View ly_expand) {
         Tools.toggleArrow(show, view);
         if (show) {
-            ViewAnimation.expand(ly_expand);
+            ToolAnimation.expand(ly_expand);
         } else {
-            ViewAnimation.collapse(ly_expand);
+            ToolAnimation.collapse(ly_expand);
         }
         return show;
     }

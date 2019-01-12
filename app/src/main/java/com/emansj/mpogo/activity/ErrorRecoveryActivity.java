@@ -53,10 +53,12 @@ public class ErrorRecoveryActivity extends AppCompatActivity {
         toolbar.setNavigationIcon(R.drawable.ic_close);
         toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.grey_60), PorterDuff.Mode.SRC_ATOP);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Kesalahan terjadi");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Tools.setSystemBarColor(this, R.color.colorPrimary);
         Tools.setSystemBarLight(this);
+
+        //Toolbar Title & SubTitle
+        ((TextView) findViewById(R.id.tvToolbarTitle)).setText("Kesalahan terjadi");
     }
 
     private void initComponent() {

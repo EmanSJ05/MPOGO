@@ -2,6 +2,7 @@ package com.emansj.mpogo.helper;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -39,6 +40,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,8 +58,9 @@ import com.bumptech.glide.request.target.DrawableImageViewTarget;
 import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
-import com.google.android.gms.maps.GoogleMap;
+//import com.google.android.gms.maps.GoogleMap;
 import com.emansj.mpogo.R;
+import com.google.android.gms.maps.GoogleMap;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -563,7 +566,7 @@ public class Tools {
     public static int parseInt(String s, int the_default) {
         try {
             return Integer.parseInt(s);
-        } catch(NumberFormatException e) {
+        } catch(Exception e) {
             return the_default;
         }
     }
@@ -571,7 +574,7 @@ public class Tools {
     public static int parseInt(String s) {
         try {
             return Integer.parseInt(s);
-        } catch(NumberFormatException e) {
+        } catch(Exception e) {
             return 0;
         }
     }
@@ -579,7 +582,7 @@ public class Tools {
     public static double parseDouble(String s, int the_default) {
         try {
             return Double.parseDouble(s);
-        } catch(NumberFormatException e) {
+        } catch(Exception e) {
             return the_default;
         }
     }
@@ -587,7 +590,7 @@ public class Tools {
     public static double parseDouble(String s) {
         try {
             return Double.parseDouble(s);
-        } catch(NumberFormatException e) {
+        } catch(Exception e) {
             return 0;
         }
     }
@@ -597,11 +600,13 @@ public class Tools {
         try {
             if (s.toUpperCase().equals("NULL")){
                 str = null;
+            }if (s.equals("")){
+                str = null;
             }else{
                 str = s;
             }
             return str;
-        } catch(NumberFormatException e) {
+        } catch(Exception e) {
             return null;
         }
     }
@@ -641,9 +646,23 @@ public class Tools {
 //    }
 
     /*check device connect to internet*/
-    private static boolean isOnline(Context ctx) {
+    public static boolean isOnline(Context ctx) {
         ConnectivityManager cm = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return ( netInfo != null && netInfo.isConnected() );
+    }
+
+    public static void showProgress(ProgressDialog progressDialog, String title, String message) {
+        if (!progressDialog.isShowing()) {
+            progressDialog.setTitle(title);
+            progressDialog.setMessage(message);
+            progressDialog.show();
+        }
+    }
+
+    public static void hideProgress(ProgressDialog progressDialog) {
+        if (progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
     }
 }

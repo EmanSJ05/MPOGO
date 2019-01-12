@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -135,8 +136,11 @@ public class UserRatingActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(m_Title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //Toolbar Title & SubTitle
+        ((TextView) parent_view.findViewById(R.id.tvToolbarTitle)).setText("User Rating");
+        ((TextView) parent_view.findViewById(R.id.tvToolbarSubTitle)).setText(m_Title);
     }
 
     private void initComponent(){
@@ -218,7 +222,7 @@ public class UserRatingActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Laporan/getURPerProvinsi";
+        String api = "/Laporan/get_ur_provinsi";
         String params = String.format("?from=%1$s&to=%2$s", m_DateFrom, m_DateTo);
         String url = AppGlobal.URL_ROOT + api + params;
 
@@ -273,7 +277,7 @@ public class UserRatingActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Laporan/getURPerPerKabupaten";
+        String api = "/Laporan/get_ur_kabupaten";
         String params = String.format("?from=%1$s&to=%2$s", m_DateFrom, m_DateTo);
         String url = AppGlobal.URL_ROOT + api + params;
 
@@ -330,7 +334,7 @@ public class UserRatingActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Laporan/getURPerAllUser";
+        String api = "/Laporan/get_ur_semua_user";
         String params = String.format("?from=%1$s&to=%2$s", m_DateFrom, m_DateTo);
         String url = AppGlobal.URL_ROOT + api + params;
 

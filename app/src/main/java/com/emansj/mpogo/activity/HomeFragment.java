@@ -178,7 +178,7 @@ public class HomeFragment extends Fragment {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Dashboard/getPusatSmartAndSas";
+        String api = "/Dashboard/get_pusat_smart_and_sas";
         String params = String.format("?tahun=%1$d", m_Global.getTahunRKA());
         String url = AppGlobal.URL_ROOT + api + params;
 
@@ -198,25 +198,28 @@ public class HomeFragment extends Fragment {
                                     DashboardDonut obj = new DashboardDonut();
                                     obj.tahun = Tools.parseInt(row.getString("tahun"));
                                     obj.pagu = Tools.parseDouble(row.getString("pagu"));
+
                                     obj.smartLastUpdate = Tools.convertDateSTD(row.getString("smartLastUpdate"), "yyyy-MM-dd");
                                     obj.smartRealisasi = Tools.parseDouble(row.getString("smartRealisasi"));
                                     obj.smartSisa = Tools.parseDouble(row.getString("smartSisa"));
                                     obj.smartRealisasiPersen = Tools.parseDouble(row.getString("smartRealisasiPersen"));
+
                                     obj.mpoLastUpdate = Tools.convertDateSTD(row.getString("mpoLastUpdate"), "yyyy-MM-dd");
                                     obj.mpoRealisasi = Tools.parseDouble(row.getString("mpoRealisasi"));
                                     obj.mpoSisa = Tools.parseDouble(row.getString("mpoSisa"));
                                     obj.mpoRealisasiPersen = Tools.parseDouble(row.getString("mpoRealisasiPersen"));
 
 
-                                    tvSmartPagu.setText(AppUtils.shortCurrency(m_Ctx, String.format("%.0f", obj.pagu)));
                                     tvPieSmartUpdate.setText(Tools.convertDateDTS(obj.smartLastUpdate, "d MMM yyyy"));
+                                    tvSmartPagu.setText(AppUtils.shortCurrency(m_Ctx, String.format("%.0f", obj.pagu)));
                                     tvSmartRealisasi.setText(AppUtils.shortCurrency(m_Ctx, String.format("%.0f", obj.smartRealisasi)));
                                     tvSmartSisa.setText(AppUtils.shortCurrency(m_Ctx, String.format("%.0f", obj.smartSisa)));
                                     dopSmartPercent.setProgress(Long.parseLong(String.format("%.0f", obj.smartRealisasiPersen)));
+
                                     tvPieMpoUpdate.setText(Tools.convertDateDTS(obj.mpoLastUpdate, "d MMM yyyy"));
                                     tvMpoPagu.setText(AppUtils.shortCurrency(m_Ctx, String.format("%.0f", obj.pagu)));
-                                    tvMpoRealisasi.setText(AppUtils.shortCurrency(m_Ctx, String.format("%.0f", obj.smartRealisasi)));
-                                    tvMpoSisa.setText(AppUtils.shortCurrency(m_Ctx, String.format("%.0f", obj.smartSisa)));
+                                    tvMpoRealisasi.setText(AppUtils.shortCurrency(m_Ctx, String.format("%.0f", obj.mpoRealisasi)));
+                                    tvMpoSisa.setText(AppUtils.shortCurrency(m_Ctx, String.format("%.0f", obj.mpoSisa)));
                                     dopMpoPercent.setProgress(Long.parseLong(String.format("%.0f", obj.mpoRealisasiPersen)));
                                 }
                             }
@@ -245,7 +248,7 @@ public class HomeFragment extends Fragment {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Dashboard/getPusatRekeKegut";
+        String api = "/Dashboard/get_pusat_reke_kegut";
         String params = String.format("?tahun=%1$d", m_Global.getTahunRKA());
         String url = AppGlobal.URL_ROOT + api + params;
 
@@ -300,7 +303,7 @@ public class HomeFragment extends Fragment {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Dashboard/getPusatRefiKegut";
+        String api = "/Dashboard/get_pusat_refi_kegut";
         String params = String.format("?tahun=%1$d", m_Global.getTahunRKA());
         String url = AppGlobal.URL_ROOT + api + params;
 

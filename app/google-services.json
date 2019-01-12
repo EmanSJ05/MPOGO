@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "837722964830",
+    "firebase_url": "https://psp-mpo-go.firebaseio.com",
+    "project_id": "psp-mpo-go",
+    "storage_bucket": "psp-mpo-go.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:837722964830:android:1922ef0d93fd4c7f",
+        "android_client_info": {
+          "package_name": "com.emansj.mpogo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "837722964830-gq9dj8s87loakplqmars1vrdq54hbugh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGxdPwOqFKQdrfpvi6QiTQyRvAOQZBmUQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

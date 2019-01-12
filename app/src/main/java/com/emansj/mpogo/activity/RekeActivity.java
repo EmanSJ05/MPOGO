@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.RecoverySystem;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -17,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -153,8 +155,11 @@ public class RekeActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(m_Title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //Toolbar Title & SubTitle
+        ((TextView) parent_view.findViewById(R.id.tvToolbarTitle)).setText("Realisasi Keuangan");
+        ((TextView) parent_view.findViewById(R.id.tvToolbarSubTitle)).setText(m_Title);
     }
 
     private void initComponent(){
@@ -197,25 +202,32 @@ public class RekeActivity extends AppCompatActivity {
     private void initData() {
         if (m_ListItem != null) m_ListItem.clear();
 
-        switch(m_ReportName) {
-            case "Kewenangan":
-                getDataKewenangan();
-                break;
-            case "Kegiatan":
-                getDataKegiatan();
-                break;
-            case "KegiatanNProvinsi":
-                getDataKegiatanProvinsi();
-                break;
-            case "KegiatanOutput":
-                getDataKegiatanOutput();
-                break;
-            case "Satker":
-                getDataSatker();
-                break;
-            case "Output":
-                getDataOutput();
-                break;
+        if (Tools.isOnline(m_Ctx)){
+            //progress.setVisibility(View.VISIBLE);
+
+            switch(m_ReportName) {
+                case "Kewenangan":
+                    getDataKewenangan();
+                    break;
+                case "Kegiatan":
+                    getDataKegiatan();
+                    break;
+                case "KegiatanNProvinsi":
+                    getDataKegiatanProvinsi();
+                    break;
+                case "KegiatanOutput":
+                    getDataKegiatanOutput();
+                    break;
+                case "Satker":
+                    getDataSatker();
+                    break;
+                case "Output":
+                    getDataOutput();
+                    break;
+            }
+        } else {
+            int layout = (int) R.layout.dialog_warning_no_internet;
+            AppUtils.showCustomDialog(m_Ctx, R.layout.dialog_warning_no_internet, null, null);
         }
     }
 
@@ -323,7 +335,7 @@ public class RekeActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Laporan/getRKPerJenisKewenangan";
+        String api = "/Laporan/get_rk_kewenangan";
         String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
         String url = AppGlobal.URL_ROOT + api + params;
 
@@ -351,11 +363,11 @@ public class RekeActivity extends AppCompatActivity {
                                         obj.mpoPercent = Tools.parseDouble(row.getString("mpoPercent"));
                                         m_ListItem.add(obj);
                                     }
-                                    progressDialog.dismiss();
                                     m_Adapter.notifyDataSetChanged();
                                     getTotal();
                                 }
                             }
+                            progressDialog.dismiss();
 
                         }catch (JSONException e){
                             e.printStackTrace();
@@ -379,7 +391,7 @@ public class RekeActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Laporan/getRKPerKegiatan";
+        String api = "/Laporan/get_rk_kegiatan";
         String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
         String url = AppGlobal.URL_ROOT + api + params;
 
@@ -407,11 +419,11 @@ public class RekeActivity extends AppCompatActivity {
                                         obj.mpoPercent = Tools.parseDouble(row.getString("mpoPercent"));
                                         m_ListItem.add(obj);
                                     }
-                                    progressDialog.dismiss();
                                     m_Adapter.notifyDataSetChanged();
                                     getTotal();
                                 }
                             }
+                            progressDialog.dismiss();
 
                         }catch (JSONException e){
                             e.printStackTrace();
@@ -435,7 +447,7 @@ public class RekeActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Laporan/getRKPerKegiatanProvinsi";
+        String api = "/Laporan/get_rk_kegiatan_dan_provinsi";
         String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
         String url = AppGlobal.URL_ROOT + api + params;
 
@@ -464,11 +476,11 @@ public class RekeActivity extends AppCompatActivity {
                                         obj.mpoPercent = Tools.parseDouble(row.getString("mpoPercent"));
                                         m_ListItem.add(obj);
                                     }
-                                    progressDialog.dismiss();
                                     m_Adapter.notifyDataSetChanged();
                                     getTotal();
                                 }
                             }
+                            progressDialog.dismiss();
 
                         }catch (JSONException e){
                             e.printStackTrace();
@@ -492,7 +504,7 @@ public class RekeActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Laporan/getRKPerKegiatanOutput";
+        String api = "/Laporan/get_rk_kegiatan_output";
         String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
         String url = AppGlobal.URL_ROOT + api + params;
 
@@ -520,11 +532,11 @@ public class RekeActivity extends AppCompatActivity {
                                         obj.mpoPercent = Tools.parseDouble(row.getString("mpoPercent"));
                                         m_ListItem.add(obj);
                                     }
-                                    progressDialog.dismiss();
                                     m_Adapter.notifyDataSetChanged();
                                     getTotal();
                                 }
                             }
+                            progressDialog.dismiss();
 
                         }catch (JSONException e){
                             e.printStackTrace();
@@ -548,7 +560,7 @@ public class RekeActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Laporan/getRKPerSatker";
+        String api = "/Laporan/get_rk_satker";
         String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
         String url = AppGlobal.URL_ROOT + api + params;
 
@@ -576,11 +588,11 @@ public class RekeActivity extends AppCompatActivity {
                                         obj.mpoPercent = Tools.parseDouble(row.getString("mpoPercent"));
                                         m_ListItem.add(obj);
                                     }
-                                    progressDialog.dismiss();
                                     m_Adapter.notifyDataSetChanged();
                                     getTotal();
                                 }
                             }
+                            progressDialog.dismiss();
 
                         }catch (JSONException e){
                             e.printStackTrace();
@@ -604,7 +616,7 @@ public class RekeActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String api = "/Laporan/getRKPerOutput";
+        String api = "/Laporan/get_rk_output";
         String params = String.format("?tahun=%1$d&idsatker=%2$s&userid=%3$d", m_Global.getTahunRKA(), m_Global.getFilterSelectedIdSatkers(), m_Global.getUserLoginId());
         String url = AppGlobal.URL_ROOT + api + params;
 
@@ -632,11 +644,11 @@ public class RekeActivity extends AppCompatActivity {
                                         obj.mpoPercent = Tools.parseDouble(row.getString("mpoPercent"));
                                         m_ListItem.add(obj);
                                     }
-                                    progressDialog.dismiss();
                                     m_Adapter.notifyDataSetChanged();
                                     getTotal();
                                 }
                             }
+                            progressDialog.dismiss();
 
                         }catch (JSONException e){
                             e.printStackTrace();
