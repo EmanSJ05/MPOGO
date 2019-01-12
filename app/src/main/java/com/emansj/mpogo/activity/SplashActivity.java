@@ -52,7 +52,6 @@ public class SplashActivity extends Activity {
     //View vars
     private LinearLayout ly1, ly2;
     private Animation aniUptodown, aniDowntoup;
-    private TextView tvProgress;
 
     //Custom vars
     private int SLEEP_TIMER = 4;
@@ -110,7 +109,6 @@ public class SplashActivity extends Activity {
     private void initComponent(){
         ly1 = findViewById(R.id.lay1);
         ly2 = findViewById(R.id.lay2);
-        tvProgress = findViewById(R.id.tvProgress);
     }
 
     private void initData(){
@@ -141,7 +139,7 @@ public class SplashActivity extends Activity {
         final Runnable loadTahunAndGotoLogin = new Runnable() {
             @Override
             public void run() {
-                m_Global.loadTahunRKAList(gotoLogin);
+                m_Global.loadTahunRKAList(gotoLogin, null);
             }
         };
 
@@ -152,10 +150,10 @@ public class SplashActivity extends Activity {
                 Runnable r = new Runnable() {
                     @Override
                     public void run() {
-                        m_Global.loadTahunRKAList(gotoHome);
+                        m_Global.loadTahunRKAList(gotoHome, null);
                     }
                 };
-                m_Global.loadUserProfile(r);
+                m_Global.loadUserProfile(r, null);
             }
         };
 
@@ -169,7 +167,7 @@ public class SplashActivity extends Activity {
                         runAnimation(gotoLogin);
                     }
                 };
-                m_Global.loadUserProfile(r);
+                m_Global.loadUserProfile(r, null);
             }
         };
 
@@ -183,14 +181,15 @@ public class SplashActivity extends Activity {
             String userName = m_Global.getUserLoginName();
             String password = m_Global.getUserLoginPass();
             if(userId == 0){
-                m_Global.loadTahunRKAList(gotoLogin);
+                m_Global.loadTahunRKAList(gotoLogin, null);
             } else {
                 AppOten appOten = new AppOten(m_Ctx);
                 appOten.logIn(userName, password, loadTahunAndGotoHome, loadTahunAndGotoLogin);
             }
         } else {
-            m_Global.loadTahunRKAList(null);
-            runAnimation(gotoLogin);
+//            m_Global.loadTahunRKAList(null);
+//            runAnimation(gotoLogin);
+            runAnimation(loadTahunAndGotoLogin);
         }
     }
 
@@ -230,75 +229,75 @@ public class SplashActivity extends Activity {
         finish();
     }
 
-    private void logIn(){
-        final ProgressDialog progressDialog = new ProgressDialog(m_Ctx);
-        progressDialog.setMessage("Authenticating...");
-        progressDialog.show();
-
-        String url = AppGlobal.URL_ROOT + "/Oten/login";
-        StringRequest strReq = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonObj = new JSONObject(response);
-                            int status = jsonObj.getInt("status");
-
-                            if (status == 200) { //login succeed
-                                int userId = jsonObj.getInt("userid");
-
-                                //set to AppGlobal
-                                m_Global.setIsRememberMe(m_IsRemember);
-                                m_Global.setUserLoginId(userId);
-                                m_Global.setUserLoginName(m_UserName);
-                                m_Global.setUserLoginPass(m_UserPassword);
-                                progressDialog.dismiss();
-
-                                //LOAD USER PROFILE
-                                Runnable r = new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        gotoActivityHome();
-                                    }
-                                };
-                                m_Global.loadUserProfile(r);
-
-                            }else{
-                                String errorMsg = jsonObj.getString("message");
-                                Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
-                                progressDialog.dismiss();
-                                gotoActivityLogin();
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(getApplicationContext(), "Login error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                            progressDialog.dismiss();
-                            gotoActivityLogin();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        VolleyErrorHelper.showError(error, m_Ctx);
-                        progressDialog.dismiss();
-                        gotoActivityLogin();
-                    }
-                }
-        )
-        {
-            // kirim parameter ke server
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("username", m_UserName);
-                params.put("password", m_UserPassword);
-
-                return params;
-            }
-        };
-        VolleySingleton.getInstance(m_Ctx).addToRequestQueue(strReq, TAG);
-    }
+//    private void logIn(){
+//        final ProgressDialog progressDialog = new ProgressDialog(m_Ctx);
+//        progressDialog.setMessage("Authenticating...");
+//        progressDialog.show();
+//
+//        String url = AppGlobal.URL_ROOT + "/Oten/login";
+//        StringRequest strReq = new StringRequest(Request.Method.POST, url,
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//                        try {
+//                            JSONObject jsonObj = new JSONObject(response);
+//                            int status = jsonObj.getInt("status");
+//
+//                            if (status == 200) { //login succeed
+//                                int userId = jsonObj.getInt("userid");
+//
+//                                //set to AppGlobal
+//                                m_Global.setIsRememberMe(m_IsRemember);
+//                                m_Global.setUserLoginId(userId);
+//                                m_Global.setUserLoginName(m_UserName);
+//                                m_Global.setUserLoginPass(m_UserPassword);
+//                                progressDialog.dismiss();
+//
+//                                //LOAD USER PROFILE
+//                                Runnable r = new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        gotoActivityHome();
+//                                    }
+//                                };
+//                                m_Global.loadUserProfile(r);
+//
+//                            }else{
+//                                String errorMsg = jsonObj.getString("message");
+//                                Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
+//                                progressDialog.dismiss();
+//                                gotoActivityLogin();
+//                            }
+//
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                            Toast.makeText(getApplicationContext(), "Login error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+//                            progressDialog.dismiss();
+//                            gotoActivityLogin();
+//                        }
+//                    }
+//                },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        VolleyErrorHelper.showError(error, m_Ctx);
+//                        progressDialog.dismiss();
+//                        gotoActivityLogin();
+//                    }
+//                }
+//        )
+//        {
+//            // kirim parameter ke server
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                Map<String, String> params = new HashMap<String, String>();
+//                params.put("username", m_UserName);
+//                params.put("password", m_UserPassword);
+//
+//                return params;
+//            }
+//        };
+//        VolleySingleton.getInstance(m_Ctx).addToRequestQueue(strReq, TAG);
+//    }
 
 }

@@ -75,6 +75,14 @@
                 android:scrollbars="vertical"
                 android:scrollingCache="true"/>
 
+            <ProgressBar
+                android:visibility="gone"
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true" />
+
         </RelativeLayout>
 
     </android.support.v4.widget.NestedScrollView>

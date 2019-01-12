@@ -4,12 +4,17 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -17,8 +22,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
+import com.balysv.materialripple.MaterialRippleLayout;
 import com.emansj.mpogo.helper.AppGlobal;
 import com.emansj.mpogo.helper.AppOten;
+import com.emansj.mpogo.helper.Tools;
 import com.emansj.mpogo.helper.VolleyErrorHelper;
 import com.emansj.mpogo.R;
 import com.emansj.mpogo.helper.VolleySingleton;
@@ -45,6 +52,9 @@ public class LoginActivity extends Activity {
     private EditText editUsername, editPassword;
     private AppCompatCheckBox chkRememberMe;
     private Button btnLogin;
+    private MaterialRippleLayout mrlAppInfo;
+    private View lyAppInfo;
+    private TextView tvAppVersion;
 
     //Custom vars
     //....
@@ -54,6 +64,9 @@ public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        Tools.darkenStatusBar(this, R.color.grey_10);
         setContentView(R.layout.activity_login);
 
         //Activity settings
@@ -89,6 +102,9 @@ public class LoginActivity extends Activity {
         editPassword = findViewById(R.id.editPassword);
         chkRememberMe = findViewById(R.id.chkRememberMe);
         btnLogin = findViewById(R.id.btnLogin);
+        mrlAppInfo = findViewById(R.id.mrlAppInfo);
+        lyAppInfo = findViewById(R.id.lyAppInfo);
+        tvAppVersion = findViewById(R.id.tvAppVersion);
 
 //        chkRememberMe.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -100,6 +116,23 @@ public class LoginActivity extends Activity {
 //                }
 //            }
 //        });
+
+        //APP. INFO
+        try {
+            PackageInfo pinfo = m_Ctx.getPackageManager().getPackageInfo(getPackageName(), 0);
+            int versionNumber = pinfo.versionCode;
+            String versionName = pinfo.versionName;
+            tvAppVersion.setText("Versi " + versionName);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        mrlAppInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(m_Ctx, AboutActivity.class);
+                startActivity(i);
+            }
+        });
 
         //LOGIN
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -116,8 +149,32 @@ public class LoginActivity extends Activity {
                 final Runnable run_loadUserProfile = new Runnable() {
                     @Override
                     public void run() {
-                        m_Global.loadUserProfile(run_GotoActivityHome);
+                        m_Global.loadUserProfile(run_GotoActivityHome, null);
 
+                    }
+                };
+
+                final Runnable run_ProgressStart = new Runnable() {
+                    @Override
+                    public void run() {
+                        m_PDialog.setMessage("Otentikasi...");
+                        m_PDialog.show();
+                    }
+                };
+
+                final Runnable run_ProgressStop = new Runnable() {
+                    @Override
+                    public void run() {
+                        m_PDialog.dismiss();
+                    }
+                };
+
+                final Runnable run_ProgressLoginStop = new Runnable() {
+                    @Override
+                    public void run() {
+                        ProgressBar progressLogin = findViewById(R.id.progressLogin);
+                        progressLogin.setVisibility(View.GONE);
+                        btnLogin.setVisibility(View.VISIBLE);
                     }
                 };
 
@@ -127,8 +184,17 @@ public class LoginActivity extends Activity {
                 //logIn();
                 final String userName = editUsername.getText().toString().trim();
                 final String password = editPassword.getText().toString().trim();
-                AppOten appOten = new AppOten(m_Ctx);
-                appOten.logIn(userName, password, run_loadUserProfile, null);
+                if(userName.isEmpty() && password.isEmpty()){
+                    Toast.makeText(getApplicationContext(),"Harap masukkan Username dan Password!", Toast.LENGTH_LONG).show();
+
+                } else {
+                    ProgressBar progressLogin = findViewById(R.id.progressLogin);
+                    progressLogin.setVisibility(View.VISIBLE);
+                    btnLogin.setVisibility(View.GONE);
+
+                    AppOten appOten = new AppOten(m_Ctx);
+                    appOten.logIn(userName, password, run_loadUserProfile, run_ProgressLoginStop);
+                }
             }
         });
     }
@@ -141,92 +207,13 @@ public class LoginActivity extends Activity {
         if (is_remember_me)
         {
             editUsername.setText(m_Global.getUserLoginName());
-            editPassword.setText("");
+            editPassword.setText(m_Global.getUserLoginPass());
             chkRememberMe.setChecked(true);
-            //btnLogin.requestFocus();
         }
     }
 
 
     //---------------------------------------ACTIONS
-    private void logIn(){
-        final String userName = editUsername.getText().toString().trim();
-        final String userPass = editPassword.getText().toString().trim();
-
-        if(userName.isEmpty() && userPass.isEmpty()){
-            Toast.makeText(getApplicationContext(),"Harap masukkan Username dan Password!", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        m_PDialog.setMessage("Authenticating...");
-        showDialog();
-
-        String api = "/Oten/login";
-        String params = "";
-        String url = AppGlobal.URL_ROOT + api + params;
-        StringRequest strReq = new StringRequest(Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        hideDialog();
-
-                        try {
-                            JSONObject jsonObj = new JSONObject(response);
-                            int status = jsonObj.getInt("status");
-
-                            if (status == 200) { //login succeed
-                                int userId = jsonObj.getInt("userid");
-
-                                //set to AppGlobal
-                                m_Global.setIsRememberMe(chkRememberMe.isChecked());
-                                m_Global.setUserLoginId(userId);
-                                m_Global.setUserLoginName(userName);
-                                m_Global.setUserLoginPass(userPass);
-                                //String androidId = Settings.Secure.getString(getContentResolver(),Settings.Secure.ANDROID_ID);
-                                //m_Global.setUserAndoidId(androidId);
-
-                                //LOAD USER PROFILE
-                                Runnable r = new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        gotoActivityHome();
-                                    }
-                                };
-                                m_Global.loadUserProfile(r);
-
-                            }else{
-                                String errorMsg = jsonObj.getString("message");
-                                Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(getApplicationContext(), "Login error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        VolleyErrorHelper.showError(error, m_Ctx);
-                        hideDialog();
-                    }
-                }
-        )
-        {
-            // kirim parameter ke server
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError  {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("username", userName);
-                params.put("password", userPass);
-
-                return params;
-            }
-        };
-        VolleySingleton.getInstance(m_Ctx).addToRequestQueue(strReq, TAG);
-    }
-
     private void gotoActivityHome() {
         Intent intent = new Intent(m_Ctx, DrawerActivity.class);
         startActivity(intent);

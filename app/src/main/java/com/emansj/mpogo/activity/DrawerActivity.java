@@ -159,7 +159,19 @@ public class DrawerActivity extends AppCompatActivity {
         tvTahunRKA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialogTahunRKA();
+                //set showDialogTahunRKA
+                final Runnable runShowTahunRKA = new Runnable() {
+                    @Override
+                    public void run() {
+                        showDialogTahunRKA();
+                    }
+                };
+
+                if (m_Global.getTahunRKAList() == null){
+                    m_Global.loadTahunRKAList(runShowTahunRKA, null);
+                }else {
+                    showDialogTahunRKA();
+                }
             }
         });
     }
@@ -206,6 +218,11 @@ public class DrawerActivity extends AppCompatActivity {
             badgePrioNotif.setText(String.valueOf(totalUnread));
             badgePrioNotif.setTextColor(getResources().getColor(R.color.red_A700));
             badgePrioNotif.setBackgroundColor(getResources().getColor(R.color.grey_10));
+        }else {
+            Menu menu = navView.getMenu();
+            TextView badgePrioNotif = menu.findItem(R.id.nav_notifications).getActionView().findViewById(R.id.text);
+            badgePrioNotif.setText("");
+            badgePrioNotif.setBackgroundColor(getResources().getColor(R.color.white));
         }
     }
 
@@ -216,6 +233,7 @@ public class DrawerActivity extends AppCompatActivity {
         if (itemId == R.id.nav_notifications){
             Intent i = new Intent(m_Ctx, NotificationActivity.class);
             startActivityForResult(i, REQUEST_CODE);
+            drwLayout.closeDrawer(GravityCompat.START);
 
         } else if (itemId == R.id.nav_home){
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -270,6 +288,10 @@ public class DrawerActivity extends AppCompatActivity {
         } else if (itemId == R.id.nav_user_logout){
             logOut();
 
+        } else if (itemId == R.id.nav_app_about){
+            Intent i = new Intent(m_Ctx, AboutActivity.class);
+            startActivity(i);
+
         } else if (itemId == R.id.nav_app_out){
             finish();
 
@@ -278,7 +300,7 @@ public class DrawerActivity extends AppCompatActivity {
 
     private String selectedTahun;
     private void showDialogTahunRKA() {
-        if (m_Global.getTahunRKAList().isEmpty() == false)
+        if (m_Global.getTahunRKAList() != null)
         {
             //get choice list
             m_ListTahunRKA = m_Global.getTahunRKAList();

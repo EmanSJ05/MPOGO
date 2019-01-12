@@ -54,19 +54,19 @@ public class NotificationUtils {
             Integer notifid = notif.NotificationId;
             String message = notif.Message;
             String title = notif.Title;
-            String imageUrl = notif.ImageUrl;
-            String linkUrl = notif.LinkUrl;
+            String imageUrl = Tools.parseString(notif.ImageUrl);
+            String linkUrl = Tools.parseString(notif.LinkUrl);
             Bitmap bitmapImage = null;
             Intent resultIntent;
 
-            if (!imageUrl.equals("")) {
+            if (Tools.parseString(imageUrl) != null) {
                 bitmapImage = getBitmapFromURL(imageUrl);
             }
             final int icon = R.mipmap.ic_launcher;
 
             PendingIntent resultPendingIntent;
 
-            if (!linkUrl.equals("")) { //this is a link notification
+            if (Tools.parseString(linkUrl) != null) { //this is a link notification
                 //result (to run setHasBeenRead only)
                 resultIntent = new Intent(m_Ctx, NotificationUpdateActivity.class);
                 resultIntent.putExtra("notificationid", notifid);

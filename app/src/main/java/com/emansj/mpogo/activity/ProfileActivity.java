@@ -340,7 +340,7 @@ public class ProfileActivity extends AppCompatActivity {
                 initData();
             }
         };
-        m_Global.loadUserProfile(r);
+        m_Global.loadUserProfile(r, null);
     }
 
     //---------------------------------------INIT COMPONENTS & DATA

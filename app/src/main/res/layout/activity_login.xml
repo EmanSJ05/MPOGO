@@ -2,10 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#FFFFFF"
     android:orientation="vertical"
     android:theme="@style/AppTheme"
-    android:focusableInTouchMode="true" >
+    android:focusableInTouchMode="true">
 
     <ImageView
         android:layout_width="match_parent"
@@ -22,83 +23,207 @@
         android:src="@drawable/logo_mpogo_100"
         android:scaleType="fitCenter"/>
 
-<ScrollView
-    android:id="@+id/formEdit"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/imgLogo"
-    android:layout_alignParentBottom="true">
-
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/formEdit"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgLogo"
+        android:layout_alignParentBottom="true">
 
-        <EditText
-            android:id="@+id/editUsername"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="15dp"
-            android:background="@drawable/rounded_grey"
-            android:drawableLeft="@drawable/ic_person"
-            android:drawablePadding="5dp"
-            android:hint="Username"
-            android:paddingStart="10dp"
-            android:textSize="14dp" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp">
 
-        <EditText
-            android:id="@+id/editPassword"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="1dp"
-            android:paddingStart="10dp"
-            android:drawablePadding="5dp"
-            android:background="@drawable/rounded_grey"
-            android:drawableLeft="@drawable/ic_lock"
-            android:drawableTint="#f2fafc"
-            android:hint="Password"
-            android:textSize="14dp"
-            android:inputType="textPassword"/>
+            <!--<EditText-->
+                <!--android:id="@+id/editUsername"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:layout_marginBottom="10dp"-->
+                <!--android:layout_marginEnd="15dp"-->
+                <!--android:layout_marginStart="15dp"-->
+                <!--android:background="@drawable/rounded_grey"-->
+                <!--android:drawableLeft="@drawable/ic_person"-->
+                <!--android:drawableTint="@color/grey_400"-->
+                <!--android:drawablePadding="5dp"-->
+                <!--android:hint="Username"-->
+                <!--android:paddingStart="10dp"-->
+                <!--android:textSize="14dp" />-->
 
-        <android.support.v7.widget.AppCompatCheckBox
-            android:id="@+id/chkRememberMe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginBottom="10dp"
-            android:buttonTint="@color/colorPrimary"
-            android:textSize="14dp"
-            android:textColor="@color/colorPrimary"
-            android:text="Remember me" />
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintTextAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColorHint="@color/grey_60">
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="@dimen/spacing_middle" />
+                <EditText
+                    android:id="@+id/editUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:drawablePadding="5dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:textColorHint="@color/colorPrimaryLight"
+                    android:inputType="text"
+                    android:hint="Username"/>
 
-        <Button
-            android:id="@+id/btnLogin"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="80dp"
-            android:layout_marginEnd="80dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/rounded_grey"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:text="Login"
-            android:textAllCaps="true"
-            android:textColor="#ffffff"
-            android:textSize="14dp"
-            android:textStyle="bold"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <!--<EditText-->
+                <!--android:id="@+id/editPassword"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:layout_marginStart="15dp"-->
+                <!--android:layout_marginEnd="15dp"-->
+                <!--android:layout_marginBottom="1dp"-->
+                <!--android:paddingStart="10dp"-->
+                <!--android:drawablePadding="5dp"-->
+                <!--android:background="@drawable/rounded_grey"-->
+                <!--android:drawableLeft="@drawable/ic_lock"-->
+                <!--android:drawableTint="@color/grey_400"-->
+                <!--android:hint="Password"-->
+                <!--android:textSize="14dp"-->
+                <!--android:inputType="textPassword"/>-->
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/grey_60"
+                app:hintTextAppearance="@style/TextAppearance.AppCompat.Small"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleDrawable="@drawable/ic_fill_eye"
+                app:passwordToggleTint="@color/colorPrimary">
+
+                <EditText
+                    android:id="@+id/editPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:drawablePadding="5dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:textColorHint="@color/colorPrimaryLight"
+                    android:inputType="textPassword"
+                    android:hint="Password" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/chkRememberMe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:paddingRight="@dimen/spacing_middle"
+                android:buttonTint="@color/colorPrimary"
+                android:textSize="14dp"
+                android:textColor="@color/grey_80"
+                android:text="Ingatkan saya" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/spacing_middle" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp">
+
+                <ProgressBar
+                    android:visibility="visible"
+                    android:id="@+id/progressLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:progressTint="@color/colorPrimaryDark"
+                    android:layout_centerVertical="true"
+                    android:layout_centerInParent="true"/>
+
+                <Button
+                    android:id="@+id/btnLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginEnd="50dp"
+                    android:background="@drawable/rounded_grey"
+                    android:backgroundTint="@color/colorPrimaryDark"
+                    android:text="Login"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="14dp"
+                    android:textStyle="bold"/>
+
+            </RelativeLayout>
+
+
 
     </LinearLayout>
 
-</ScrollView>
+    </ScrollView>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:id="@+id/mrlAppInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/spacing_large">
+
+            <LinearLayout
+                android:id="@+id/lyAppInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/spacing_small"
+                    app:srcCompat="@drawable/ic_outline_device"
+                    android:tint="@color/white"
+                    android:layout_gravity="center_vertical"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvAppVersion"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:text="Versi 1.5"
+                        />
+
+                    <TextView
+                        android:id="@+id/tvAppInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                        android:fontFamily="@font/roboto_condensed_light"
+                        android:textColor="@color/grey_5"
+                        android:text="Klik disini untuk selengkapnya"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>

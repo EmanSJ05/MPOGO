@@ -76,7 +76,13 @@
                     android:id="@+id/nav_user_profile"
                     android:icon="@drawable/ic_outline_username"
                     android:iconTint="@color/colorPrimary"
-                    android:title="Profile" />
+                    android:title="Profil" />
+
+                <item
+                    android:id="@+id/nav_app_about"
+                    android:icon="@drawable/ic_outline_device"
+                    android:iconTint="@color/colorPrimary"
+                    android:title="Tentang Kami" />
 
                 <item
                     android:id="@+id/nav_user_logout"

@@ -146,7 +146,19 @@ public class DialogReportFilter extends DialogFragment {
         tvTahunRKA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialogTahunRKA();
+                //set showDialogTahunRKA
+                final Runnable runShowTahunRKA = new Runnable() {
+                    @Override
+                    public void run() {
+                        showDialogTahunRKA();
+                    }
+                };
+
+                if (m_Global.getTahunRKAList() == null){
+                    m_Global.loadTahunRKAList(runShowTahunRKA, null);
+                }else {
+                    showDialogTahunRKA();
+                }
             }
         });
 
@@ -260,7 +272,7 @@ public class DialogReportFilter extends DialogFragment {
 
     private String selectedTahun;
     private void showDialogTahunRKA() {
-        if (m_Global.getTahunRKAList().isEmpty() == false)
+        if (m_Global.getTahunRKAList() != null)
         {
             //get choice list
             m_ListTahunRKA = m_Global.getTahunRKAList();
@@ -289,8 +301,8 @@ public class DialogReportFilter extends DialogFragment {
                     tvTahunRKA.setText(selectedTahun);
                     m_Global.setTahunRKA(Integer.parseInt(selectedTahun));
 
+                    if (m_ListSatker != null) m_ListSatker.clear();
                     getSatker();
-                    m_Adapter.notifyDataSetChanged();
                 }
             });
 

@@ -74,8 +74,8 @@ public class AppGlobal {
     public static String URL_ROOT = "http://app2.psp.pertanian.go.id";
 //    public static String URL_MPO = "http://192.168.80.176:8080/newmpo";
 //    public static String URL_ROOT = "http://192.168.80.176:8080/mpoapi/";
-//    public static String URL_MPO = "http://192.168.8.102:8080/newmpo";
-//    public static String URL_ROOT = "http://192.168.8.102:8080/mpoapi/";
+//    public static String URL_MPO = "http://192.168.100.5:8080/newmpo";
+//    public static String URL_ROOT = "http://192.168.100.5:8080/mpoapi/";
     public static String TAG = "MPOGO.GLOBAL";
     public static String PREFS_NAME = "MPOGO.SETTINGS";
     public static String SERVER_KEY =
@@ -240,7 +240,7 @@ public class AppGlobal {
         setIsRememberMe(false);
     }
 
-    public void loadTahunRKAList(final Runnable methodOnSuccess){
+    public void loadTahunRKAList(final Runnable callMethodSuccess, final Runnable callMethodFail){
         String url = AppGlobal.URL_ROOT + "/AppGlobal/get_tahun_rka";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>(){
@@ -260,12 +260,15 @@ public class AppGlobal {
                             setTahunRKAList(list_tahunrka);
 
                             //run
-                            if (methodOnSuccess != null) {
-                                methodOnSuccess.run();
+                            if (callMethodSuccess != null) {
+                                callMethodSuccess.run();
                             }
 
                         }catch (JSONException e){
                             e.printStackTrace();
+                            if (callMethodFail != null) {
+                                callMethodFail.run();
+                            }
                         }
                     }
                 },
@@ -274,13 +277,16 @@ public class AppGlobal {
                     public void onErrorResponse(VolleyError error){
                         //error.printStackTrace();
                         VolleyErrorHelper.showError(error, m_Ctx);
+                        if (callMethodFail != null) {
+                            callMethodFail.run();
+                        }
                     }
                 }
         );
         VolleySingleton.getInstance(m_Ctx).addToRequestQueue(request, TAG);
     }
 
-    public void loadUserProfile(final Runnable r){
+    public void loadUserProfile(final Runnable callMethodSuccess, final Runnable callMethodFail){
         String api = "/User/get_user";
         String params = String.format("?userid=%1$d", UserLoginId);
         String url = AppGlobal.URL_ROOT + api + params;
@@ -324,14 +330,17 @@ public class AppGlobal {
                                         String satker = UserProfile.KodeSatker + " - " + UserProfile.NamaSatker;
                                         UserProfile.Satker = satker;
                                     }
-                                    if (r != null) {
-                                        r.run();
+                                    if (callMethodSuccess != null) {
+                                        callMethodSuccess.run();
                                     }
                                 }
                             }
 
                         }catch (JSONException e){
                             e.printStackTrace();
+                            if (callMethodFail != null) {
+                                callMethodFail.run();
+                            }
                         }
                     }
                 },
@@ -339,6 +348,9 @@ public class AppGlobal {
                     @Override
                     public void onErrorResponse(VolleyError error){
                         VolleyErrorHelper.showError(error, m_Ctx);
+                        if (callMethodFail != null) {
+                            callMethodFail.run();
+                        }
                     }
                 }
         );

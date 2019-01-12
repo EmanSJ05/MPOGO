@@ -177,7 +177,7 @@ public class NotificationItemActivity extends AppCompatActivity {
                                     wvContent.loadData(content, "text/html; charset=utf-8", "UTF-8");
 
                                     //set this notification has been read
-                                    notif.setHasBeenRead(m_Ctx, m_Notif.NotificationId);
+                                    notif.setHasBeenRead(m_Ctx, m_NotificationId);
                                     m_Notif = notif;
                                 }
                             }

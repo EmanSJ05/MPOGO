@@ -72,7 +72,7 @@ public class FcmService extends FirebaseMessagingService {
 
             //update token to API
             AppOten appOten = new AppOten(getApplicationContext());
-            appOten.UpdateToken(token);
+            appOten.UpdateToken(token, null, null);
         }
     }
 }

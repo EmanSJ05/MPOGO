@@ -198,25 +198,28 @@ public class HomeFragment extends Fragment {
                                     DashboardDonut obj = new DashboardDonut();
                                     obj.tahun = Tools.parseInt(row.getString("tahun"));
                                     obj.pagu = Tools.parseDouble(row.getString("pagu"));
+
                                     obj.smartLastUpdate = Tools.convertDateSTD(row.getString("smartLastUpdate"), "yyyy-MM-dd");
                                     obj.smartRealisasi = Tools.parseDouble(row.getString("smartRealisasi"));
                                     obj.smartSisa = Tools.parseDouble(row.getString("smartSisa"));
                                     obj.smartRealisasiPersen = Tools.parseDouble(row.getString("smartRealisasiPersen"));
+
                                     obj.mpoLastUpdate = Tools.convertDateSTD(row.getString("mpoLastUpdate"), "yyyy-MM-dd");
                                     obj.mpoRealisasi = Tools.parseDouble(row.getString("mpoRealisasi"));
                                     obj.mpoSisa = Tools.parseDouble(row.getString("mpoSisa"));
                                     obj.mpoRealisasiPersen = Tools.parseDouble(row.getString("mpoRealisasiPersen"));
 
 
-                                    tvSmartPagu.setText(AppUtils.shortCurrency(m_Ctx, String.format("%.0f", obj.pagu)));
                                     tvPieSmartUpdate.setText(Tools.convertDateDTS(obj.smartLastUpdate, "d MMM yyyy"));
+                                    tvSmartPagu.setText(AppUtils.shortCurrency(m_Ctx, String.format("%.0f", obj.pagu)));
                                     tvSmartRealisasi.setText(AppUtils.shortCurrency(m_Ctx, String.format("%.0f", obj.smartRealisasi)));
                                     tvSmartSisa.setText(AppUtils.shortCurrency(m_Ctx, String.format("%.0f", obj.smartSisa)));
                                     dopSmartPercent.setProgress(Long.parseLong(String.format("%.0f", obj.smartRealisasiPersen)));
+
                                     tvPieMpoUpdate.setText(Tools.convertDateDTS(obj.mpoLastUpdate, "d MMM yyyy"));
                                     tvMpoPagu.setText(AppUtils.shortCurrency(m_Ctx, String.format("%.0f", obj.pagu)));
-                                    tvMpoRealisasi.setText(AppUtils.shortCurrency(m_Ctx, String.format("%.0f", obj.smartRealisasi)));
-                                    tvMpoSisa.setText(AppUtils.shortCurrency(m_Ctx, String.format("%.0f", obj.smartSisa)));
+                                    tvMpoRealisasi.setText(AppUtils.shortCurrency(m_Ctx, String.format("%.0f", obj.mpoRealisasi)));
+                                    tvMpoSisa.setText(AppUtils.shortCurrency(m_Ctx, String.format("%.0f", obj.mpoSisa)));
                                     dopMpoPercent.setProgress(Long.parseLong(String.format("%.0f", obj.mpoRealisasiPersen)));
                                 }
                             }

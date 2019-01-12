@@ -193,7 +193,8 @@ public class NotificationActivity extends AppCompatActivity {
                 //hapus semua notifikasi (simpan kosongan)
                 Notif notif = new Notif();
                 notif.removeNotifs(m_Ctx);
-                initData();
+                m_ListItem.clear();
+                m_Adapter.notifyDataSetChanged();
             }
         });
         builder.setNegativeButton("BATAL", null);

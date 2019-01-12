@@ -58,8 +58,9 @@ import com.bumptech.glide.request.target.DrawableImageViewTarget;
 import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
-import com.google.android.gms.maps.GoogleMap;
+//import com.google.android.gms.maps.GoogleMap;
 import com.emansj.mpogo.R;
+import com.google.android.gms.maps.GoogleMap;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -565,7 +566,7 @@ public class Tools {
     public static int parseInt(String s, int the_default) {
         try {
             return Integer.parseInt(s);
-        } catch(NumberFormatException e) {
+        } catch(Exception e) {
             return the_default;
         }
     }
@@ -573,7 +574,7 @@ public class Tools {
     public static int parseInt(String s) {
         try {
             return Integer.parseInt(s);
-        } catch(NumberFormatException e) {
+        } catch(Exception e) {
             return 0;
         }
     }
@@ -581,7 +582,7 @@ public class Tools {
     public static double parseDouble(String s, int the_default) {
         try {
             return Double.parseDouble(s);
-        } catch(NumberFormatException e) {
+        } catch(Exception e) {
             return the_default;
         }
     }
@@ -589,7 +590,7 @@ public class Tools {
     public static double parseDouble(String s) {
         try {
             return Double.parseDouble(s);
-        } catch(NumberFormatException e) {
+        } catch(Exception e) {
             return 0;
         }
     }
@@ -599,11 +600,13 @@ public class Tools {
         try {
             if (s.toUpperCase().equals("NULL")){
                 str = null;
+            }if (s.equals("")){
+                str = null;
             }else{
                 str = s;
             }
             return str;
-        } catch(NumberFormatException e) {
+        } catch(Exception e) {
             return null;
         }
     }

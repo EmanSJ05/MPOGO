@@ -54,7 +54,6 @@ public class RekeActivity extends AppCompatActivity {
     private View parent_view;
     private Toolbar toolbar;
     private RecyclerView rvList;
-    private ProgressBar progress;
     private View lyBottom, lyBottomTotal;
     private TextView    tvTotalPagu, tvTotalPaguLong,
                         tvTotalSmartValue, tvTotalSmartPercent, tvTotalSmartLong,
@@ -164,7 +163,6 @@ public class RekeActivity extends AppCompatActivity {
     }
 
     private void initComponent(){
-//        progress = findViewById(R.id.progress);
         lyBottom = findViewById(R.id.lyBottom);
         lyBottomTotal = findViewById(R.id.lyBottomTotal);
 
@@ -375,7 +373,6 @@ public class RekeActivity extends AppCompatActivity {
                             e.printStackTrace();
                             progressDialog.dismiss();
                         }
-                        progress.setVisibility(View.GONE);
                     }
                 },
                 new Response.ErrorListener(){
@@ -387,7 +384,6 @@ public class RekeActivity extends AppCompatActivity {
                 }
         );
         VolleySingleton.getInstance(m_Ctx).addToRequestQueue(request, TAG);
-        progress.setVisibility(View.GONE);
     }
 
     private void getDataKegiatan() {
